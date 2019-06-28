@@ -2348,9 +2348,415 @@ The value for $\alpha$ is derived from the result of the root test, so this proo
 \begin{theorem}
 Given two sequences $\{a_n\}, \{b_n\}$, put $A_n = \sum_{k=0}^{n} a_k$ if $n \ge 0$ and $A_{-1} = 0$. Then, if $0 \le p \le q$, we have
 \[
-	\sum_{n=p}^{q} a_nb_n = \sum_{n=p}^{q} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p.
+	\sum_{n=p}^{q} a_nb_n = \sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p.
 \]
+
+\begin{proof}
+Expand the sum and telescope differently:
+\begin{align*}
+\sum_{n=p}^{q} a_nb_n &= \sum_{n=p}^{q} (A_n - A_{n-1})b_n \\
+	&= A_qb_q - A_{q-1}b_q + A_{q-1}b_{q-1} - A_{q-2}b_{q-1} + \dotsb + A_{p+1}b_{p+1} - A_pb_{p+1} + A_pb_p - A_{p-1}b_p \\
+	&= A_qb_q + (A_{q-1}(b_{q-1} - A_{q-1}b_q) + \dotsb + A_p(b_p - A_pb_{p+1}) - A_{p-1}b_p \\
+	&= \sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p
+\end{align*}
+as required.
+\end{proof}
 \end{theorem}
+
+\begin{theorem} % Theorem 3.42
+Let $\{a_n\}$ be a sequence such that
+\begin{enumerate}[(a)]
+\item The partial sums $A_n$ of $\sum a_n$ form a bounded sequence.
+\item $b_0 \ge b_1 \ge \dotsb$.
+\item $b_n \to 0$.
+\end{enumerate}
+Then $\sum a_nb_n$ converges.
+
+\begin{proof}
+The above theorem suggests using the Cauchy criterion. Let $\epsilon > 0$ and suppose the $A_n$ are bounded by $M$. We first manipulate:
+\begin{align*}
+\left|\sum_{n=p}^{q} a_nb_n \right| &= \left|\sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p\right| \\
+	&\le M \left[\left|\sum_{n=p}^{q-1} (b_n - b_{n+1})\right| + |b_q| + |b_p|\right] \\
+	&= 2Mb_q
+\end{align*}
+so choosing $N$ such that $q \ge p \ge N$ implies $b_q < \epsilon/(2M)$, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.43
+Suppose $\{c_n\}$ is a sequence such that
+\begin{enumerate}[(a)]
+\item $|c_1| \ge |c_2| \ge \dotsb$.
+\item $c_{2m-1} \ge 0$, $c_{2m} \le 0$.
+\item $c_n \to 0$.
+\end{enumerate}
+Then $\sum c_n$ converges.
+
+\begin{proof}
+This follows from the previous theorem, letting $a_n = (-1)^{n+1}$ and $b_n = |c_n|$. 
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.44
+Suppose the radius of convergence of $\sum c_nz^n$ is 1, and that $|c_0| \ge |c_1| \ge \dotsb$ and $c_n \to 0$. Then $\sum c_nz^n$ converges at every point on the circle $|z| = 1$ except possibly at $z = 1$.
+
+\begin{proof}
+Let $a_n = z^n$ and $b_n = |c_n|$. Then the $A_n$ are bounded by $\frac{2}{|1 - z|}$, so Theorem 3.42 applies.
+\end{proof}
+\end{theorem}
+
+\section{Absolute Convergence}
+
+A series $\sum a_n$ is said to converge absolutely if $\sum |a_n|$ converges.
+
+\begin{theorem} % Theorem 3.45
+If $\sum a_n$ converges absolutely, then $\sum a_n$ converges.
+
+\begin{proof}
+Let $\epsilon > 0$ be arbitrary and $N$ such that the Cauchy criterion holds for $n \ge m \ge N$. Then, for these same $n, m$, we have
+\[
+	\left| \sum_{k=m}^{n} a_k \right| \le \sum_{k=m}^{n} |a_k| < \epsilon
+\]
+so $\sum a_n$ converges by the Cauchy criterion.
+\end{proof}
+\end{theorem}
+
+Notice that absolute convergence is convergence if your terms are positive. Series which converge but not absolutely converge \textbf{non-absolutely}.
+
+We see that we can manipulate absolutely convergent sums much like finite sums. Let's explore the types of operations we can perform on general series.
+
+\begin{theorem} % Theorem 3.47
+If $\sum a_n = A$ and $\sum b_n = B$, then $\sum (a_n + b_n) = A + B$ and $\sum ca_n = cA$ for any $c$.
+
+\begin{proof}
+The first statement follows after noticing that the partial sums of $\sum (a_n + b_n)$ are simply the sums of the partial sums of $\sum a_n$ and $\sum b_n$. The second statement follows similarly.
+\end{proof}
+\end{theorem}
+
+Can we multiply infinite series? The answer is slightly more complicated.
+
+\begin{definition} % Theorem 3.48
+Given $\sum a_n$ and $\sum b_n$, we put
+\[
+	c_n = \sum_{k=0}^{n} a_k b_{n-k}
+\]
+and call $\sum c_n$ the \textbf{product} of the two series. This is motivated by considering the coefficients of the related generating series $\sum a_nz^n$ and $\sum b_nz^n$.
+\end{definition}
+
+The following theorem, due to Mertens, characterizes a large set of situations where this notion of product is consistent.
+
+\begin{theorem}[Mertens] % Theorem 3.50
+Suppose that
+\begin{enumerate}[(a)]
+\item $\sum a_n$ converges absolutely.
+\item $\sum a_n = A$.
+\item $\sum b_n = B$.
+\item $c_n = \sum_{k=0}^{n} a_kb_{n-k}$ as above.
+\end{enumerate}
+Then $\sum c_n = AB$.
+
+\begin{proof}
+Let $A_n, B_n$ and $C_n$ be the $n$-th partial sums of $a_n, b_n, c_n$ respectively. Also, let $\beta = B_n - B$. We manipulate $C_n$, essentially switching the order of summations:
+\begin{align*}
+C_n &= a_0b_0 + (a_0b_1 + a_1b_0) + (a_0b_2 + a_1b_1 + a_2b_0) + \dotsb + (a_0b_n + a_1b_{n-1} + \dotsb + a_nb_0) \\
+	&= a_0B_n + a_1B_{n-1} + \dotsb + a_nB_0 \\
+	&= a_0(B + \beta_n) + a_1(B + \beta_{n-1}) + \dotsb + a_n(B + \beta_0) \\
+	&= A_nB + a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_n\beta_0.
+\end{align*}
+
+Thus if we let 
+\[
+	\gamma_n = a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_n\beta_0,
+\]
+it suffices to prove that $\gamma_n \to 0$. Let $\epsilon > 0$ be arbitrary and choose $N$ such that $|\beta_n| < \epsilon$ for $n \ge N$. Also, let $\alpha = \sum |a_n|$. Then
+\begin{align*}
+|\gamma_n| &= |a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_n\beta_0| \\
+	&\le |a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_N\beta_{n-N}| + |a_{N+1}\beta_{n-N-1} + \dotsb + a_n\beta_0| \\
+	&\le |a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_N\beta_{n-N}| + \epsilon \alpha
+\end{align*}
+so if we fix $N$ and let $n \to \infty$, then we have
+\[
+	\limsup_{n \to \infty} |\gamma_n| \le \epsilon \alpha
+\]
+so the result follows since $\epsilon$ was arbitrary.
+\end{proof}
+\end{theorem}
+
+We now wonder whether this definition of product makes sense in the sense that if $\sum c_n$ converges, whether it will have the sum $AB$. Abel proved that this is true. 
+
+\begin{theorem} % Theorem 3.51
+If $\sum a_n$, $\sum b_n$, $\sum c_n$ converge to $A, B, C$ and $c_n = a_0 b_n + \dotsb + a_nb_0$, then $C = AB$.
+
+\begin{proof}
+\textbf{Note:} This is an incomplete proof, as it assumes that power series are continuous without justification. We will fill in this gap in Theorem 8.2. This proof will be replaced later, since it is most likely circular or wrong.
+
+Let $a(z) = \sum a_nz^n$, $b(z) = \sum b_nz^n$, and $c(z) = \sum c_nz^n$. Then we (will) have seen that $c(z) = a(z)b(z)$ if $c_n = a_0b_n + \dotsb + a_nb_0$, if we consider partial sums of $c(z)$. Then the result follows by substituting $z = 1$.
+\end{proof}
+\end{theorem}
+
+\section{Rearrangements}
+
+\begin{definition}
+Let $\{k_n\}$ be a bijection from $\N$ to itself. Then letting $a'_n = a_{k_n}$, we say that $\sum a'_n$ is a \textbf{rearrangement} of $\sum a_n$.
+
+Notice that the partial sums of these have no reason to be the same, so the question arises: should they converge? Will their sums be the same if so?
+\end{definition}
+
+We prove Riemann's rearrangement theorem, which says that all hell breaks loose if our sequence doesn't converge absolutely:
+\begin{theorem}[Riemann Rearrangement] % Theorem 3.54
+Let $\sum a_n$ which converges non-absolutely, and $-\infty \le \alpha \le \beta \le +\infty$. Then, there exists a rearrangement $\sum a'_n$ with partial sums $s'_n$ such that
+\[
+	\liminf_{n \to \infty} s'_n = \alpha \text{ and } \limsup_{n \to \infty} s'_n = \beta.
+\]
+
+\begin{proof}
+This proof is well-studied. We present an informal proof hopefully sufficient to provide intuition. The actual proof is long-winded.
+
+Let $a^+_n$ and $a^-_n$ denote the subsequences of positive and negative terms of $a_n$. If either subsequence were finite, then the other would overpower it and eventually either diverge or converge (after which $a_n$ would converge absolutely since the subsequence has all the same sign). Thus both must be infinite.
+
+If $\alpha \ge 0$, take positive terms until our partial sums go above $\alpha$. We must be able to do this, since both subseries diverge. Similarly, if $\alpha < 0$, take negative terms. Then, repeat the following process indefinitely. Take positive terms until our partial sums go above $\beta$, then negative terms until our partial sums return below $\alpha$. This is again made possible since both subsequences diverge. 
+
+Taking the terms which are `turning points' on both sides, we have sequences which converge to $\alpha$ and $\beta$, so the result follows.
+\end{proof}
+\end{theorem}
+
+Now, the following theorem states that absolutely convergent series do indeed behave nicely:
+\begin{theorem} % Theorem 3.55
+If $\sum a_n$ converges absolutely, then every rearrangement of $\sum a_n$ converges, and further they converge to the same sum.
+
+\begin{proof}
+Let $\sum a'_n = \sum a_{k_n}$ be a rearrangement of $\sum a_n$. Let $\epsilon > 0$. Take $N \in \N$ such that if $n \ge m \ge N$, then
+\[
+	\left|\sum_{k=m}^{n} |a_k| \right| < \epsilon.
+\]
+Then, take $N' = \max(k_1, \dotsc, k_N) + 1$, so that no $n' \ge m' \ge N'$ will be in $\{1, 2, \dotsc, N\}$. Then
+\[
+	\left|\sum_{k=m'}^{n'} |a'_k| \right| \le \limsup_{n \to \infty} \left|\sum_{k=N+1}^{n} |a'_k| \right| \le \epsilon
+\]
+so the result follows by the Cauchy criterion.
+\end{proof}
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+\item % Exercise 1
+Prove that convergence of $\{s_n\}$ implies convergence of $|s_n|$. Is the converse true?
+
+\item % Exercise 2
+Calculate $\lim_{n \to \infty} (\sqrt{n^2 + n} - n)$.
+
+\item % Exercise 3
+If $s_1 = \sqrt{2}$ and $s_{n+1} = \sqrt{2 + \sqrt{s_n}}$, prove that $\{s_n\}$ converges and that $s_n < 2$.
+
+\item % Exercise 4
+Find the upper and lower limits of the sequence $\{s_n\}$ defined by
+\[
+	s_1 = 0; \quad s_{2m} = \frac{s_{2m-1}}{2}; \quad s_{2m+1} = \frac{1}{2} + s_{2m}.
+\]
+
+\item % Exercise 5
+For any two real sequences $\{a_n\}, \{b_n\}$, prove that
+\[
+	\limsup_{n \to \infty} (a_n + b_n) \le \limsup_{n \to \infty} a_n + \limsup_{n \to \infty} b_n,
+\]
+provided the sum on the right is not of the form $+\infty - \infty$.
+
+\item % Exercise 6
+Investigate the behaviour of $\sum a_n$ if
+\begin{enumerate}[(a)]
+\item $a_n = \sqrt{n + 1} - \sqrt{n}$.
+
+\item $a_n = \frac{\sqrt{n + 1} - \sqrt{n}}{n}$.
+
+\item $a_n = \left(\sqrt[n]{n} - 1\right)^n$.
+
+\item $a_n = \frac{1}{1 + z^n}$ for complex $z$.
+\end{enumerate}
+
+\item % Exercise 7
+Prove that the convergence of $\sum a_n$ implies the convergence of $\sum \frac{\sqrt{a_n}}{n}$, if $a_n \ge 0$.
+
+\item % Exercise 8
+If $\sum a_n$ converges and $\{b_n\}$ is monotonic and bounded, prove that $\sum a_nb_n$ converges.
+
+\item % Exercise 9
+Find the radius of convergence of the following power series:
+\begin{enumerate}[(a)]
+\item $\sum n^3z^n$.
+\item $\sum \frac{2^n}{n!}z^n$.
+\item $\sum \frac{2^n}{n^2} z^n$.
+\item $\sum \frac{n^3}{3^n} z^n$.
+\end{enumerate}
+
+\item % Exercise 10
+Suppose that the coefficients of the power series $\sum a_nz^n$ are integers, infinitely many of which are non-zero. Prove that the radius of convergence is at most 1.
+
+\item % Exercise 11
+Suppose $a_n > 0$ and $s_n = a_1 + \dotsb + a_n$ and $\sum a_n$ diverges.
+\begin{enumerate}[(a)]
+\item Prove that $\sum \frac{a_n}{1 + a_n}$ diverges.
+
+\item Prove that
+\[
+	\frac{a_{N+1}}{s_{N+1}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \ge 1 - \frac{s_N}{s_{N+k}}
+\]
+and deduce that $\sum \frac{a_n}{s_n}$ diverges.
+
+\item Prove that
+\[
+	\frac{a_n}{s_n^2} \le \frac{1}{s_{n-1}} - \frac{1}{s_n}
+\]
+and deduce that $\sum \frac{a_n}{s_n^2}$ converges.
+
+\item What can be said about
+\[
+	\sum \frac{a_n}{1 + na_n} \text{ and } \sum \frac{a_n}{1 + n^2 a_n} \text{?}
+\]
+\end{enumerate}
+
+\item % Exercise 12
+Suppose $a_n > 0$ and $\sum a_n$ converges. Put
+\[
+	r_n = \sum_{m=n}^{\infty} a_m.
+\]
+\begin{enumerate}[(a)]
+\item Prove that
+\[
+	\frac{a_m}{r_m} + \dotsb + \frac{a_n}{r_n} > 1 - \frac{r_n}{r_m}
+\]
+if $m < n$, and deduce that $\sum \frac{a_n}{r_n}$ diverges.
+
+\item Prove that
+\[
+	\frac{a_n}{\sqrt{r_n}} < 2 (\sqrt{r_n} - \sqrt{r_{n+1}}
+\]
+and deduce that $\sum \frac{a_n}{\sqrt{r_n}}$ converges.
+\end{enumerate}
+
+\item % Exercise 13
+Prove that the Cauchy product of two absolutely convergent series converges absolutely.
+
+\item % Exercise 14
+If $\{s_n\}$ is a complex sequence, define its arithmetic means $\sigma_n = \frac{1}{n + 1} (s_0 + \dotsc + s_n)$. 
+\begin{enumerate}[(a)]
+\item If $s_n \to s$, prove that $\sigma_n \to s$.
+
+\item Construct a sequence $\{s_n\}$ which does not converge, but $\sigma_n \to 0$. 
+
+\item Can it happen that $s_n > 0$ for all $n$ and that $\limsup_{n \to \infty} s_n = +\infty$, but $\sigma_n \to 0$?
+
+\item Put $a_n = s_n - s_{n-1}$. Show that
+\[
+	s_n - \sigma_n = \frac{1}{n + 1} \sum_{k=1}^{n} ka_k.
+\]
+Assume that $na_n \to 0$ and $\{\sigma_n\}$ converges. Prove that $\{s_n\}$ converges. (Notice this provides a converse of (a) given $na_n \to 0$.
+
+\item Prove (d) with the weaker hypothesis that $na_n$ is bounded by $M < \infty$ and $\sigma_n \to \sigma$. Show that $s_n \to \sigma$, by completing the following outline:
+\begin{enumerate}[(i)]
+\item If $m < n$, then
+\[
+	s_n - \sigma_n = \frac{m+1}{n-m}(\sigma_n - \sigma_m) + \frac{1}{n-m}\sum_{i=m+1}^{n} (s_n - s_i).
+\]
+\item For these $i$, 
+\[
+	|s_n - s_i| \le \frac{(n-i)M}{i+1} \le \frac{(n-m-1)M}{m+2}.
+\]
+\item Fix $\epsilon > 0$ and associate to every $n$ the integer $m$ such that
+\[
+	m \le \frac{n - \epsilon}{1 + \epsilon} < m + 1.
+\]
+\item Then $(m+1)/(n-m) \le 1/\epsilon$ and $|s_n - s_i| < M\epsilon$ so $\limsup_{n \to \infty} |s_n - \sigma| \le M\epsilon$ so the result follows.
+\end{enumerate}
+\end{enumerate}
+
+\item % Exercise 15
+Extend Definition 3.21 to points in $\R^k$. Show that Theorems 3.22, 3.23, 3.25(a), 3.33, 3.34, 3.42, 3.45, 3.47, 3.55 are true in this more general setting.
+
+\item % Exercise 16
+Fix $\alpha > 0$. Choose $x_1 > \sqrt{\alpha}$ and let
+\[
+	x_{n+1} = \frac{1}{2} \left(x_n + \frac{\alpha}{x_n}\right).
+\]
+\begin{enumerate}[(a)]
+\item Prove that $\{x_n\}$ decreases monotonically and that $x_n \to \sqrt{\alpha}$.
+
+\item Put $\epsilon = x_n - \sqrt{\alpha}$ and show that
+\[
+	\epsilon_{n+1} = \frac{\epsilon_n^2}{2x_n} < \frac{\epsilon_n^2}{2\sqrt{\alpha}}
+\]
+so that if $\beta = 2\sqrt{\alpha}$,
+\[
+	\epsilon_{n+1} < \beta\left(\frac{\epsilon_1}{\beta}\right)^{2^n}.
+\]
+\item This presents a great algorithm for computing square roots. Show that if $\alpha = 3$ and $x_1 = 2$, that $\epsilon_1/\beta < 0.1$ so $\epsilon_5 < 4 \cdot 10^{-16}$ and $\epsilon_6 < 4 \cdot 10^{-32}$.
+\end{enumerate}
+
+\item % Exercise 17
+Fix $\alpha > 1$ and take $x_1 > \sqrt{\alpha}$ and
+\[
+	x_{n+1} = \frac{\alpha + x_n}{1 + x_n} = x_n + \frac{\alpha - x_n^2}{1 + x_n}.
+\]
+\begin{enumerate}[(a)]
+\item Prove that $x_1 > x_3 > x_5 > \dotsb$.
+\item Prove that $x_2 < x_4 < x_6 < \dotsb$.
+\item Prove that $x_n \to \sqrt{\alpha}$.
+\item Compare the rapidity of convergence of this process with the previous one.
+\end{enumerate}
+
+\item % Exercise 18
+Replace the recursive definition in Exercise 16 by
+\[
+	x_{n+1} = \frac{p-1}{p} x_n + \frac{1}{p} \cdot \frac{\alpha}{x_n^{p-1}}
+\]
+where $p$ is a fixed positive integer. Describe the behaviour of the resulting sequences $\{x_n\}$. 
+
+\item % Exercise 19
+Associate to each sequence $a = \{\alpha_n\} \in \{0, 2\}^{\N}$ the real number
+\[
+	x(a) = \sum_{n=1}^{\infty} \frac{\alpha_n}{3^n}.
+\]
+Prove that the set of all $x(a)$ is the Cantor set.
+
+\item % Exercise 20
+Suppose $\{p_n\}$ is a Cauchy sequence in a metric space $X$ and some subsequence $\{p_{n_i}\}$ converges to a point $p \in X$. Prove that the full sequence $\{p_n\}$ converges to $p$.
+
+\item % Exercise 21
+Prove the following analogue of Theorem 3.10(b): If $\{E_n\}$ is a sequence of closed non-empty and bounded sets in a \underline{complete} metric space $X$, if $E_n \supseteq E_{n+1}$, and if $\diam E_n \to 0$, then $\bigcap_{n=1}^{\infty} E_n$ contains a single point.
+
+\item % Exercise 22
+Suppose $X$ is a non-empty complete metric space, and $\{G_n\}$ is a sequence of dense open subsets of $X$. Prove Baire's theorem, namely that $\bigcap_{n=1}^{\infty} G_n$ is non-empty, and in fact dense in $X$.
+
+\item % Exercise 23
+Suppose $\{p_n\}, \{q_n\}$ are Cauchy sequences in a metric space $X$. Show that the sequence $\{d(p_n, q_n)\}$ converges.
+
+\item % Exercise 24
+Let $X$ be a metric space.
+\begin{enumerate}[(a)]
+\item Call two Cauchy sequences $\{p_n\}, \{q_n\}$ \underline{equivalent} if $d(p_n, q_n) \to 0$. Show that this is an equivalence relation.
+
+\item Let $X^*$ be the set of equivalence classes under the above relation. If $P, Q \in X^*$ and $\{p_n\} \in P$, $\{q_n\} \in Q$, define
+\[
+	\Delta(P, Q) = \lim_{n \to \infty} d(p_n, q_n),
+\]
+which exists from Exercise 23. Show that the number $\Delta(P, Q)$ is unchanged if we replace $\{p_n\}$ or $\{q_n\}$ by equivalent sequences, so that $\Delta$ is a distance function in $X^*$.
+
+\item Prove that the resulting metric space $X^*$ is complete.
+
+\item For each $p \in X$, there is a Cauchy sequence all of whose terms are $p$. Let $P_p$ be the element of $X^*$ which contains this sequence. Prove that
+\[
+	\Delta(P_p, P_q) = d(p, q)
+\]
+for all $p, q \in X$, so that $\phi: p \mapsto P_p$ is an isometry (a distance-preserving mapping) of $X$ onto $X^*$.
+
+\item Prove that $\phi(X)$ is dense in $X^*$, and that $\phi(X) = X^*$ if $X$ is complete. By (d), we may identify $X$ and $\phi(X)$ and thus regard $X$ as embedded in the complete metric space $X^*$. We call $X^*$ the \textbf{completion} of $X$.
+\end{enumerate}
+
+\item % Exercise 25
+Let $X$ be a metric space whose points are the rational numbers, with the metric $d(x, y) = |x - y|$. What is the completion of this space? (Compare Exercise 24).
+
+
+\end{enumerate}
 
 
 \chapter{TODOs}
