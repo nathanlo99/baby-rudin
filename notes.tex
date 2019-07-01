@@ -2729,22 +2729,62 @@ Suppose $a_n > 0$ and $s_n = a_1 + \dotsb + a_n$ and $\sum a_n$ diverges.
 \begin{enumerate}[(a)]
 \item Prove that $\sum \frac{a_n}{1 + a_n}$ diverges.
 
+\begin{proof}
+We prove the contrapositive. Let $b_n = \frac{a_n}{1 + a_n}$ and suppose $\sum b_n$ converges. Then we know $b_n \to 0$ so $1 - b_n = \frac{1}{1 + a_n} \to 1$. Thus for $0 < \epsilon < \frac{1}{2}$, there exists $N \in \N$ such that if $n \ge N$, 
+\[
+	\left|\frac{1}{1 + a_n} - 1\right| = \left| \frac{b_n}{a_n} - 1 \right| < \frac{1}{2}
+\]
+so $a_n < 2b_n$ if $n \ge N$. This implies that
+\[
+	\sum_{n = N}^{m} a_n < 2\sum_{n = N}^{m} b_n < M
+\]
+where $m \ge N$ and $M$ is a bound on the partial sums of $\sum b_n$ which exists since $\sum b_n$ converges. So the partial sums of $\sum a_n$ monotonically increasing and bounded above, so $\sum a_n$ converges.
+\end{proof}
 \item Prove that
 \[
 	\frac{a_{N+1}}{s_{N+1}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \ge 1 - \frac{s_N}{s_{N+k}}
 \]
 and deduce that $\sum \frac{a_n}{s_n}$ diverges.
 
+\begin{proof}
+Notice that $s_n$ is a monotonically increasing sequence since $a_n > 0$, so
+\begin{align*}
+\frac{a_{N+1}}{s_{N+1}} + \frac{a_{N+2}}{s_{N+2}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} &\ge \frac{a_{N+1}}{s_{N+k}} + \frac{a_{N+2}}{s_{N+k}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \\
+	&= \frac{a_{N+1} + a_{N+2} + \dotsb + a_{N+k}}{s_{N+k}} \\
+	&= 1 - \frac{s_N}{s_{N+k}}
+\end{align*}
+Then, letting $\epsilon = 1/2 > 0$, we can fix $N$ and choose $k \ge N$ such that $s_{N+k} > 2s_N$ since the $s_n$ are unbounded, so that
+\[
+	\frac{a_{N+1}}{s_{N+1}} + \frac{a_{N+2}}{s_{N+2}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \ge 1 - \frac{s_N}{s_{N+k}} > \frac12
+\]
+so $\sum \frac{a_n}{s_n}$ is not Cauchy and thus diverges.
+\end{proof}
 \item Prove that
 \[
 	\frac{a_n}{s_n^2} \le \frac{1}{s_{n-1}} - \frac{1}{s_n}
 \]
 and deduce that $\sum \frac{a_n}{s_n^2}$ converges.
 
+\begin{proof}
+We have $s_n > s_{n-1}$ so
+\[
+	\frac{a_n}{s_n^2} \le \frac{a_n}{s_n s_{n-1}} = \frac{s_n - s_{n-1}}{s_n s_{n-1}} = \frac{1}{s_{n-1}} - \frac{1}{s_n}
+\]
+so
+\[
+	\sum_{n=2}^{m} \frac{a_n}{s_n^2} \le \sum_{n=2}^{m} \frac{1}{s_{n-1}} - \frac{1}{s_n} = \frac{1}{s_1} - \frac{1}{s_m} \to \frac{1}{a_1}
+\]
+and thus $\sum \frac{a_n}{s_n^2}$ converges by the comparison test.
+\end{proof}
+
 \item What can be said about
 \[
 	\sum \frac{a_n}{1 + na_n} \text{ and } \sum \frac{a_n}{1 + n^2 a_n} \text{?}
 \]
+
+\begin{proof}
+The first series converges for some $a_n$ and diverges for some other $a_n$. But $\frac{a_n}{1 + n^2 a_n} < \frac{a_n}{n^2 a_n} = \frac{1}{n^2}$ so the second series converges by the comparison test and the $p$-test.
+\end{proof}
 \end{enumerate}
 
 \item % Exercise 12
@@ -2759,9 +2799,17 @@ Suppose $a_n > 0$ and $\sum a_n$ converges. Put
 \]
 if $m < n$, and deduce that $\sum \frac{a_n}{r_n}$ diverges.
 
+\begin{proof}
+Since $a_n > 0$, the sequence $r_n$ is decreasing, so
+\[
+	\frac{a_m}{r_m} + \dotsb + \frac{a_n}{r_n} > \frac{a_m}{r_m} + \dotsb + \frac{a_n}{r_m} > \frac{a_m + \dotsb + a_{n-1}}{r_m} = \frac{r_m - r_n}{r_m} = 1 - \frac{r_n}{r_m}.
+\]
+
+Now for any $\epsilon > 0$, suppose $\epsilon < 1/2$ without loss of generality. Then, for any $n \in \N$, we can find $m \ge n$ such that $\frac{r_n}{r_m} < 1 - \epsilon$ since $r_n \to 0$, so $\sum_{k=m}^{n} \frac{a_k}{r_k} = 1 - \frac{r_n}{r_m} > \epsilon$. Then $\sum \frac{a_k}{r_k}$ is not Cauchy and thus diverges.
+\end{proof}
 \item Prove that
 \[
-	\frac{a_n}{\sqrt{r_n}} < 2 (\sqrt{r_n} - \sqrt{r_{n+1}}
+	\frac{a_n}{\sqrt{r_n}} < 2 (\sqrt{r_n} - \sqrt{r_{n+1}})
 \]
 and deduce that $\sum \frac{a_n}{\sqrt{r_n}}$ converges.
 \end{enumerate}
