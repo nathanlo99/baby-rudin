@@ -5,3 +5,7 @@ notes.synctex.gz
 notes.toc
 notes.tex.bak
 .DS_Store*
+*.swp
+missfont.log
+notes.fdb_latexmk
+notes.fls
