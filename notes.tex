@@ -2844,7 +2844,15 @@ If $\{s_n\}$ is a complex sequence, define its arithmetic means $\sigma_n = \fra
 \item If $s_n \to s$, prove that $\sigma_n \to s$.
 
 \begin{proof}
-TODO
+    Let $\epsilon > 0$ be arbitrary and $N_0 \in \N$ such that $|s_n - s| < \epsilon/2$ for $n \ge N_0$. Notice then that 
+    \[
+        |\sigma_n - s| \overset{\Delta}{\le} \sum_{k=0}^{N_0} \frac{|s_k - s|}{n + 1} + \sum_{k=N_0}^{n} \frac{|s_k - s|}{n + 1} < \frac{S}{n + 1} + \frac{\epsilon}{2}
+    \]
+    where $S = \sum_{k=0}^{N_0} |s_k - s|$ is finite. Then, letting $N = \max(N_0, 2S/\epsilon)$, we notice that
+    \[
+        |\sigma_n - s| \le \frac{S}{n + 1} + \frac{\epsilon}{2} \le \epsilon
+    \]
+    if $n \ge N$, so $\sigma_n \to s$.
 \end{proof}
 
 \item Construct a sequence $\{s_n\}$ which does not converge, but $\sigma_n$ does. 
@@ -2862,17 +2870,30 @@ does.
 \item Can it happen that $s_n > 0$ for all $n$ and that $\limsup_{n \to \infty} s_n = +\infty$, but $\sigma_n \to 0$?
 
 \begin{proof}
-Yes, let $s_0 = 1$, then $s_n = \sqrt[3]{n} > 0$ if $\sqrt{n}$ is an integer, otherwise let $s_n = 1/n^2 > 0$. Then,
-\[
-    \sigma_n = \frac{1}{n + 1} \sum_{k=0}^{n} s_n < \frac{1}{n + 1} \left(1 + n^{2/3} + \sum_{i=0}^{n} 1/i^2 \right) < n^{-1/3} + \frac{\pi^2}{6}n^{-1} \to 0
-\]
-but for any $M \in \R$, there exists some integer $k > M$, and thus $s_{(k-1)^2} > M$, so $\limsup_{n \to \infty} s_n = +\infty$, as required.
+    Yes, let $s_0 = 1$, then $s_n = \sqrt[3]{n} > 0$ if $\sqrt[3]{n}$ is an integer, otherwise let $s_n = 1/n^2 > 0$. Then,
+    \[
+        \sigma_n = \frac{1}{n + 1} \sum_{k=0}^{n} s_n < \frac{1}{n + 1} \left(1 + 2n^{2/3} + \sum_{i=0}^{n} 1/i^2 \right) < 2n^{-1/3} + \frac{\pi^2}{6}n^{-1} \to 0
+    \]
+    but for any $M \in \R$, there exists some integer $k > M$, and thus $s_{(k-1)^2} > M$, so $\limsup_{n \to \infty} s_n = +\infty$, as required.
 \end{proof}
+
 \item Put $a_n = s_n - s_{n-1}$. Show that
 \[
-	s_n - \sigma_n = \frac{1}{n + 1} \sum_{k=1}^{n} ka_k.
+    s_n - \sigma_n = \frac{1}{n + 1} \sum_{k=1}^{n} ka_k.
 \]
 Assume that $na_n \to 0$ and $\{\sigma_n\}$ converges. Prove that $\{s_n\}$ converges. (Notice this provides a converse of (a) given $na_n \to 0$.
+
+\begin{proof}
+    We begin manipulating:
+    \begin{align*}
+        s_n - \sigma_n &= s_n - \frac{1}{n + 1} \sum_{k=0}^{n} s_k \\
+            &= \frac{n}{n + 1} s_n - \frac{1}{n + 1} \sum_{k=0}^{n - 1} s_k \\
+            &= \frac{1}{n + 1} \left[-\sum_{k=1}^{n-1} s_k + ns_n - s_0 \right] \\
+            &= \frac{1}{n + 1} \left[ \sum_{k=1}^{n} ks_k - \sum_{k=1}^{n}ks_{k-1}\right] \\
+            &= \frac{1}{n + 1} \sum_{k=1}^{n} ka_k.
+    \end{align*}
+    so clearly if $na_n \to 0$ and $\sigma_n \to \sigma$, then eventually $|\sigma_n - \sigma| < \epsilon/2$ and $\sum_{k=1}^{n} ka_k < (n+1)/2 \cdot ;\epsilon$, so $|s_n - s| < \epsilon$ for any $\epsilon > 0$, and thus $\{s_n\}$ converges.
+\end{proof}
 
 \item Prove (d) with the weaker hypothesis that $na_n$ is bounded by $M < \infty$ and $\sigma_n \to \sigma$. Show that $s_n \to \sigma$, by completing the following outline:
 \begin{enumerate}[(i)]
