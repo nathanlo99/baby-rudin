@@ -2901,15 +2901,61 @@ Assume that $na_n \to 0$ and $\{\sigma_n\}$ converges. Prove that $\{s_n\}$ conv
 \[
 	s_n - \sigma_n = \frac{m+1}{n-m}(\sigma_n - \sigma_m) + \frac{1}{n-m}\sum_{i=m+1}^{n} (s_n - s_i).
 \]
+
+\begin{proof}
+    We manipulate:
+    \begin{align*}
+        s_n &= \frac{1}{n-m} \sum_{k=0}^{n} s_k - \frac{1}{n-m}\sum_{k=0}^{m} s_k + \frac{n-m}{n-m} \cdot s_n - \frac{1}{n-m} \sum_{k=0}^{n} s_k + \frac{1}{n-m} \sum_{k=0}^{m} s_k \\
+            &= \frac{1}{n-m} \left[ \sum_{k=0}^{n} s_k - \sum_{k=0}^{m} s_k \right] + \frac{1}{n-m} \left[ \sum_{k=0}^{n} (s_n - s_k) - \sum_{k=0}^{m}(s_n - s_k) \right] \\
+            &= \frac{1}{n-m} \left[ (n+1)\sigma_n - (m+1)\sigma_m \right] + \frac{1}{n-m} \sum_{k=m+1}^{n} (s_n - s_k) \\
+            &= \frac{n+1}{n-m} \sigma_n - \frac{m+1}{n-m} \sigma_m + \frac{1}{n-m} \sum_{k=m+1}^{n} (s_n - s_k)
+    \end{align*}
+    so
+    \begin{align*}
+        s_n - \sigma_n &= \left( \frac{n+1}{n-m} - 1 \right) \sigma_n - \frac{m+1}{n-m} \sigma_n + \frac{1}{n-m} \sum_{k=m+1}^{n} (s_n - s_k) \\
+            &= \frac{m+1}{n-m}(\sigma_n - \sigma_m) + \frac{1}{n-m} \sum_{i=m+1}^{n} (s_n - s_i),
+    \end{align*}
+    as required.
+\end{proof}
+
 \item For these $i$, 
 \[
 	|s_n - s_i| \le \frac{(n-i)M}{i+1} \le \frac{(n-m-1)M}{m+2}.
 \]
+
+\begin{proof}
+    We can write $s_n - s_i$ as a telescoping sum of $a_n$:
+    \begin{align*}
+        |s_n - s_i| = \left|\sum_{k=i+1}^{n} (s_k - s_{k-1})\right| \overset{\Delta}{\le} \sum_{k=i+1}^{n} |a_k| \le \sum_{k=i+1}^{n} \frac{M}{i+1} = \frac{(n-i)M}{i+1}, 
+    \end{align*}
+    since we have $k \ge i+1$ and thus
+    \[
+        |a_k| \le \frac{M}{k} \le \frac{M}{i+1}.
+    \]
+    and the latter inequality follows immediately from the fact that $i \ge m+1$ in the previous part of the proof.
+\end{proof}
+
 \item Fix $\epsilon > 0$ and associate to every $n$ the integer $m$ such that
 \[
 	m \le \frac{n - \epsilon}{1 + \epsilon} < m + 1.
 \]
-\item Then $(m+1)/(n-m) \le 1/\epsilon$ and $|s_n - s_i| < M\epsilon$ so $\limsup_{n \to \infty} |s_n - \sigma| \le M\epsilon$ so the result follows.
+Then $(m+1)/(n-m) \le 1/\epsilon$ and $|s_n - s_i| < M\epsilon$ so $\limsup_{n \to \infty} |s_n - \sigma| \le M\epsilon$ so the result follows.
+
+\begin{proof}
+    We have $m \le \frac{n-\epsilon}{1 + \epsilon}$, so $(m+1)/(n-m) \le 1/\epsilon$ follows from manipulation. Similarly, we have $\frac{n-m-1}{m+2} < \epsilon$. Thus, 
+    \[
+        |s_n - s_i| \le \frac{(n-m-1)M}{m+2} < M\epsilon
+    \]
+    and thus
+    \[
+        |s_n - \sigma_n| \overset{\Delta}{\le} \frac{m+1}{n-m} |\sigma_n - \sigma_m| + \frac{1}{n-m}|s_n - s_i| < M \epsilon
+    \]
+    for sufficiently large $m, n$ such that the first term vanishes (since $\sigma_n \to \sigma$). Thus 
+    \[
+        \limsup_{n \to \infty} |s_n - \sigma_n| \le M\epsilon,
+    \]
+    so $s_n$ converges to $\sigma$ since $\epsilon$ was arbitrary.
+\end{proof}
 \end{enumerate}
 \end{enumerate}
 
