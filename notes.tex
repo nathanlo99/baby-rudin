@@ -2276,7 +2276,7 @@ Notice that
 which shows that this infinite sum representation converges extremely quickly.
 \end{remark}
 
-\begin{theorem} % Theorem 3.22
+\begin{theorem} % Theorem 3.32
 $e$ is irrational.
 
 \begin{proof}
@@ -2962,6 +2962,10 @@ Then $(m+1)/(n-m) \le 1/\epsilon$ and $|s_n - s_i| < M\epsilon$ so $\limsup_{n \
 \item % Exercise 15
 Extend Definition 3.21 to points in $\R^k$. Show that Theorems 3.22, 3.23, 3.25(a), 3.33, 3.34, 3.42, 3.45, 3.47, 3.55 are true in this more general setting.
 
+\begin{proof}
+    Each proof is presented in a sufficiently general fashion such that replacing $|x - y|$ with the respective metric in $\R^k$ suffices to prove each theorem for infinite sums in $\R^k$.
+\end{proof}
+
 \item % Exercise 16
 Fix $\alpha > 0$. Choose $x_1 > \sqrt{\alpha}$ and let
 \[
@@ -2969,6 +2973,14 @@ Fix $\alpha > 0$. Choose $x_1 > \sqrt{\alpha}$ and let
 \]
 \begin{enumerate}[(a)]
 \item Prove that $\{x_n\}$ decreases monotonically and that $x_n \to \sqrt{\alpha}$.
+
+\begin{proof}
+    Notice that $x_n > \sqrt{\alpha}$ for each $n$ from the AM-GM inequality, and thus $\alpha/x_n < \sqrt{\alpha}$. Thus, $x_{n+1} < x_n$ and the sequence is monotonically decreasing and bounded below. Thus, it converges to some $L \ge \sqrt{\alpha}$. Then, notice that 
+    \[
+        L = \lim_{n \to \infty} x_{n+1} = \lim_{n \to \infty} \frac{1}{2} \left(x_n + \frac{\alpha}{x_n} \right) = \frac{1}{2} (L + \alpha/L)
+    \]
+    which has solutions $\pm \sqrt{\alpha}$, so $\lim_{n \to \infty} x_n = \sqrt{\alpha}$, as required.
+\end{proof}
 
 \item Put $\epsilon = x_n - \sqrt{\alpha}$ and show that
 \[
@@ -2978,7 +2990,24 @@ so that if $\beta = 2\sqrt{\alpha}$,
 \[
 	\epsilon_{n+1} < \beta\left(\frac{\epsilon_1}{\beta}\right)^{2^n}.
 \]
+
+\begin{proof}
+    We have
+    \[
+        \frac{\epsilon_n^2}{2x_n} = \frac{(x_n - \sqrt{\alpha})^2}{2x_n} = \frac{1}{2} \left( x_n - 2\sqrt{\alpha} + \frac{\alpha}{x_n} \right) = \frac{1}{2} \left( x_n + \frac{\alpha}{x_n} \right) - \sqrt{\alpha} = \epsilon_{n+1}.
+    \]
+    and the second part of the inequality follows from the fact proven in part (a) that $x_n > \sqrt{\alpha}$ for all $n$. The second fact follows inductively by the above statement.
+\end{proof}
+
 \item This presents a great algorithm for computing square roots. Show that if $\alpha = 3$ and $x_1 = 2$, that $\epsilon_1/\beta < 0.1$ so $\epsilon_5 < 4 \cdot 10^{-16}$ and $\epsilon_6 < 4 \cdot 10^{-32}$.
+
+\begin{proof}
+    We have $\beta = 2\sqrt{3}$ and $\epsilon_1 = 2 - \sqrt{3}$ so
+    \[
+        \frac{\epsilon_1}{\beta} = \frac{2 - \sqrt{3}}{2 \sqrt{3}} = \frac{4 - 3}{2 \sqrt{3} (2 + \sqrt{3})} < \frac{1}{10.5} < 0.1
+    \]
+    since $\sqrt{3} < 1.5$. Then $\epsilon_5 < \beta \cdot 10^{-2^4} < 4 \cdot 10^{-16}$ and similarly $\epsilon_6 < \beta \cdot 10^{-2^5} < 4 \cdot 10^{-32}$ as required.
+\end{proof}
 \end{enumerate}
 
 \item % Exercise 17
@@ -2989,8 +3018,37 @@ Fix $\alpha > 1$ and take $x_1 > \sqrt{\alpha}$ and
 \begin{enumerate}[(a)]
 \item Prove that $x_1 > x_3 > x_5 > \dotsb$.
 \item Prove that $x_2 < x_4 < x_6 < \dotsb$.
+\begin{proof}
+    Manipulating, we have
+    \[
+        x_{n+2} = \frac{\alpha + x_{n+1}}{1 + x_{n+1}} = \frac{(1 + x_n)(\alpha + x_{n+1})}{(1 + x_n)(1 + x_{n+1})} = \frac{\alpha + \alpha x_n + \alpha + x_n}{1 + x_n + \alpha + x_n} < x_n
+    \]
+    if and only if
+    \[
+        \alpha + \alpha x_n + \alpha + x_n < x_n + x_n^2 + \alpha x_n + x_n^2 \iff 0 < \alpha < x_n^2
+    \]
+    so it suffices to show that $x_{2k+1} > \sqrt{\alpha}$ and $x_{2k} < \sqrt{\alpha}$ inductively to conclude both results.
+
+    Now, if $x_n > \sqrt{\alpha}$, then 
+    \[
+        x_{n+1} - x_n = \frac{\alpha - x_n^2}{1 + x_n} = (x_n - \sqrt{\alpha}) \frac{\sqrt{\alpha} + x_n}{1 + x_n} > x_n - \sqrt{\alpha}
+    \]
+    since $\sqrt{\alpha} > 1$. Then $x_{n+1} < \sqrt{\alpha}$. The argument is symmetric for the other condition, completing the proof.
+\end{proof}
+
 \item Prove that $x_n \to \sqrt{\alpha}$.
+    \begin{proof}
+        The subsequence $\{x_{2k+1}\}$ is decreasing and bounded below by $\sqrt{\alpha}$, and is thus convergent. It must converge to a value $L \ge \sqrt{\alpha}$ such that
+        \[
+            L = \lim_{n \to \infty} x_{n+2} = \lim_{n \to \infty} \frac{\alpha + x_n}{1 + x_n} = \frac{\alpha + L}{1 + L},
+        \]
+        whose solutions are $\pm \sqrt{\alpha}$. Thus, $L = \sqrt{\alpha}$.
+    \end{proof}
 \item Compare the rapidity of convergence of this process with the previous one.
+
+\begin{proof}
+    TODO: It converges slower, but I'm not able to show this...
+\end{proof}
 \end{enumerate}
 
 \item % Exercise 18
@@ -3000,6 +3058,10 @@ Replace the recursive definition in Exercise 16 by
 \]
 where $p$ is a fixed positive integer. Describe the behaviour of the resulting sequences $\{x_n\}$. 
 
+\begin{proof}
+    Notice that according to the definition, we must have $x_{n+1} \ge \sqrt[p]{\alpha}$ by the AM-GM inequality. Then let $x_1 > \sqrt[p]{\alpha}$ without loss of generality, then by a similar argument as above, $x_{n+1} < x_n$ so the sequence converges since it is monotonically decreasing and bounded below. It must converge to its unique fixed point at least $\sqrt[p]{\alpha}$, namely $x_n \to \sqrt[p]{\alpha}$.
+\end{proof}
+
 \item % Exercise 19
 Associate to each sequence $a = \{\alpha_n\} \in \{0, 2\}^{\N}$ the real number
 \[
@@ -3007,8 +3069,18 @@ Associate to each sequence $a = \{\alpha_n\} \in \{0, 2\}^{\N}$ the real number
 \]
 Prove that the set of all $x(a)$ is the Cantor set.
 
+\begin{proof}
+    First, notice that for any real number $r \in [0, 1]$, we can associate a ternary representation $\{a_n\} \in \{0, 1, 2\}^{\N}$ such that $r = \sum_{n=0}^{\infty} a_n 3^{-n}$, so this question reduces to showing that $r$ is in the Cantor set iff it contains no 1s in its ternary representation.
+
+    Notice that by construction, the middle thirds of each segment that we remove in the $i$-th iteration have a 1 as the $i$-th trit. So $\{0, 2\}^{\N} \supseteq C$. The converse follows again by noticing that any $r \in \{0, 2\}^{\N}$ is in each closed partial $C_n$, and thus in its infinite intersection $C$.
+\end{proof}
+
 \item % Exercise 20
 Suppose $\{p_n\}$ is a Cauchy sequence in a metric space $X$ and some subsequence $\{p_{n_i}\}$ converges to a point $p \in X$. Prove that the full sequence $\{p_n\}$ converges to $p$.
+
+\begin{proof}
+    Let $\epsilon > 0$ be arbitrary and let $I \in \N$ such that $d(p_{n_i}, p) < \epsilon / 2$ for all $i \ge I$. Also, let $N \in \N$ such that for all $n \ge m \ge N$, we have $d(p_n, p_m) < \epsilon / 2$. Let $N_1$ be some $n_i$ for $i \ge I$ such that $n_i \ge N$. Then for all $n \ge N_1$, we have $d(p_n, p) \le d(p_n, p_{N_1}) + d(p_{n_I}, p) \le \epsilon$ so $p_n \to p$ as required.
+\end{proof}
 
 \item % Exercise 21
 Prove the following analogue of Theorem 3.10(b): If $\{E_n\}$ is a sequence of closed non-empty and bounded sets in a \underline{complete} metric space $X$, if $E_n \supseteq E_{n+1}$, and if $\diam E_n \to 0$, then $\bigcap_{n=1}^{\infty} E_n$ contains a single point.
@@ -3055,7 +3127,7 @@ Let $X$ be a metric space whose points are the rational numbers, with the metric
 \item Exercise 1.20
 \item Exercise 2.11
 \item Exercise 3.7 has a weird $\le$ vs. $<$ problem. See if you can spot it.
-\item Exercise 3.14a is doable, but I would have to write it out on paper.
+\item Exercise 3.17d
 \item Fix the theorem/example/etc. numbers so they match with Rudin
 \end{enumerate}
 \end{document}
