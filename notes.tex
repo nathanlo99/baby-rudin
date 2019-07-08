@@ -3091,10 +3091,22 @@ Suppose $X$ is a non-empty complete metric space, and $\{G_n\}$ is a sequence of
 \item % Exercise 23
 Suppose $\{p_n\}, \{q_n\}$ are Cauchy sequences in a metric space $X$. Show that the sequence $\{d(p_n, q_n)\}$ converges.
 
+\begin{proof}
+    Let $\epsilon > 0$ be arbitrary. Let $N_p \in \N$ such that if $n \ge m \ge N_p$, then $d(p_n, p_m) < \epsilon / 2$. Define $N_q$ similarly. Then, for any $n \ge m \ge \max(N_p, N_q)$, we have
+    \[
+        d(p_n, q_n) \le d(p_m, q_m) + d(p_n, p_m) + d(q_n, q_m) < d(p_m, q_m) + \epsilon,
+    \]
+    and similarly $d(p_m, q_m) \le d(p_n, q_n) + \epsilon$, so $|d(p_n, q_n) - d(p_m, q_m)| < \epsilon$, so the sequence $\{d(p_n, q_n)\}$ is Cauchy in $\R$ and thus convergent since $\R$ is complete. 
+\end{proof}
+
 \item % Exercise 24
 Let $X$ be a metric space.
 \begin{enumerate}[(a)]
 \item Call two Cauchy sequences $\{p_n\}, \{q_n\}$ \underline{equivalent} if $d(p_n, q_n) \to 0$. Show that this is an equivalence relation.
+
+\begin{proof}
+    Clearly $d(p_n, p_n) \to 0$ so $\{p_n\} \sim \{p_n\}$. Also, since $d(p_n, q_n) = d(q_n, p_n)$, the relation is symmetric. Finally, if $\{p_n\} \sim \{q_n\}$ and $\{q_n\} \sim \{r_n\}$, then $0 \le d(p_n, r_n) \le d(p_n, q_n) + d(q_n, r_n) \to 0$ converges to 0 by the comparison test. Thus the relation is transitive. These properties together make $\sim$ an equivalence relation on the Cauchy sequences in $X$.
+\end{proof}
 
 \item Let $X^*$ be the set of equivalence classes under the above relation. If $P, Q \in X^*$ and $\{p_n\} \in P$, $\{q_n\} \in Q$, define
 \[
@@ -3102,15 +3114,43 @@ Let $X$ be a metric space.
 \]
 which exists from Exercise 23. Show that the number $\Delta(P, Q)$ is unchanged if we replace $\{p_n\}$ or $\{q_n\}$ by equivalent sequences, so that $\Delta$ is a distance function in $X^*$.
 
+\begin{proof}
+    Suppose $D = \Delta(P, Q) = \lim_{n \to \infty} d(p_n, q_n)$ for Cauchy sequences $\{p_n\} \in P$, $\{q_n\} \in Q$. Suppose that $\{r_n\} \in P$. Then, notice that
+    \[  
+        d(p_n, q_n) - d(p_n, r_n) \overset{\Delta}{\le} d(r_n, q_n) \overset{\Delta}{\le} d(p_n, r_n) + d(p_n, q_n)
+    \]
+    so $\lim_{n \to \infty} d(r_n, q_n) = D$ by the Squeeze theorem so we are done.
+\end{proof}
 \item Prove that the resulting metric space $X^*$ is complete.
 
+\begin{proof}
+    It is always true that convergent sequences are Cauchy. It suffices to show that Cauchy sequences in $X^*$ converge in $X^*$. Suppose that $\{P_n\}$ is Cauchy with respect to the distance metric $\Delta$. Define a sequence $\{y_n\}$ such that $y_n = p_{n,n}$. We claim that $\{y_n\}$ is Cauchy, and that $P_n \to \{y_n\}$.
+   
+    First, let $\epsilon > 0$ be arbitrary. Then, since $\{P_n\}$ is Cauchy with respect to $\Delta$, there exists some $N$ such that if $m \ge n \ge N$, then
+    \[
+        \Delta(P_n, P_m) = \lim_{k \to \infty} d(p_{n,k}, p_{m,k}) < \epsilon.
+    \]
+    In particular, there exists some $K$ such that $d(p_{n,k}, p_{m.k}) < \epsilon$ for all $k \ge K$ and $m,n \ge N$. Then, for all $k \ge \max(K, N)$, we have
+    \[
+        d(p_{n,k}, p_{k,k}) = d(p_{n,k}, y_k) < \epsilon
+    \]
+    so
+    \[
+        \Delta(P_n, Y) = \lim_{k \to \infty} d(p_{n, k}, y_k) \le \epsilon.
+    \]
+    Since $\epsilon$ was arbitrary, $P_n \to \{y_n\}$, as required.
+\end{proof}
 \item For each $p \in X$, there is a Cauchy sequence all of whose terms are $p$. Let $P_p$ be the element of $X^*$ which contains this sequence. Prove that
 \[
 	\Delta(P_p, P_q) = d(p, q)
 \]
 for all $p, q \in X$, so that $\phi: p \mapsto P_p$ is an \textbf{isometry} (a distance-preserving mapping) of $X$ onto $X^*$.
 
-\item Prove that $\phi(X)$ is dense in $X^*$, and that $\phi(X) = X^*$ if $X$ is complete. By (d), we may identify $X$ and $\phi(X)$ and thus regard $X$ as embedded in the complete metric space $X^*$. We call $X^*$ the \textbf{completion} of $X$.
+\begin{proof}
+This is trivial if we take the representative sequence to be the constant sequence of $p$ and $q$: the limit is that of a constant sequence.
+\end{proof}
+
+\item Prove that $\phi(X)$ is dense in $X^*$, and that $\phi(X) = X^*$ if $X$ is complete. By (d), we may identify $X$ and $\phi(X)$ and thus regard $X$ as embedded in the complete metric space $X^*$. We call $X^*$ the \textbf{completion} of $X$
 \end{enumerate}
 
 \item % Exercise 25
@@ -3128,6 +3168,9 @@ Let $X$ be a metric space whose points are the rational numbers, with the metric
 \item Exercise 2.11
 \item Exercise 3.7 has a weird $\le$ vs. $<$ problem. See if you can spot it.
 \item Exercise 3.17d
+\item Exercise 3.21
+\item Exercise 3.22
+\item Exercise 3.24c
 \item Fix the theorem/example/etc. numbers so they match with Rudin
 \end{enumerate}
 \end{document}
