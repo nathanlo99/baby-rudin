@@ -1,0 +1,855 @@
+\chapter{Basic Topology}
+
+\section{Finite, Countable and Uncountable Sets}
+
+\begin{definition}
+Let $A, B$ be two sets such that every element $x$ of $A$ is associated an element of $B$, denoted by $f(x)$. Then, $f$ is a \textbf{function from $A$ to $B$} or a \textbf{mapping from $A$ into $B$}. The set $A$ is called the \textbf{domain} of $A$, and the elements $f(x)$ are called the \textbf{values} of $f$. The set of all values of $f$ is called the \textbf{range} of $f$.
+
+Let $A, B$ be two sets and $f$ be a mapping of $A$ into $B$. If $E \subseteq A$, then $f(E)$ is defined to be the set of all elements $f(x)$ for $x \in E$. We call $f(E)$ the \textbf{image} if $E$ under $f$. In this notation, $f(A)$ is the range of $f$. It is clear that $f(A) \subseteq B$. If $f(A) = B$, we say that $f$ maps $A$ \textbf{onto} $B$, or that $f$ is \textbf{surjective}. 
+
+\underline{It is important to note the difference between into and onto}.
+
+If $E \subseteq B$, then $f^{-1}(E)$ denotes the set of all $x \in A$ such that $f(x) \in E$. $f^{-1}(E)$ is the \textbf{inverse image} of $E$ under $f$. If $y \in B$, $f^{-1}(y)$ is the set of all $x \in A$ such that $f(x) = y$.
+
+If $f^{-1}(y)$ consists of at most one element of $A$ for each $y \in B$, then $f$ is a \textbf{one-to-one}, or \textbf{injective} mapping of $A$ into $B$. A mapping $f$ which is both injective and surjective is called \textbf{bijective}, or a  \textbf{1-1 correspondence}. 
+
+If there exists a bijection between $A$ and $B$, we say that $A$ and $B$ have the same \textbf{cardinal number}, or briefly that $A$ and $B$ are \textbf{equivalent}, and we write $A \sim B$. This relation has the reflexive, symmetric, and transitive properties, and is thus called an \textbf{equivalence relation}.
+
+For any positive integer $n$, let $J_n$ be the set $\{1, 2, 3, \dotsc, n\}$, and $J$ be the set consisting of all positive integers. For any set $A$, we say
+\begin{enumerate}[(a)]
+\item $A$ is \textbf{finite} if $A \sim J_n$ for some $n$.
+\item $A$ is \textbf{infinite} if $A$ is not finite.
+\item $A$ is \textbf{countable} if $A \sim J$.
+\item $A$ is \textbf{uncountable} if $A$ is neither finite nor countable.
+\item $A$ is \textbf{at most countable} if $A$ is finite or countable.
+\end{enumerate}
+
+Countable sets are sometimes called \textbf{enumerable} or \textbf{denumerable}. Notice that if $A, B$ are both finite, then $A \sim B$ iff they contain the same number of elements. The notion of bijection extends this idea to infinite sets.
+\end{definition}
+
+For example, the set of all integers $\Z$ is countable: consider the ordering
+\[
+	0, 1, -1, 2, -2, 3, -3, \dotsc
+\]
+given by the bijection
+\[
+	f(n) = \begin{cases}
+		\frac{n}{2} & \text{ if $n$ even} \\
+		-\frac{n-1}{2} & \text{ if $n$ odd}
+		\end{cases}
+\]
+
+An interesting property of $\Z$ is thus that it is equivalent to one of its proper subsets. This is never true of finite sets, so in fact a set is infinite if it is equivalent to one of its proper subsets. 
+
+\begin{definition}
+A \textbf{sequence} is a function $f$ defined on the set $J$ of positive integers. If $f(n) = x_n$ for $n \in J$, then we denote $f$ by the symbol $\{x_n\}$ or sometimes $x_1, x_2, \dotsc$. The values $x_n$ of $f$ are called the \textbf{terms} of the sequence. If $A$ is a set and $x_n \in A$ for each $n \in J$, then $\{x_n\}$ is a \textbf{sequence in $A$}, or a \textbf{sequence of elements in $A$}.
+\end{definition}
+
+\begin{theorem}
+Every infinite subset of a countable set $A$ is countable. 
+
+\begin{proof}
+Let $\{x_n\}$ be a sequence of distinct elements in $A$. Then, for any infinite subset $E$ of $A$, we can take the subsequence $\{x_{n_k}\}$ of $\{x_n\}$ corresponding to $E$, so $E$ is countable.
+\end{proof}
+\end{theorem}
+
+The above theorem shows that countable sets are the `smallest infinity' in some sense. 
+
+\begin{definition}
+Let $A$ and $\Omega$ be sets, and suppose that for each element $\alpha \in A$, there is associated a subset of $\Omega$ which we denote by $E_{\alpha}$. We call the set whose elements are the sets $E_{\alpha}$ a \textbf{collection} or \textbf{family} of sets, denoted $\{E_\alpha\}$. 
+
+The \textbf{union} of the sets $E_\alpha$ is the set $S$ such that $x \in S$ iff $x \in E_\alpha$ for at least one $\alpha \in A$, denoted
+\[
+	S = \bigcup_{\alpha \in A}{E_\alpha}.
+\]
+
+The \textbf{intersection} of the sts $E_{\alpha}$ is the set $P$ such that $x \in P$ iff $x \in E_\alpha$ for every $\alpha \in A$, denoted
+\[
+	P = \bigcap_{\alpha \in A}{E_\alpha}.
+\]
+
+If $A \cap B$ is not empty, we say that $A$ and $B$ \textbf{intersect}, otherwise they are \textbf{disjoint}.
+\end{definition}
+
+The operations $\cup$ and $\cap$ are commutative and associative, but they also distribute:
+
+\begin{theorem}
+For sets $A, B, C$, we have
+\[
+	E = A \cap (B \cup C) = (A \cap B) \cup (A \cap C) = F.
+\]
+
+Suppose that $x \in E$. Then, $x \in A$ and at least one of $x \in B$ or $x \in C$. Thus at least one of $x \in (A \cap B)$ or $x \in (A \cap C)$, so $x \in F$.
+
+Similarly, if $x \in F$, then at least $x$ is in at least one of $A \cap B$ or $A \cap C$, so $x \in A$, and at least one of $B$ or $C$, so $x \in E$, completing the proof.
+\end{theorem}
+
+\begin{theorem}
+Let $\{E_n\}$ where $n \in J$ be a sequence of countable sets, and let $S$ be their countable union. Then $S$ is countable.
+
+\begin{proof}
+Let every $E_n$ be arranged in a sequence $\{x_{nk}\}_{k \in J}$. Then, consider the sequence
+\[
+	\underbrace{x_{11}}, \underbrace{x_{21}, x_{12}}, \underbrace{x_{31}, x_{22}, x_{13}}, \underbrace{x_{41}, x_{32}, x_{23}, x_{14}}, \dotsc
+\]
+which enumerates $S$. If any two of the sets $E_n$ have elements in common, these will appear more than once in $S$. So the sequence is at most countable, but since $E_1 \subseteq S$, it is at least countable, so it is countable.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+Suppose $A$ is at most countable, and for every $\alpha \in A$, $B_\alpha$ is at most countable. Then, $T = \bigcup_{\alpha \in A} B_\alpha$ is at most countable.
+
+This follows since $T$ is equivalent to a subset of $S$ in the above theorem.
+\end{corollary}
+
+\begin{theorem}
+Let $A$ be a countable set, and $B_n$ be the set of all $n$-tuples $(a_1, \dotsc, a_n)$ in $A$, where the $a_k$ need not be distinct. Then $B_n$ is countable.
+
+\begin{proof}
+$B_1 = A$ is countable. Suppose that $B_{n-1}$ is countable for $n > 1$. Then, the elements of $B_n$ are of the form $(b, a)$ for $b \in B_{n-1}$ and $a \in A$, so the set of all pairs $(b, a) \sim A$ and is thus countable. Then, $B_n$ is the countable union of countable sets, and is thus countable. The result follows by induction on $n$.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+The set of all rational numbers is countable.
+
+\begin{proof}
+Associate with each $r = m/n \in \Q$ the pair $(m, n)$ of integers. The set of pairs $(m, n)$ is countable, and thus $\Q$ is countable.
+\end{proof}
+\end{corollary}
+
+But not all infinite sets are countable:
+
+\begin{theorem}
+The set $A$ of all sequences in $\{0, 1\}$ is uncountable.
+
+\begin{proof}
+Suppose otherwise, so that $A$ is countable, and thus admits a sequence $\{s_n\}$. Then, construct a sequence $t \in A$ such that $t_j = 1 - s_{jj}$ so $t_j \ne s_{jj}$ for all $j \in J$. Then, $t \not\in \{s_n\}$ since it differs from each sequence at at least one point. Thus, $t \not\in A$, a contradiction.
+\end{proof}
+\end{theorem}
+
+Notice the above theorem can be combined with the binary representation of real numbers to show that the real numbers are uncountable.
+
+\section{Metric Spaces}
+
+\begin{definition}
+A set $X$, whose elements are \textbf{points}, is a \textbf{metric space} if for any two points $p, q \in X$ there is a real number $d(p, q)$ called the \textbf{distance} from $p$ to $q$, such that
+\begin{enumerate}[(a)]
+\item $d(p, q) \ge 0$, with equality iff $p = q$.
+\item $d(p, q) = d(q, p)$.
+\item $d(p, q) \le d(p, r) + d(r, q)$ for any $r \in X$.
+\end{enumerate}
+Any function with these three properties is called a \textbf{distance function}, or a \textbf{metric}.
+\end{definition}
+
+We can define metrics in the Euclidean spaces $\R^k$, with the distance $d(\textbf{x}, \textbf{y}) = |\textbf{x} - \textbf{y}|$. It is important to note that every subset of a metric space is still a metric space under the same distance function.
+
+\begin{definition}
+We denote the \textbf{segment} $(a, b)$ to be the set of real numbers $x$ such that $a < x < b$. Similarly, the \textbf{interval} $[a, b]$ is the set of all real numbers $x$ such that $a \le x \le b$. 
+
+If $a_i < b_i$ for all $i \in J_k$, then the set of all points $\textbf{x} = (x_1, \dotsc, x_k) \in \R^k$ such that $a_i \le x_i \le b_i$ is called a \textbf{$k$-cell}.
+
+If $\textbf{x} \in \R^k$ and $r > 0$, the \textbf{open} (or \textbf{closed} respectively) \textbf{ball} $B$ is the set of all $\textbf{y} \in \R^k$ such that $|\textbf{y} - \textbf{x}| < r$ (or $\le r$ respectively).
+
+A set $E \subseteq \R^k$ is \textbf{convex} iff $\lambda \textbf{x} + (1 - \lambda) \textbf{y} \in E$ whenever $\textbf{x}, \textbf{y} \in E$ and $\lambda \in (0, 1)$.
+
+Balls and $k$-cells are convex.  
+\end{definition}
+
+\begin{definition}
+Let $X$ be a metric space. Then, 
+\begin{enumerate}[(a)]
+\item A \textbf{neighbourhood} of $p$ is a set $N_r(p)$ consisting of all $q$ such that $d(p, q) < r$ for some $r > 0$, where $r$ is the \textbf{radius} of $N_r(p)$.
+
+\item A point $p$ is a \textbf{limit point} of the set $E$ if \underline{every} neighbourhood of $p$ contains a point $q \ne p$ such that $q \in E$. (That is, points in $E$ get arbitrarily close to $p$.)
+
+\item If $p \in E$ is not a limit point, it is called an \textbf{isolated point}.
+
+\item A set $E$ is \textbf{closed} iff every limit point of $E$ is in $E$.
+
+\item A point $p$ is an \textbf{interior point} of $E$ if there is a neighbourhood $N$ of $p$ such that $N \subseteq E$.
+
+\item $E$ is \textbf{open} if every point in $E$ is an interior point of $E$.
+
+\item The \textbf{complement} of $E$, denoted $E^c$, is the set of all points in $X$ but not in $E$.
+
+\item $E$ is \textbf{perfect} if $E$ is closed and every point of $E$ is a limit point of $E$.
+
+\item $E$ is \textbf{bounded} if there exists a real number $M$ and a point $q \in X$ such that $d(p, q) < M$ for all $p \in E$.
+
+\item $E$ is \textbf{dense} in $X$ if every point in $X$ is a limit point of $E$, or a point of $E$ (or both). (So points in $E$ get arbitrarily close to any point in $X$).
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+Every neighbourhood is an open set.
+
+\begin{proof}
+Let $E = N_r(p)$ be a neighbourhood, and $q$ be any point in $E$. Then, $d(p, q) < r$ so $d(p, q) = r - h$ for some positive $h$. Then for any $s \in N_h(q)$, we have
+\[
+	d(s, r) \le d(s, q) + d(q, p) < h + (r - h) = r
+\]
+so $s \in E$ and thus $N_h(q) \subseteq E$. Thus $E$ is open.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+If $p$ is a limit point of $E$, then every neighbourhood of $p$ contains infinitely many points of $E$. 
+
+\begin{proof}
+Suppose not, so that some neighbourhood $N_r(p)$ contains finitely many points in $E$. Then, there exists some closest point $q \ne p$ in that neighbourhood with $d(q, p) = h > 0$. Then, the neighbourhood $N_{h/2}(p)$ contains no points in $E$ which are not $p$, contradicting the definition of a limit point.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+A finite point set has no limit points.
+
+\begin{proof}
+If $p$ were a limit point in a finite point set $E$, then some neighbourhood must have infinitely many points in $E$, a contradiction.
+\end{proof}
+\end{corollary}
+
+\begin{theorem}
+Let $\{E_{\alpha}\}$ be a possibly infinite collection of sets. Then
+\[
+	A = \left( \bigcup_{\alpha} E_\alpha \right)^c = \bigcap_{\alpha} E_\alpha^c = B.
+\]
+
+\begin{proof}
+Let $x \in A$. Since it is not in $\bigcup_\alpha E_\alpha$, $x$ is not in any of the $E_\alpha$. Thus, it is in each of the $E_\alpha^c$, so $x \in B$.
+
+Let $y \in B$. By definition, $y$ is in $E_\alpha^c$, so it is not in any of the $E_\alpha$. Thus, $y \not\in \bigcup_\alpha E_\alpha$ so $y \in A$, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+A set $E$ is open iff its complement is closed.
+
+\begin{proof}
+Suppose $E^c$ is not closed. Then, there exists a limit point of $E^c$, say $x$ which is not in $E^c$ (and thus in $E$). However this means that there are points in $E^c$ in neighbourhoods arbitrarily close to $x$: so no neighbourhood around $x$ will be a subset of $E$, so $E$ is not open, proving the contrapositive of the forward statement.
+
+Now suppose $E$ is not open, so there exists some $x \in E$ for which no neighbourhood is entirely contained within $E$. Thus, every neighbourhood of $x$ contains some point in $E^c$, so $x$ is a limit point of $E^c$ not in $E^c$, so $E^c$ is not closed, proving the contrapositive of the backwards statement, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+A set $F$ is closed iff its complement is open. \qed
+\end{corollary}
+
+\begin{theorem}
+With the previous theorems, we can prove the following:
+\begin{enumerate}[(a)]
+\item For any possibly infinite collection $\{G_\alpha\}$ of open sets, $A = \bigcup_\alpha G_\alpha$ is open.
+
+\item For any possibly infinite collection $\{F_\alpha\}$ of closed sets, $B = \bigcap_\alpha F_\alpha$ is closed.
+
+\item For any finite collection $G_1, \dotsc, G_n$ of open sets, $C = \bigcap_{i=1}^{n} G_i$ is open.
+
+\item For any finite collection $F_1, \dotsc, F_n$ of closed sets, $D = \bigcup_{i=1}^{n} F_i$ is closed.
+\end{enumerate}
+
+\begin{proof}
+For (a), let $x \in A$ be arbitrary. Then, $x \in G_\alpha$ for some open set $G_\alpha$, so $N_r(x) \subseteq G_\alpha \subseteq A$. Thus, $x$ is interior in $A$ and $A$ is open. For (b), notice that $\{F_\alpha^c\}$ is a collection of open sets, so by (a), $\bigcup_\alpha F_\alpha^c = \left(\bigcap_\alpha F_\alpha\right)^c$ is open, so $B = \bigcap_\alpha F_\alpha$ is closed.
+
+For (c), let $x \in C$. Then, there are neighbourhoods $N_{r_i}(x) \subseteq G_i$ for some positive $r_i$. Then, taking $r = \min_{i=1}^{n} r_i$, we have $N_r(x) \subseteq N_{r_i}(x) \subseteq G_i$ for each $i \in J_n$, so $N_r(x) \subseteq C$ so $x$ is interior to $C$, and thus $C$ is open. Statement (d) reduces to (c) with reasoning similar to (b).
+\end{proof}
+\end{theorem}
+
+Notice that in parts (c) and (d) in the previous theorem, finiteness of the collections is essential. Otherwise, the minimum of the radii of your neighbourhoods could be 0, and no neighbourhood would exist. For instance, take $G_n = (-1/n, 1/n)$.
+
+\begin{definition}
+If $X$ is a metric space, and $E \subseteq X$ and $E'$ is the set of all limit points of $E$ in $X$, then the \textbf{closure} of $E$ is the set $\overline{E} = E \cup E'$. 
+\end{definition}
+
+\begin{theorem}
+If $X$ is a metric space with $E \subseteq X$, then
+\begin{enumerate}[(a)]
+\item $\overline{E}$ is closed.
+\item $E = \overline{E}$ iff $E$ is closed.
+\item $\overline{E} \subseteq F$ for every closed set $F \subseteq X$ with $E \subseteq F$.
+\end{enumerate}
+Notice that (a) and (c) imply $\overline{E}$ is the \underline{smallest} closed subset of $X$ containing $E$, so the name `closure' is appropriate.
+
+\begin{proof}
+For (a), if $p \in X$ and $p \not\in \overline{E}$, then $p$ is neither a point of $E$ nor a limit point of $E$. Hence, $p$ has a neighbourhood which does not intersect $E$, so $\overline{E}^c$ is open and $\overline{E}$ is closed.
+
+For (b), if $E$ is closed, then $E' \subseteq E$ so $\overline{E} = E$. If $\overline{E} = E$, then (a) implies $E$ is closed.
+
+For (c), let $F \subseteq X$ be a closed set such that $E \subseteq F$. Let $x \in \overline{E}$. If $x \in E$, then clearly $x \in F$. If $x \in E'$ but not in $F$, then $x$ would be a limit point of $F \supset E$ not in $F$, contradicting the fact that $F$ is closed.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Let $E$ be a non-empty set of real numbers which is bounded above. Let $y = \sup E$, then $y \in \overline{E}$, hence $y \in E$ if $E$ is closed.
+
+\begin{proof}
+Suppose that $y$ were not in $\overline{E}$, so it is neither a point in $E$ nor a limit point of $E$, so there exists a neighbourhood $(y - \epsilon, y + \epsilon)$ which does not contain any elements in $E$. But then $y - \epsilon/2$ would be a smaller upper bound for $E$ than $y$, contradicting the minimality of $y$, proving the first statement.
+
+Then, if $E$ is closed, $y = \sup E \in \overline{E} = E$.
+\end{proof}
+\end{theorem}
+
+\begin{remark}
+Suppose $E \subseteq Y \subseteq X$ where $X$ is a metric space. We say $E$ is an open subset of $X$ when every point $p \in E$ has associated to it a positive real number $r$ such that $d(p, q) < r$ implies $q \in E$. But we know $Y$ is also a metric space under the same distance function, so we can extend our definitions to $Y$.
+
+We say $E$ is \textbf{open relative to $Y$} when to each $p \in E$, there exists a positive $r$ such that $q \in E$ whenever $d(p, q) < r$ and $q \in Y$. 
+\end{remark}
+
+\begin{theorem}
+Suppose $Y \subseteq X$. Then a subset $E \subseteq Y$ is open relative to $Y$ iff $E = Y \cap G$ for some open subset $G$ of $X$. 
+
+\begin{proof}
+Suppose $E \subseteq Y$ is open relative to $Y$. Then, for every $p \in E$, we associate some positive $r_p$ such that $N_{r_p}(p) \cap Y \subseteq E$. Let $G = \bigcup_{p \in E} N_{r_p}(p) \subseteq X$. Since each $N_{r_p}(p)$ is open, the infinite union $G$ is open. Then, clearly $E \subseteq Y \cap G$. By our choice of $N_{r_p}(p)$, $N_{r_p}(p) \cap Y \subseteq E$ for each $p \in E$, so $G \cap Y \subseteq E$. Thus, $E = G \cap Y$. 
+
+Conversely, if $G$ is open in $X$ and $E = G \cap Y$, then every $p \in E$ has a neighbourhood $N_{r_p}(p) \subseteq G$, so $N_{r_p}(p) \cap Y \subseteq E$ and thus $E$ is open relative to $Y$.
+\end{proof}
+\end{theorem}
+
+\section{Compact Sets}
+
+\begin{definition}
+Let $X$ be a metric space and $E \subseteq X$. Then, an \textbf{open cover} of $E$ is a collection $\{G_\alpha\}$ of open subsets of $X$ such that $E \subseteq \bigcup_\alpha G_\alpha$. 
+\end{definition}
+
+\begin{definition}
+A subset $K$ of a metric space $X$ is said to be \textbf{compact} if every open cover of $K$ contains a \underline{finite} subcover.
+
+Formally, if $\{G_\alpha\}$ is an open cover of $K$, then there exist indices $\alpha_1, \dotsc, \alpha_n$ such that $K \subseteq G_{\alpha_1} \cup \dotsb \cup G_{\alpha_n}$. 
+
+\end{definition}
+
+Clearly every finite set is compact. 
+
+\begin{theorem}
+Suppose $K \subseteq Y \subseteq X$. Then $K$ is compact relative to $X$ iff $K$ is compact relative to $Y$.
+
+\begin{proof}
+Suppose $K$ is compact relative to $Y$, and we have some open cover $\{G_\alpha\}$ in $X$. Then, letting $H_\alpha = Y \cap G_\alpha$, $\{H_\alpha\}$ is still an open cover of $K$ since $K \subseteq Y$. In fact, each $H_\alpha$ is open relative to $Y$ from Theorem 20, and a subset of $Y$, so $\{H_\alpha\}$ is an open cover of $K$ in $Y$. Since $K$ is compact in $Y$, there exists some finite subcover $\{H_{\alpha_k}\}_{k=1}^{n}$ of $K$. Then, $G \subseteq \bigcup_{k=1}^{n} H_{\alpha_i} \subseteq \bigcup_{k=1}^{n} G_{\alpha_i}$ so $\{G_{\alpha_k}\}_{k=1}^{n}$ is a finite subcover of $K$. 
+
+Now, suppose $K$ is compact relative to $X$, and we have some open cover $\{H_\alpha\}$ in $Y$. Since each $H_\alpha$ is open relative to $Y$, we can write $H_\alpha = G_\alpha \cap Y$ for some open subset $G_\alpha$ of $X$. Then, $\{G_\alpha\}$ is an open cover of $K$ in $X$ and thus a finite subcover $\{G_{\alpha_k}\}_{k=1}^{n}$ exists. Then $\{H_{\alpha_k}\}_{k=1}^{n}$ is a finite subcover of $K$ in $Y$, so $K$ is compact relative to $Y$, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Compact subsets of metric spaces are closed.
+
+\begin{proof}
+Let $K$ be compact in $X$. Let $x \in E^c$. For each $y \in E$, let $G_y$ be some neighbourhood of $y$ with radius less than $\frac12 d(x, y)$. Then, $\{G_y\}$ forms an open cover of $K$. Since $K$ is compact, there exist $y_1, \dotsc, y_n$ such that $G_{y_1}, \dotsc, G_{y_n}$ forms a finite subcover of $K$. 
+
+Then, there exists a closest point $y^*$ within $y_1, \dotsc, y_n$ to $x$, with distance $r$ from $x$. Then, there are no points in $E$ closer than $r/2$ to $x$, so $E^c$ contains a neighbourhood of $x$ completely contained in $E^c$ so $E^c$ is open and thus $E$ is closed.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Closed subsets of compact sets are compact.
+
+\begin{proof}
+Let $F \subseteq K \subseteq X$ be closed relative to $X$ and $K$ compact. Then, let $\{G_\alpha\}$ be an open cover of $F$, and append the open set $F^c$ to make it an open cover of $G \subseteq X$. Then, since $K$ is compact, there exists some finite subcover $\{G_{\alpha_k}\}_{k=1}^{n}$ of $K$. Then the finite subcover without $F^c$ is also a finite subcover of $F$, so $F$ is compact.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+If $F$ is closed and $K$ is compact, then $F \cap K$ is compact.
+
+\begin{proof}
+$F \cap K \subseteq K$ is closed as the finite intersection of closed sets, and thus compact by the previous theorem.
+\end{proof}
+\end{corollary}
+
+\begin{theorem}
+If $\{K_\alpha\}$ is a collection of compact subsets of a metric space $X$ such that the intersection of every finite subcollection of $\{K_\alpha\}$ is non-empty, then $\bigcap K_\alpha$ is non-empty. 
+
+\begin{proof}
+Let $K$ be some element of $\{K_\alpha\}$. Suppose, for the sake of contradiction, that there are no points in $K$ which are in every $K_\alpha$. That is, for every $x \in K$, there is some $K_\alpha^c$ such that $x \in K_\alpha^c$. So $K \subseteq \bigcup_\alpha K_\alpha^c$, so $\{K_\alpha^c\}$ forms an open cover of $K$, so since $K$ is compact, there exists a finite subcover $\{K_{\alpha_k}^c\}_{k=1}^{n}$ of $K$. But then $K \cap K_{\alpha_1} \cap \dotsc \cap K_{\alpha_n} = \emptyset$, contrary to our assumption.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}[Cantor's intersection theorem]
+If $\{K_n\}$ is a sequence of non-empty compact sets such that $K_n \supseteq K_{n+1}$, then $\bigcap_{n=1}^{\infty} K_n$ is non-empty.
+
+\begin{proof}
+Notice that $K_{k_1} \cap \dotsb \cap K_{k_n} = K_k$ where $k = \max(k_1, \dotsc, k_n)$, so any finite intersection is non-empty. Thus, the result follows by applying the above theorem.
+\end{proof}
+\end{corollary}
+
+\begin{theorem}
+If $E$ is an infinite subset of a compact set $K$, then $E$ has a limit point in $K$.
+
+\begin{proof}
+Suppose that $E$ has no limit points in $K$. Then, every $x \in K$ will have some sufficiently small neighbourhood $N_x$ which contains at most one point in $E$. However, no finite subcollection of $\{N_x\}$ can cover $E$ and thus $K$, contradicting the fact that $K$ is compact.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Nested intervals]
+If $\{I_n\}$ is a sequence of intervals in $\R$ such that $I_n \supseteq I_{n+1}$, then $\bigcap_{n=1}^{\infty} I_n$ is not empty.
+
+\begin{proof}
+Let $I_n = [a_n, b_n]$, and $A$ be the set of all $a_n$ which is non-empty and bounded above, say by $b_1$. Then, let $\alpha = \sup A$. For any $m, n$, we have $a_n \le a_{n+m} \le b_{n+m} \le b_m$, so $x \le b_m$ for any $b_m$. Thus, $x \in I_m$ for all $m$, and thus $\bigcap_{n=1}^{\infty} I_n$ is non-empty.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Let $k$ be a positive integer. If $\{I_n\}$ is a sequence of $k$-cells such that $I_n \supseteq I_{n+1}$ for all $n$, then $\bigcap_{n=1}^{\infty} I_n$ is non-empty.
+
+\begin{proof}
+Taking the intervals corresponding to each dimension, we can invoke the previous theorem to find values $x_i$ in the intersections of each of the intervals, so $\textbf{x} = (x_1, \dotsc, x_k) \in \bigcap_{n=1}^{\infty} I_n$.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+Every $k$-cell is compact.
+
+\begin{proof}
+Suppose $I = [a_1, b_1] \times \dotsb \times [a_k, b_k]$. Then, let $\delta = \left| \textbf{b} - \textbf{a} \right|$, where $\textbf{a} = (a_1, \dotsc, a_k)$ and $\textbf{b} = (b_1, \dotsc, b_k)$. Then, notice that $|\textbf{x} - \textbf{y}| \le \delta$, whenever $\textbf{x}, \textbf{y} \in I$. 
+
+Now suppose for the sake of contradiction that some open cover $\{G_\alpha\}$ admits no finite subcover of $I$. Subdividing each interval in half determines $2^k$ smaller $k$-cells whose union is $I$. At least one of these cells, $I_1$ cannot be covered by any finite subcollection of $\{G_\alpha\}$. Continue this indefinitely to get a sequence of nested intervals $\{I_n\}$, all of which cannot be covered by a finite subcollection of $\{G_\alpha\}$. 
+
+By the previous theorem, there exists some $\textbf{x}$ in every one of these intervals, so $\textbf{x} \in G_\alpha$ for some $\alpha$. Since $G_\alpha$ is open, there must exist some neighbourhood $N_r(\textbf{x})$ completely contained in $G_\alpha$. However, since the diameter of the intervals decreases by a factor of 2 each time, for sufficiently large $n$, $I_n \subseteq N_r(\textbf{x}) \subseteq G_\alpha$, contradicting the fact that $I_n$ cannot be covered by any finite subcollection of $\{G_\alpha\}$, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Heine-Borel]
+The following are equivalent for sets $E \subseteq \R^k$:
+\begin{enumerate}[(a)]
+\item $E$ is closed and bounded.
+\item $E$ is compact.
+\item Every infinite subset of $E$ has a limit point in $E$.
+\end{enumerate}
+
+\begin{proof}
+The fact that (b) implies (c) is precisely Theorem 25. 
+
+To show that (c) implies (a), suppose that every infinite subset of $E$ has a limit point in $E$, but $E$ is not closed and bounded. 
+
+\begin{itemize}
+\item 
+If $E$ is not closed, there exists a limit point $x$ of $E$ which is not contained in $E$. We construct an infinite subset of $E$ which has only $x$ as a limit point. Let $x_1$ be an arbitrary point in $N_1(x) \cap E$ and $r_1 = d(x, x_1)$. Now, let $x_n$ be a point in $E$ which is closer than $\min(1/n, r_{n-1}/2)$ to $x$. This must exist since $x$ is a limit point. This defines a sequence $\{x_n\}$. Let $X$ be the infinite set of these points. Then clearly $x$ is a limit point of $X$. However, we still have to show that it is the only limit point of $X$. Let $y \ne x$ be another limit point. Since $d(x, y) > 0$ and the $r_n$ are monotonically decreasing, there exists some $n$ such that $r_n \le d(x, y) \le r_{n+1}$. taking $r_0 = d(x, y)$ and $r < \min(r_0 - r_n, r_0 - r_{n+1})$, the neighbourhood with radius $r$ around $y$ has no points in $X$ and is thus not a limit point of $X$. 
+
+\item
+Similarly, if $E$ is not bounded, let $w \in E$ be arbitrary. Then we can create a sequence $\{x_n\}$ such that $d(w, x_n) > n$ and $x_n \in E$. Then, if $y \in E$, then there are only finitely many $x_n$ such that $d(w, x_n) < d(w, y) + 1$, so there are not infinitely many $x_n$ in $N_1(y) \cap E$, so $y$ is not a limit point. Thus, $X$ has no limit points in $E$.
+
+\end{itemize}
+
+Finally, to show (a) implies (b), suppose $E$ is closed and bounded. Since $E$ is bounded, we can surround it with a sufficiently large $k$-cell $I$. That is, $E \cap I = E$ is compact, as the intersection of a closed set and a compact set.
+\end{proof}
+\end{theorem}
+
+\begin{remark}
+Notice that the above theorem was specific to $\R^k$. One may ask how much of the theorem extends to general metric spaces. In general, (b) and (c) are equivalent in any metric space, but (a) does not imply (b) and (c).
+\end{remark}
+
+\begin{theorem}[(Weierstrass)]
+Every bounded infinite subset of $\R^k$ has a limit point in $\R^k$. 
+
+\begin{proof}
+Let $E \subseteq \R^k$ be bounded. Then, $E \subseteq I$ for some $k$-cell $I$. Since $I$ is compact, $E$ is an infinite subset of $I$ and thus has a limit point in $I \subseteq \R^k$ from the above theorem.
+\end{proof}
+\end{theorem}
+
+\section{Perfect Sets}
+
+\begin{theorem}
+Let $P$ be a non-empty perfect set in $\R^k$. Then, $P$ is uncountable. 
+
+\begin{proof}
+Suppose $P$ is non-empty but not uncountable. Since $P$ has limit points, it must be infinite, and thus countable. Enumerate the points of $P$ as $x_1, x_2, \dotsc$. 
+
+Let $V_1$ be any neighbourhood of $x_1$. Suppose we have $V_n$ such that $V_n \cap P$ is non-empty. Since every point of $P$ is a limit point of $P$, there exists some neighbourhood $V_{n+1}$ such that $\overline{V_{n+1}} \subseteq V_n$, $x_n \not\in \overline{V_{n+1}}$, and $V_{n+1} \cap P$ is non-empty. 
+
+Put $K_n = \overline{V_n} \cap P$. Notice that $\overline{V_n}$ is closed and bounded and thus compact. The $K_n$ are thus compact as closed subsets of $\overline{V_n}$. Notice $K_n$ form a decreasing sequence of compact sets, each of which are non-empty by construction, so $\bigcap_{n=1}^{\infty}$ must be non-empty. In particular, since $K_1 \subseteq P$, there must be some $x_k$ in this intersection. However, the construction forbids this.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+Every interval $[a, b]$ with $a < b$ is uncountable. In particular, the set of all real numbers is uncountable.
+
+\begin{proof}
+Every interval is perfect and thus uncountable. The set of real numbers is larger.
+\end{proof}
+\end{corollary}
+
+Are combinations of intervals the only perfect sets? No: we construct a perfect set in $\R$ with no segment, the \textbf{Cantor set}. 
+
+Let $E_0 = [0, 1]$. Remove the segment $(1/3, 2/3)$ so that $E_1 = [0, 1/3] \cup [2/3, 1]$. Removing the middle thirds indefinitely yields a decreasing sequence of compact sets, whose infinite intersection is non-empty. Call this set the Cantor set.
+
+The Cantor set contains no segment, since every segment of the form
+\[
+	\left(\frac{3k + 1}{3^m}, \frac{3k + 2}{3^m}\right)
+\]
+has a point in common with $P$. It can be shown that every segment $(\alpha, \beta)$ shares a segment of the above form, so the Cantor set contains no segment.
+
+To show that $P$ is perfect, let $x \in P$ and let $S$ be any segment containing $x$. Let $I_n$ be an interval chosen such that $n$ is so large that $I_n \subseteq S$. Then, let either endpoint is in $P$, so $x$ is a limit point and $P$ is perfect.
+
+\section{Connected Sets}
+
+\begin{definition}
+Two subsets $A, B$ of a metric space $X$ are said to be \textbf{separated} if both $A \cap \overline{B}$ and $\overline{A} \cap B$ are empty. 
+
+A set $E \subseteq X$ is said to be \textbf{connected} if it is \underline{not} a union of two non-empty separated sets.
+\end{definition}
+
+\begin{theorem}
+A subset $E$ of the real line $R$ is connected iff it has the property that if $x, y \in E$ and $x < z < y$, then $z \in E$. 
+
+\begin{proof}
+Suppose otherwise, so that for some $x, y \in E$, there exists some $z \in \R$ such that $x < z < y$ but $z \not\in E$. Then we claim $A = E \cap (-\infty, z)$ and $B = E \cap (z, \infty)$ form a separating pair for $E$. 
+
+Clearly $A \cup B = E$. Also, clearly $A$ and $B$ are non-empty, since they contain $x$ and $y$ respectively. Now, notice that everything in $\overline{A}$ is $\le z$, and everything in $B$ is $> z$. Thus, they are disjoint. A similar argument holds for the other pair. Thus, $A$ and $B$ form a separating pair for $E$, contradicting the fact that $E$ is connected.
+
+Conversely, suppose that $E$ is not connected, and in particular admits the separation $(A, B)$.  Then, let $x \in A$ and $y \in B$, and suppose without loss of generality that $x < y$. Let $z = \sup(A \cap [x, y]) \in \overline{A}$. Since $A$ and $B$ are separated, $z \not\in B$. 
+
+If $z \not\in A$, then $x < z < y$ but $z \not\in A \cup B = E$. Otherwise, if $z \in A$, then it mustn't be in $\overline{B}$, so there exists $z_1 \in (z, y)$ such that $z_1 \not\in B$. Then $x < z_1 < y$ with $z_1 \not\in E$. In either case, the contrapositive holds, completing the proof.
+\end{proof}
+\end{theorem}
+
+\section{Exercises}
+\begin{enumerate}
+\item % Question 1
+Prove that the empty set is a subset of every set.
+
+\begin{proof}
+The definition of set inclusion is vacuously true here.
+\end{proof}
+
+\item % Question 2
+A complex number $z$ is said to be \textbf{algebraic} if there are integers $a_0, \dotsc, a_n$ not all zero such that
+\[
+	a_0z^n + \dotsc + a_nz^0 = 0.
+\]
+Prove that the set of all algebraic numbers is countable. Hint: For every positive integer $N$, there are only finitely many equations with $n + |a_0| + \dotsc + |a_n| = N$.
+
+\begin{proof}
+For any $n$, let $S_n$ be the set of tuples $(k, a_0, a_1, \dotsc, a_k)$ such that $k + |a_0| + \dotsc + |a_k| = n$. Notice that this set is finite, and that each corresponding equation can only have finitely many roots. Thus, the set of algebraic numbers $A_n$ whose polynomials map to a given $S_n$ is finite. Then, $A = \bigcup_{i=1}^{\infty} A_i$ is countable.
+\end{proof}
+
+\item % Question 3
+Prove that there exist real numbers which are not algebraic.
+
+\begin{proof}
+If every real number were algebraic, there would be countably many of them, contradicting the uncountability of the reals.
+\end{proof}
+
+\item % Question 4
+Is the set of all irrational real numbers countable?
+
+\begin{proof}
+If the set of irrational real numbers were countable, then $\R = \Q \cup (\R \setminus \Q)$ would be countable, contradicting the uncountability of the reals.
+\end{proof}
+
+\item % Question 5
+Construct a bounded set of real numbers with exactly three limit points.
+
+\begin{proof}
+Let $A = \{k + 1/n : n \in \N, k \in \{0, 1, 2\}\}$. We claim that the limit points of $A$ are precisely 0, 1, and 2. Clearly, all three are limit points (for any $r > 0$, take $1/n < r$ by the Archimedean property of $\R$; then $k + 1/n$ is within $r$ of $k$).
+
+Let $y \not\in \{0, 1, 2\}$. Consider $k \in \{0, 1, 2\}$. If $y < k$ or $y > k + 1$, then taking some radius smaller than the distance to $[k, k + 1]$ fails. Otherwise, we have $y - k \in [1/(n+1), 1/(n-1)]$ for some $n$. Taking a radius smaller than the distance to the nearest of the three points $k + 1/(n+1), k + 1/n, k + 1/(n-1)$ fails.
+\end{proof}
+
+\item % Question 6
+Let $E'$ be the set of all limit points of a set $E$. Prove that $E'$ is closed. Prove that $E$ and $\overline{E}$ have the same limit points. (Recall that $\overline{E} = E \cup E'$.) Do $E$ and $E'$ always have the same limit points?
+
+\item % Question 7
+Let $A_1, A_2, \dotsc$ be subsets of a metric space.
+\begin{enumerate}[(a)]
+\item If $B_n = \bigcup_{i=1}^{n} A_i$, prove that $\overline{B_n} = \bigcup_{i=1}^{n} \overline{A_i}$. 
+
+\begin{proof}
+Let $C = \bigcup_{i=1}^{n} \overline{A_i}$. Let $x \in \overline{B_n} = B_n \cup B_n'$. If $x \in B_n$, then $x \in A_k \subseteq \overline{A_k} \subseteq C$. If $x \in B_n'$, then construct a sequence $\{x_k\}$ such that $d(x_k, x) < 1/k$ and $x_k \in B_n$. Since $\{x_n\}$ is countable, there exists at least one set $A_j$ for which $x_k \in A_j$ infinitely many times. Thus, $x \in A_j' \subseteq \overline{A_j} \subseteq C$. Putting this together, $\overline{B_n} \subseteq C$.
+
+Now, let $y \in C$. If $y \in A_j$ for some $j$, then $y \in A_j \subseteq B_n \subseteq \overline{B_n}$. If $y \in A_j'$ for some $j$, then every neighbourhood of $y$ contains an element $y_k \in A_j \subseteq B_n$, so $y \in B_n' \subseteq \overline{B_n}$. The result follows.
+\end{proof}
+
+\item If $B = \bigcup_{i=1}^{\infty} A_i$, prove that $\overline{B} \supseteq \bigcup_{i=1}^{\infty} \overline{A_i}$. Show, by an example, that this inclusion can be proper.
+\begin{proof}
+Let $x \in \bigcup_{i=1}^{\infty} \overline{A_i}$, then $x \in \overline{A_j}$ for some $j$. Either $x \in A_j \subseteq B \subseteq \overline{B}$, or $x \in A_j'$, so there are elements $x_k \in A_j \subseteq B$ in every neighbourhood of $x$, ie. $x \in \overline{B}$.
+
+The inclusion can be proper: let $A_n$ be the set of rationals such that $q = m/n$ in lowest form. Then, $B = \Q$, whose closure is $\R$, whereas the right side is still $\Q$, as $\overline{A_i} = A_i$ for all $i$.
+\end{proof}
+\end{enumerate}
+
+\item % Question 8
+Is every point of every open set $E \subseteq \R^2$ a limit point of $E$? Answer the same question for closed sets in $\R^2$.
+
+\begin{proof}
+For open sets, yes. Every interior point has a neighbourhood completely contained within $E$, so every smaller neighbourhood will contain (infinitely many) points in $E$. The same is not true in general for closed sets. For example, consider $\{(0, 1/n): n \in \N\} \cup \{(0, 0)\}$, in which $1$ is not a limit point. 
+\end{proof}
+
+\item % Question 9
+Let $E^\circ$ denote the set of all interior points of a set $E$, called the \textbf{interior} of $E$.
+\begin{enumerate}[(a)]
+\item Prove that $E^\circ$ is always open.
+\begin{proof}
+This is immediate.
+\end{proof}
+
+\item Prove that $E$ is open iff $E^\circ = E$.
+\begin{proof}
+If $E$ is open, then every point in $E$ is interior, so $E^\circ = E$. Similarly, if $E = E^\circ$, then $E$ is open from (a).
+\end{proof}
+
+\item If $G \subseteq E$ and $G$ is open, prove that $G \subseteq E^\circ$. 
+\begin{proof}
+Let $x \in G$. Then $x$ is an interior point of $G \subseteq E$, and thus an interior point of $E$.
+\end{proof}
+
+\item Prove that the complement of $E^\circ$ is the closure of the complement of $E$.
+\begin{proof}
+Let $x \not\in E^\circ$, so $x$ is not an interior point of $E$. So every neighbourhood of $x$ is not completely contained in $E$, so there exists a point in $E^c$ in every neighbourhood of $x$. In other words, $x \in {E^c}' \subseteq \overline{E^c}$. 
+
+Now let $y \in \overline{E^c}$. If $y \in E^c$, then $y \not\in E^\circ \subseteq E$. If $y \in {E^c}'$, then every neighbourhood of $y$ contains an element of $E^c$, and thus no neighbourhood of $y$ is completely contained in $E$, so $y \not\in E^\circ$.
+\end{proof}
+
+\item Do $E$ and $\overline{E}$ always have the same interiors?
+\begin{proof}
+No: let $A = \{1/n : n \in \N\} \cup \{0\}$ be a subset of $\R$ and let $E = A^c$ . Then, $\overline{E} = \R$ so its interior is $\R$. However, 0 is not an interior point of $E$: every neighbourhood contains at least one point $1/n$ not in $E$. 
+\end{proof}
+
+\item Do $E$ and $E^\circ$ always have the same closures?
+\begin{proof}
+No: consider $E = \Q$. Then $\overline{E} = \R$ and $E^\circ = \emptyset$, whose closure is also empty.
+\end{proof}
+\end{enumerate}
+
+\item % Question 10
+Let $X$ be an infinite set. For $p, q \in X$, define $d(p, q) = 1 - \delta_{p, q}$. Prove that this is a metric. Which subsets of the resulting metric space are open? Which are closed? Which are compact?
+
+\begin{proof}
+By definition, $d(p, q) \ge 0$, with equality iff $p = q$. Now let $p, q, r \in X$. Then if $p \ne r$, then $d(p, r) = 1$, while $d(p, q) + d(q, r)$ is at least 1, since at least one of the terms must be non-zero. If $p = r$, then either $q = r = p$ in which case equality holds, or $q \ne r$, in which case $0 \le 2$. Thus $d$ is a metric.
+
+Notice that for any $E \subseteq X$, a neighbourhood of size $1/2$ around any point $x \in E$ consists only of the point $x$ (any other point has $d(x, y) = 1 > 1/2$). Thus every point in any set $E$ is an interior point, so every set is open. Similarly, considering any set $F \subseteq X$, $F^c$ is open, so $F$ is closed. 
+
+Now, notice that finite sets are always compact. Infinite sets can be covered by singletons, but thus admit no finite subcover. Thus, a set in $X$ is compact iff it is finite. 
+\end{proof}
+
+\item % Question 11
+For $x, y \in \R$, define
+\begin{align*}
+	d_1(x, y) &= (x - y)^2 \\
+	d_2(x, y) &= \sqrt{|x - y|} \\
+	d_3(x, y) &= |x^2 - y^2| \\
+	d_4(x, y) &= |x - 2y| \\
+	d_5(x, y) &= \frac{|x - y|}{1 + |x - y|}.
+\end{align*}
+Determine, for each of these, whether it is a metric or not.
+
+\begin{proof}
+We prove them individually:
+\begin{enumerate}[${d}_1(x, y)$:]
+\item This is not a metric: it violates the Triangle inequality with $(x, y, z) = (0, 1, 2)$.
+\item This is a metric: this is clearly non-negative, and zero iff $|x - y| = 0$ and thus $x = y$. Also, the Triangle inequality holds.
+\item This is not a metric since $d(-1, 1) = 0$ while $1 \ne -1$.
+\item This is not a metric since $d(2, 1) = 0$ while $2 \ne 1$.
+\item Maybe.
+\end{enumerate}
+\end{proof}
+
+\item % Question 12
+Let $K = \{1/n : n \in \N\} \cup \{0\} \subseteq \R$. Prove that $K$ is compact without invoking Heine-Borel.
+
+\begin{proof}
+Let $\{G_\alpha\}$ be any open cover of $K$. Then, $0 \in K$ is in some $G_\alpha$, and since $G_\alpha$ is open, there must exist some neighbourhood $N_r(0) \subseteq G_\alpha$. Thus, if $n > 1/r$, $1/n \in G_\alpha$. Taking this, and one open set for each of the remaining $1/n$ yields a finite cover for $K$.
+\end{proof}
+
+\item % Question 13
+Construct a compact set of real numbers whose limits form a countable set.
+
+\begin{proof}
+Let $A = \{(1 + 2^{-m}) / n: m, n \in \N\}$. Notice that $\{1/n : n \in \N\} \cup \{0\} \subseteq A'$. We claim these are the only limit points. Let $y \in [0, 2]$ not in the above set of limit points. Then, $\frac{1}{n + 1} < y < \frac{1}{n}$ for some $n$. Now for every $k > n$ in $\N$, $\frac{1}{m_k + 1} < y - \frac{1}{k} \le \frac{1}{m_k}$ for some $m_k \in \N$. Notice that as $k$ increases, $m_k$ decreases, so the interval $\left[\frac{1}{m_k + 1}, \frac{1}{m_k}\right]$ only gets larger. Thus, there are no elements in 
+\[
+	A \cap \left( \frac{1}{n + 1} + \frac{1}{m_{n+1} + 1}, \frac{1}{n + 1} + \frac{1}{m_{n+1}} \right), 
+\]
+a neighbourhood of $y$ by construction. Thus $y$ is not a limit point, and thus $A$ has countably many limit points. 
+\end{proof}
+
+\item % Question 14
+Give an example of an open cover of the segment $(0, 1)$ which has no finite subcover.
+
+\begin{proof}
+Let $G_n = (1/(n+2), 1/n)$ for $n \in \N$. This is a cover since for any $r \in (0, 1)$, there exists $n$ such that $1/(n + 2) < r < 1/n$ so $r \in G_n$. However, notice that $1/(n + 1)$ is \underline{only} in $G_n$, so every subcover of $(0, 1)$ would have to contain $G_n$ for every $n \in \N$, forcing it to be countable, as required.
+\end{proof}
+
+\item % Question 15
+Show that Cantor's intersection theorem becomes false if the condition of compactness is weakened to either solely closed or bounded.
+
+\begin{proof}
+Suppose the restriction is weakened to closed sets. Then let $K_r = \{x \in \R : x \le r\}$, each of which is closed. Also, 
+\[
+	K_{a_1} \cap \dotsc \cap K_{a_n} = K_{\min(a_1, \dotsc, a_n)} \ne \emptyset
+\]
+but $\bigcap_{r \in \R} K_r = \emptyset$.
+
+Now let $F_k = (0, 1/k)$ be bounded sets. Then
+\[
+	F_{k_1} \cap \dotsc \cap F_{k_n} = F_{\max(k_1, \dotsc, k_n)} \ne \emptyset
+\]
+but $\bigcap_{k \in \N} F_k = \emptyset$.
+\end{proof}
+
+\item % Question 16
+Regard $\Q$ as a metric space with $d(p, q) = |p - q|$. Let $E$ be the set of all $p \in \Q$ with $2 < p^2 < 3$. Show that $E$ is closed and bounded in $\Q$ but not compact. Is $E$ open in $\Q$?
+
+\begin{proof}
+$E$ is bounded below and above by 1 and 2 respectively. Also, $E$ is closed since $\Q$ is dense in $\R$. To show $E$ is not compact, we employ a similar construction as in Exercise 14. $E$ is open in $\Q$, since a neighbourhood sufficiently small can be chosen around every point, completely contained in $E$.
+\end{proof}
+
+\item % Question 17
+Let $E$ be the set of all $x \in [0, 1]$ whose decimal expansion contains only the digits 4 and 7. Is $E$ countable? Is $E$ dense in $[0, 1]$? Is $E$ compact? Perfect?
+
+\begin{proof}
+$E$ is uncountable: there is a bijection between $E$ and the real numbers between 0 and 1, simply by replacing 4's with 0's and 7's with 1's and interpreting the resulting string as a binary expansion. $E$ is not dense in $[0, 1]$ since there are no elements of $E$ in $(0.5, 0.6)$, as the first digit will always be 5. $E$ is clearly bounded. 
+
+Suppose that $x$ contained a digit other than 4 or 7. That is, suppose $x = 0.x_1 x_2 x_3 \dots x_k\dots$ with $x_k \not\in \{4, 7\}$. Then, choosing a neighbourhood of size $2 \cdot 10^{-(k+1)}$ assures that either $x_k$ or $x_{k+1}$ will not be either a 4 or a 7. Thus, the neighbourhood will contain no elements in $E$. Thus, the contrapositive states that every limit point of $E$ must be in $E$, so $E$ is closed and thus compact.
+
+Let $x \in E'$. We can find elements $x_n$ in $E$ arbitrarily close to $x$ by switching the $n$-th digit between a 4 and a 7, acquiring elements in $E$ which are a distance $3 \cdot 10^{-n}$ from $x$. Thus, $E$ is also perfect.
+\end{proof}
+
+\item % Question 18
+Is there a non-empty perfect set in $\R$ which contains no rational number?
+
+\begin{proof}
+Yes: enumerate the rational numbers between 0 and 1 as $q_n$. Then, let $A$ be the set of real numbers between 0 and 1 such that the $n$-th ternary digit of any $x \in A$ is chosen to be different from the $n$-th ternary digit of $q_n$. In this way, $A$ contains no rational numbers.
+
+$A$ is non-empty: this must be the case if $[0, 1]$ is to be uncountable. $A$ is closed: suppose $x$ is a limit point of $A$ so that we can find elements of $A$ arbitrarily close to $x$. In particular, we can find elements of $A$ whose fist $n$ ternary digits match. If $x$ were not in $P$, then there would be some $n$ for which $x_n = (q_n)_n$, but we can find some element of $P$ which matches $x$ to more than $n$ digits, a contradiction. Finally, $A$ is perfect since we can always generate close elements in $P$ to any $x$ by choosing the other possibility for any one of the digits. 
+\end{proof}
+
+\item % Question 19
+Prove the following:
+\begin{enumerate}
+\item If $A, B$ are closed and disjoint in some metric space $X$, they are separate.
+
+\begin{proof}
+Since $A$ and $B$ are closed, $A = \overline{A}$ and $B = \overline{B}$, so $(A, \overline{B})$ and $(\overline{A}, B)$ are both disjoint sets (they are both $(A, B)$).
+\end{proof}
+
+\item Prove the same for disjoint open sets.
+\begin{proof}
+Suppose otherwise, and without loss of generality, suppose $x \in \overline{A} \cap B$. Then, some neighbourhood of $x$ is completely contained in $B$. Also, there exists some element of $A$ in this neighbourhood, so there exists $y \in A \cap B$, contradicting the disjointness of $A$ and $B$.
+\end{proof}
+
+\item Fix $p \in X$, $\delta > 0$, and define $A = \{q \in X: d(p, q) < \delta\}$. Define $B$ similarly, with $>$ instead of $<$. Show $A$ and $B$ are separated.
+
+\begin{proof}
+If $B$ is empty, we are done. (Notice $A$ is never empty: $p \in A$).
+
+Let $\alpha = \sup_{q \in A} d(p, q)$, which exists since the set is bounded above by $\delta$. Similarly, let $\beta = \inf_{q \in B} d(p, q)$, since the set is bounded below by $\delta$ and non-empty by assumption. We have $\alpha \le \delta \le \beta$. Now $\overline{A} = \{q \in X: d(p, q) \le \alpha\}$ and $\overline{B} = \{q \in X: d(p, q) \ge \beta\}$, so the result follows since $\alpha \le \beta$ so the required sets are disjoint.
+\end{proof}
+\item Prove that every connected metric space with at least two points is uncountable. Hint: Use (c).
+
+\begin{proof}
+Suppose $a, b$ are distinct elements of a connected metric space $X$. Let $\delta = d(\alpha, \beta) > 0$. Then, for every $r \in (0, \delta)$, let $A_r$ and $B_r$ be the sets of elements of $X$ with distance less than, or greater than respectively, $r$. Then, there must be an element $z_r$ in $X$ with $d(z_r, a) = r$, otherwise $A_r$ and $B_r$ form a separation of $X$, as in (c). Thus, there exists an injection from the uncountable set $(0, \delta)$ to $X$ so $X$ is uncountable.
+\end{proof}
+\end{enumerate}
+
+\item % Question 20
+Are closures and interiors of connected sets always connected? (Look at subsets of $\R^2$.)
+
+\begin{proof}
+Closures of connected sets are connected. Suppose $E$ is connected but $\overline{E}$ is not. Then, $\overline{E}$ admits a separation $(A, B)$. Then, $(A \cap E, B \cap E)$ forms a separation of $E$, a contradiction. However, this is not the same for interiors: take $A = N_1(-2) \cup N_1(2) \cup L(-2, 2) \subseteq \C$ where $L(a, b)$ is the line segment between $a$ and $b$. Then $A^\circ = N_1(-2) \cup N_1(2)$ which is disconnected.
+\end{proof}
+
+\item % Question 21
+Let $A, B$ be separated subsets of $\R^k$. Suppose $a \in A$, $b \in B$, and define $p(t) = (1 - t)a + tb$ for $t \in \R$. Put $A_0 = p^{-1}(A)$ and $B_0 = p^{-1}(B)$.
+
+\begin{enumerate}
+\item Prove that $A_0$ and $B_0$ are separated subsets of $\R^1$. 
+\begin{proof}
+Notice firstly that both sets are non-empty as they contain $0$ and $1$ respectively. Now suppose, for the sake of contradiction that $t \in \overline{A_0} \cap B_0$, so that there are $t_0$ arbitrarily close to $t$ in $A_0$, and also $t \in B_0$. This implies there are $p(t_0)$ arbitrarily close to $p(t)$ in $A$ and also $p(t) \in B$, so $p(t) \in \overline{A} \cap B$, contradicting the fact that $A, B$ are separated.
+\end{proof}
+\item Prove that there exists $t_0 \in (0, 1)$ such that $p(t_0) \not\in A \cup B$.
+\begin{proof}
+Suppose otherwise, so that $A_0 \cup B_0 = [0, 1]$. Let $\beta = \inf B_0 \in \overline{B_0}$. We know $\beta \not\in A_0$ since $A_0 \cap \overline{B_0} = \emptyset$. However, since $A_0 \cup B_0 = [0, 1]$, there are points in $A_0$ arbitrarily close to $\beta$. This implies $\beta \in \overline{A_0}$ so $\beta \not\in B_0$. This implies $\beta \not\in A_0 \cup B_0 = [0, 1]$ which is impossible, forming our desired contradiction.
+\end{proof}
+
+\item Prove that every convex subset of $\R^k$ is connected.
+\begin{proof}
+If a subset $E$ were not connected, then the above construction shows that there exists an incomplete line in $E$, so it fails to be convex.
+\end{proof}
+\end{enumerate}
+
+\item % Question 22
+A metric space is called \textbf{separable} if it contains a countable dense subset. Show that $\R^k$ is separable. Hint: Consider the set of points which have only rational coordinates.
+
+\begin{proof}
+Let $\Q^k$ be the set of $k$-tuples of rational numbers. Notice that in every open ball, we can completely enclose a $k$-cell. This $k$-cell is determined by $k$ intervals in $\R$, each of which contain a rational number since $\Q$ is dense. Taking these as coordinates yields an element of $\Q^k$ in the original neighbourhood. Now $\Q^k$ is countable by an earlier theorem, so $\R^k$ is separable.
+\end{proof}
+
+\item % Question 23
+A collection $\{V_\alpha\}$ of open subsets of $X$ is said to be a \textbf{base} for $X$ if the following is true: For every $x \in X$ and every open set $G \subseteq X$ containing $x$, we have $x \in V_\alpha \subseteq G$ for some $\alpha$. In other words, every open set in $X$ is the union of a subcollection of $\{V_\alpha\}$.
+
+Prove that every separable metric space has a \underline{countable} base. Hint: take all neighbourhoods with rational radius and center in some countable dense subset of $X$.
+
+\begin{proof}
+As the hint suggests, take $\{V_\alpha\} = \{N_r(x): x \in D, r \in \Q\}$, for some countable dense subset $D$ of $X$. Then, let $G$ be an open set. Then, $G$ is the union of all the elements of $\{V_\alpha\}$ which are subsets of $G$. This works since $\R$ satisfies the least-upper-bound property, so a sequence of rationals can approximate any radius arbitrarily closely). Also, $\{V_\alpha\}$ is countable since there exists a surjection from it to $D \times \Q$ which is countable.
+\end{proof}
+
+\item % Question 24
+Let $X$ be a metric space in which every infinite subset has a limit point. Prove that $X$ is separable.
+
+\begin{proof}
+Fix $\delta > 0$ and pick $x_1 \in X$. Then, choose $x_{j+1} \in X$ inductively such that $d(x_i, x_{j+1}) \ge \delta$ for $i = 1, \dotsc, j$, if possible. This process must terminate after a finite number of steps, otherwise the set $A = \{x_n : n \in \N\}$ is an infinite set without a limit point. Then, $X$ can be covered by finitely many neighbourhoods of size $\delta$. 
+
+Take $\delta = 1/n, n \in \N$. Then, let $K$ be the union of all the sets of centers ($x_i$) in the above construction, for each $\delta = 1/n$. We claim $K$ is dense. Let $x \in X$ and $r > 0$. We aim to find some $y \in N_r(x) \cap Y$. Let $n \in \N$ such that $1/n < r$. If no elements of $K$ are in $N_{1/n}(x) \subseteq N_r(x)$, then the above construction for $x_i$ could have proceeded one more step, contradicting our construction. Thus $K$ is a countable dense set in $X$, so $X$ is separable.
+\end{proof}
+
+\item % Question 25
+Prove that every compact metric space $K$ has a countable base, and that $K$ is therefore separable. Hint: For every positive integer $n$, there are finitely many neighbourhoods of radius $1/n$ whose union covers $K$.
+
+\begin{proof}
+For $n \in \N$, consider the cover $\{N_{1/n}(x): x \in K\}$. Since $K$ is compact, some finite subset of these neighbourhoods must cover $K$. From the same conclusion as in Exercise 24, the set $G$ of all the centres of the neighbourhoods for $n \in \N$ forms a countable dense set in $K$, so $K$ is separable.
+\end{proof}
+
+\item % Question 26
+Let $X$ be a metric space in which every infinite subset has a limit point. Prove that $X$ is compact. 
+
+\begin{proof}
+By Exercise 24, $X$ is separable. By Exercise 23, $X$ has a countable base, say $\{V_n\}$. Then every open cover of $X$ has a countable subcover $\{G_n\} \subseteq \{V_n\}$. Suppose that there exists no finite subcover of $\{G_n\}$ which covers $X$. Then, the complement $F_n = \left( G_1 \cup \dotsc \cup G_n\right)^c$ is non-empty for each $n$ but $\bigcap F_n$ is empty. Let $E$ be a set which contains a point from each $F_n$, and let $x \in X$ be a limit point of $E$, which exists by presumption. But then $x \not\in G_n$ for any $G_n$, a contradiction.
+\end{proof}
+
+\item % Question 27
+Define a point $p$ in a metric space $X$ to be a \textbf{condensation point} of a set $E \subseteq X$ if every neighbourhood of $p$ contains uncountably many points of $E$.
+
+Suppose $E \subseteq \R^k$ is uncountable, and let $P$ be the set of all condensation points of $E$. Prove that $P$ is perfect and that at most countably many points of $E$ are not in $P$. In other words, show that $P^c \cap E$ is at most countable. Hint: Let $\{V_n\}$ be a countable base of $\R^k$, let $W$ be the union of those $V_n$ for which $E \cap V_n$ is at most countable, and show that $P = W^c$.
+
+\begin{proof}
+We follow the construction of $W$ outlined in the hint. Let $x \in W^c$. Then $x$ is not in any $V_n$ for which $E \cap V_n$ is at most countable. In fact, this means that if $x \in V_n$, then $E \cap V_n$ must be uncountable. Now consider $N_r(x)$. It is an open set, so it can be written as the union of some subcollection $V_{n_1} \cup \dotsc \cup V_{n_k}$ of $\{V_n\}$, of which each $V_{n_i} \cap E$ is uncountable. So $N_r(x) \cap E \supseteq V_{n_1} \cap E$ is an uncountable set, so $x \in P$.
+
+Now, let $y \in W$, so $y \in V_n$ for some $n$ such that $E \cap V_n$ is at most countable. Then, $V_n$ contains some neighbourhood of $y$ which contains at most countably many points in $E$, so $y \not\in P$. Thus $W \subseteq P^c$ and so $P \subseteq W^c$, so we conclude $P = W^c$. 
+
+The fact that $P^c \cap E = W \cap E$ is at most countable follows by construction. Now we claim $W^c$ is perfect. The fact that $W^c$ is closed follows directly from the fact that it is the complement of a countable union of open sets. It suffices to show that each point of $W^c$ is a limit point of $W^c$. Let $x \in W^c$. If some neighbourhood of $x$ did not contain any points in $W^c$, then there must be only points in $W \cap E$. However, there are at most countably many of these points, and any neighbourhood of $x$ is uncountable. Thus the result follows.
+\end{proof}
+
+\item % Question 28
+Prove that every closed set in a separable metric space is the union of a (possibly empty) perfect set and a set which is most countable. (Corollary: Every countable closed set in $\R^k$ has isolated points.) Hint: Exercise 27.
+
+\begin{proof}
+If $F$ is at most countable, we are done. Otherwise, if $F$ is uncountable, the proof from Exercise 27 extends to $F \subseteq X$, so if $P$ is the set of condensation points of $F$, then $F = P \cup (F \setminus P)$ with $F \setminus P$ at most countable, as required.
+
+For the corollary, let $E$ be a countable closed set in the separable metric space $\R^k$. If it had no isolated points, it would be perfect and thus uncountable, a contradiction.
+\end{proof}
+
+\item % Question 29
+Prove that every open set in $\R$ is the union of an at most countable collection of disjoint segments. Hint: Exercise 22.
+
+\begin{proof}
+Let $A$ be open. For every $x$, let $I_x = (a, b)$ be the largest segment in $A$ containing $x$. That is, let $a = \inf\{z: (z, x) \in A\}, b = \sup\{y: (x, y) \subseteq A\}$ in the extended reals $\overline{\R}$. Then, $a, b \not\in A$ otherwise a larger interval exists (since $A$ is open). Also, every $c \in (a, b)$ must be in $A$ as otherwise if $x \le c$, there would exist some $x \le c < y < b$ for which $(x, y) \not\subseteq A$ and similarly for the other case. 
+
+Now, if $(a, b)$ and $(c, d)$ share at least one point, then $c < b$ and $d > a$. Since $a, c \not\in A$, we must have $a \ge c$ and $c \ge a$, so $a = c$. Similarly $b = d$ so the intervals are the same. That is, if two intervals share any point, they must be the same interval. Now, every interval $I_x$ contains at least one rational since $\Q$ is dense, so there exists an injection from our set of open sets to the countable set of rational numbers. Thus, our set is countable, as required.
+\end{proof}
+
+\item % Question 30
+Imitate the proof of Theorem 31 to obtain the following result:
+
+If $\R^k = \bigcup_{n=1}^{\infty} F_n$ where $F_n$ is a closed subset of $\R^k$, then at least one $F_n$ has a non-empty interior.
+
+Equivalently: If $G_n$ are dense open subsets of $\R^k$, then $\bigcap_{n=1}^{\infty} G_n$ is not empty (in fact, it is dense in $\R^k$).
+
+(This is a special case of Baire's theorem; see Exercise 3.22 for the general case).
+
+\begin{proof}
+Let $x_1 \in G_1$, so it has a neighbourhood $V_1$ whose closure is in $G_1$. Since $G_2$ is dense, $V_1$ contains a point $x_2$ in $G_2$ for which there exists a neighbourhood whose closure is completely in $V_1 \cap G_2$. Repeat this process indefinitely, choosing $x_n$ in $V_{n-1} \cap G_n$ and some neighbourhood $V_n$ around it whose closure is completely contained in $V_{n-1} \cap G_n$. This yields a nested sequence of non-empty closed and bounded sets $\{\overline{V_n}\}$, so $\bigcap_{n=1}^{\infty} \overline{V_n}$ is non-empty. But inductively
+\[
+	\overline{V_n} \subseteq V_{n-1} \cap G_n \subseteq \overline{V_{n-1}} \cap G_n \subseteq \left[\bigcap_{k=1}^{n-1} G_k\right] \cap G_n = \bigcap_{k=1}^{n} G_k
+\]
+so any element in $\bigcap_{n=1}^{\infty} \overline{V_n}$ is also in $\bigcap_{k=1}^{\infty} G_k$, so the latter is non-empty, proving the given equivalent statement.
+\end{proof}
+\end{enumerate}

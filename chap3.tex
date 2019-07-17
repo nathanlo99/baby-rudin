@@ -1,0 +1,1382 @@
+
+\chapter{Numerical Sequences and Series}
+
+\section{Convergent Sequences}
+\begin{definition}
+A sequence $\{p_n\}$ in a metric space $X$ \textbf{converges} if there exists $p \in X$ such that for every $\epsilon > 0$, there exists an integer $N$ such that $n \ge N$ implies $d(p_n, p) < \epsilon$. In this case, we say $p$ \underline{is the limit of} $\{p_n\}$, or $p_n \to p$, or $\lim_{n \to \infty} p_n = p$. A sequence which does not converge \textbf{diverges}. A sequence is \textbf{bounded} if its range is bounded.
+\end{definition}
+
+We prove some important properties of convergent sequences in metric spaces.
+
+\begin{theorem} % Theorem 3.2
+Let $\{p_n\}$ be a sequence in a metric space $X$. 
+\begin{enumerate}[(a)]
+\item $\{p_n\}$ converges to $p \in X$ iff every neighbourhood of $p$ contains all but finitely many $n$.
+\item If $p, p' \in X$ and $\{p_n\}$ converges to both $p$ and $p'$, then $p = p'$. 
+\item If $\{p_n\}$ converges, then it is bounded.
+\item If $E \subseteq X$ and $p$ is a limit point of $E$, then there is a sequence $\{p_n\}$ in $E$ such that $p_n \to p$. 
+\end{enumerate}
+
+\begin{proof}
+For (a), suppose that $p_n \to p$. Then every neighbourhood of size $\epsilon > 0$ must contain all $p_n$ for some $n \ge N$ by definition. Now suppose every neighbourhood of $p$ contains all but finitely many $p_n$. Then for any $\epsilon > 0$, the neighbourhood of size $\epsilon$ contains all but finitely many $p_n$, so there exists $N$ such that $n \ge N$ implies $p_n \in N_\epsilon(x)$. 
+
+For (b), if $p \ne p'$, then $d(p, p') = r > 0$. Selecting $\epsilon < r/2$ will force all but finitely many $p_n$ lie in $N_{r/2}(p) \cap N_{r/2}(p') = \emptyset$, a contradiction.
+
+For (c), let $N$ such that $n \ge N$ implies $d(p, p_n) < 1$. Then, $d(p, p_n) \le \max\{d(p, p_1), \dotsc, d(p, p_{N-1}), 1\}$.
+
+For (d), take $p_n$ to be some element of $E$ in $N_{1/n}(p)$, which exists since $p$ is a limit point of $E$. This converges to $p$, given $N > 1/\epsilon$. 
+\end{proof}
+\end{theorem}
+
+The following theorem states we can combine convergent sequences the way we expect. 
+
+\begin{theorem} % Theorem 3.3
+Suppose $\{s_n\}, \{t_n\}$ are complex sequences and $s_n \to s, t_n \to t$.
+\begin{enumerate}[(a)]
+\item $(s_n + t_n) \to s + t$.
+\item $cs_n \to cs$, $c + s_n \to c + s$.
+\item $s_nt_n \to st$.
+\item $1/s_n \to 1/s$ given $s_n, s \ne 0$.
+\end{enumerate}
+
+\begin{proof}
+For (a), let $\epsilon > 0$ be arbitrary and choose $N_s, N_t$ such that $n \ge N_s$ ($n \ge N_t$) implies $|s_n - s| < \epsilon/2$ ($|t_n - t| < \epsilon/2$). Then, if $n \ge \max(N_s, N_t)$,
+\[
+	|s_n + t_n - (s + t)| \overset{\Delta}{\le} |s_n - s| + |t_n - t| < \epsilon
+\]
+and the result follows.
+
+For the first part of (b), if $c = 0$, the result is immediate. Otherwise, let $\epsilon > 0$ and $N \in \N$ such that $n \ge N$ implies $|s - s_n| < \epsilon/|c|$. Then $n \ge N$ implies $|cs - cs_n| < \frac{|c| \epsilon}{|c|} = \epsilon$, completing the proof. The second part is similarly easy.
+
+For (c), we use the following manipulation:
+\[
+	s_nt_n - st = s_nt_n - s_nt + s_nt - st = s_n(t_n - t) + (s_n - s)t
+\]
+Choose $N_s$ such that $n \ge N_s$ implies $|s_n - s| < \epsilon/2|t|$ and $N_t$ such that $n \ge N_t$ implies $|t_n - t| < \epsilon/2S$, where $S = \max_{n\in\N} |s_n|$. Then, if $n \ge \max(N_s, N_t)$, 
+\[
+	|s_nt_n - st| = |s_n(t_n - t) + (s_n - s)t| \le |s_n(t_n - t)| + |(s_n - s)t| = |s_n||t_n - t| + |s_n - s||t| \le S \cdot \frac{\epsilon}{2S} + \frac{\epsilon}{2|t|} \cdot |t| = \epsilon
+\]
+as required. If $|t| = 0$, then choose $N_s$ such that $n \ge N_s$ implies $|t_n| < \epsilon / S$, and the result follows.
+
+For (d), we can use (c) to conclude $(1/s_n) s_n \to 1$, and since $s_n \to s$, we must have $1/s_n \to 1/s$.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.4
+The following statements are true:
+\begin{enumerate}
+\item Suppose $\textbf{x}_n \in \R^k$ and $\textbf{x}_n = (\alpha_{1,n}, \dotsc, \alpha_{k,n})$. Then $\{\textbf{x}_n\}$ converges to $\textbf{x} = (\alpha_1, \dotsc, \alpha_k)$ iff each $\{\alpha_{i,n}\}$ converges to $\alpha_i$.
+
+\item Suppose $\{\textbf{x}_n\}, \{\textbf{y}_n\}$ are sequences in $\R^k$, and $\{c_n\}$ is a sequence of real numbers, and $\textbf{x}_n \to \textbf{x}$, $\textbf{y}_n \to \textbf{y}$, and $c_n \to c$. Suppose further that $\textbf{x}_n = (\alpha_{1,n}, \dotsc, \alpha_{k,n})$ and $\textbf{y}_n = (\beta_{1,n}, \dotsc, \beta_{k,n})$. 
+
+Then,
+\[
+	\textbf{x}_n + \textbf{y}_n \to \textbf{x} + \textbf{y},\ \textbf{x}_n \cdot \textbf{y}_n \to \textbf{x} \cdot \textbf{y},\ c_n\textbf{x}_n \to c \textbf{x}
+\] 
+\end{enumerate}
+\begin{proof}
+For (a), suppose $\{\textbf{x}_n\}$ converges to $\textbf{x}$. So for $\epsilon > 0$, we can choose $N \in \N$ such that $n \ge N$ implies $|\textbf{x}_n - \textbf{x}| < \epsilon$. Then for any $i$, $|\alpha_{i,n} - \alpha_i| < \epsilon$ and the result follows.
+
+Suppose each $\{\alpha_{i,n}\}$ converges to $\alpha_i$. Let $\epsilon > 0$. For each $i$, we can choose $N_i \in \N$ such that $|\alpha_{i,n} - \alpha_i| < \epsilon/\sqrt{k}$ so that if $n \ge \max(N_1, \dotsc, N_k)$, then
+\[
+	|\textbf{x}_n - \textbf{x}| = \sqrt{\sum_{i=1}^{k} |\alpha_{i,n} - \alpha_i|^2} \le \sqrt{k \cdot \frac{\epsilon^2}{k}} = \epsilon,
+\]
+completing the proof.
+
+For the first part of (b), 
+\[
+	(\textbf{x}_n + \textbf{y}_n)_{i} = \alpha_{i,n} + \beta_{i,n} \to \alpha_i + \beta_i = (\textbf{x} + \textbf{y})_i
+\]
+so the result follows from part (a).
+
+For the second part, 
+\[
+	\textbf{x}_n \cdot \textbf{y}_n = \sum_{i=1}^{k} \alpha_{i,n} \beta_{i,n} \to \sum_{i=1}^{k} \alpha_i \beta_i = \textbf{x} \cdot \textbf{y}.
+\]
+
+For the final part,
+\[
+	(\beta_n \textbf{x}_n)_i = \beta_n \alpha_{i,n} \to \beta \alpha_i = (\beta \textbf{x})_i
+\]
+so the result follows from part (a).
+\end{proof}
+\end{theorem}
+
+\begin{definition} % Question 3.5
+Given a sequence $\{p_n\}$, consider an increasing sequence of positive integers $\{n_k\}$. Then the sequence $\{p_{n_k}\}$ is a \textbf{subsequence} of $\{p_n\}$. If $\{p_{n_k}\}$ converges, its limit is called a \textbf{subsequential limit} of $\{p_n\}$.
+\end{definition}
+
+\begin{theorem} % Theorem from Def 3.5
+$\{p_n\}$ converges to $p$ iff every subsequence of $\{p_n\}$ converges to $p$. 
+
+\begin{proof}
+Suppose $p_n \to p$. Then for any $\epsilon > 0$, there exists $N \in \N$ such that $n \ge N$ implies $|p_n - p| < \epsilon$. Then if $\{p_{n_k}\}$ is a subsequence of $p_n$, then there exists some $K \in \N$ such that $k \ge K$ implies $n_k \ge N$. So for $k \ge K$, we have $|p_{n_k} - p| < \epsilon$. 
+
+If every subsequence of $p_n$ converges to $p$, then in particular, the subsequence with $n_k = k$ (the entire sequence) converges, so we are done!
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.6
+The following are true:
+\begin{enumerate}
+\item If $\{p_n\}$ is a sequence in a compact metric space $X$, then some subsequence of $\{p_n\}$ converges to a point of $X$.
+
+\item Every bounded sequence in $\R^k$ contains a convergent subsequence.
+
+\begin{proof}
+For (a), let $K$ be the image of $\{p_n\}$. Then if $K$ is finite, there exists some $p \in K$ which is attained infinitely often. The subsequence of these points converges to $p$. Otherwise, $K$ is an infinite subset of a compact metric space, and thus admits a limit point in $X$. The result follows from Theorem 3.2(d).
+
+The result in (b) follows from (a) since bounded subsets of $\R^k$ lie inside a compact subset of $\R^k$ (namely the closure of the image of the sequence). 
+\end{proof}
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.7
+The subsequential limits of a sequence $\{p_n\}$ in a metric space $X$ form a closed subset of $X$.
+
+\begin{proof}
+Let $E^*$ be the set of all subsequential limits of $\{p_n\}$ and let $q$ be a limit point of $E^*$. Choose $n_1$ such that $p_{n_1} \ne q$. If this doesn't exist, $E^*$ has one point and we are done. Put $\delta = d(q, p_n)$. Then build $n_k$ inductively, so that given $n_1, \dotsc, n_{i-1}$, we choose $x \in E^*$ such that $d(x, q) < 2^{-i} \delta$. Since $x \in E^*$, we can choose $n_i > n_{i-1}$ such that $d(x, p_{n_i}) < 2^{-i} \delta$. Then $d(q, p_{n_i}) < 2^{1-i} \delta$ so $p_{n_i} \to q$ so $q \in E^*$.
+\end{proof}
+\end{theorem}
+
+\section{Cauchy Sequences}
+
+\begin{definition}
+A sequence $\{p_n\}$ in a metric space $X$ is said to be a \textbf{Cauchy sequence} if for every $\epsilon > 0$, there exists an integer $N$ such that $d(p_n, p_m) < \epsilon$ if $n, m \ge N$.
+
+Let $E$ be a non-empty subset of a metric space $X$ and let $S$ be the set of all real numbers of the form $d(p, q)$ with $p, q \in E$. Then $\diam E = \sup S$ is the \textbf{diameter} of $E$.
+
+Clearly a sequence $\{p_n\}$ is Cauchy iff $\diam E_N \to 0$, where $E_n = \{p_{n}, p_{n+1}, \dotsc\}$.
+\end{definition}
+
+\begin{theorem} % Theorem 3.10
+The following are true:
+\begin{enumerate}
+\item If $E$ is a subset of a metric space $X$, then $\diam E = \diam \overline{E}$. 
+
+\item If $K_n$ is a sequence of compact sets in $X$ such that $K_n \supseteq K_{n+1}$ and $\diam K_n \to 0$, then $\bigcap_{n=1}^{\infty} K_n$ consists of exactly one point.
+\end{enumerate}
+
+\begin{proof}
+For (a), notice that $E \subseteq \overline{E}$ so $\diam E \le \diam \overline{E}$. If $\diam \overline{E} > \diam E$, there exists a pair of elements $x, y \in \overline{E}$ with $|x - y| > \diam E$. If one of $x, y$ is not in $E$, then a neighbourhood of size less than $(|x - y| - \diam E)/2$ around the element in $\overline{E}$ has no elements in $E$, a contradiction. A similar argument can be made if both are not in $E$. 
+
+For (b), we know from Nested interval theorem that $S = \bigcap_{n=1}^{\infty} K_n$ is non-empty. If $S$ had more than one point, say $a$ and $b$, then $\diam S_n \ge d(a, b) > 0$ all $n$ and thus $\diam S_n \nto 0$, a contradiction.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.11
+The following are true:
+\begin{enumerate}
+\item In any metric space $X$, every convergent sequence is a Cauchy sequence.
+
+\item If $X$ is a compact metric space and if $\{p_n\}$ is a Cauchy sequence in $X$, then $\{p_n\}$ converges to some point of $X$.
+
+\item In $\R^k$, every Cauchy sequence converges.
+\end{enumerate}
+
+\begin{proof}
+For (a), let $\epsilon > 0$. Then there exists $N$ such that $n \ge N$ implies $d(p_n, p) \le \epsilon/2$. Then for any $m, n \ge N$, we have $d(p_n, p_m) \le d(p_n, p) + d(p_m, p) < \epsilon$. 
+
+For (b), let $E_n = \{p_n, p_{n+1}, \dotsc\}$. Then since $\{p_n\}$ is Cauchy, $\diam \overline{E_n} \to 0$. Also, $\overline{E_n}$ are subsets of $X$ and thus compact. Finally, $\overline{E_n} \supseteq \overline{E_{n+1}}$ by definition. By Theorem 3.10, $\bigcap_{n=1}^{\infty} \overline{E_n}$ consists of one point. Let this point be $p$. Since $\diam \overline{E_n} \to 0$, points in $\{p_n\}$ get arbitrarily close to $p$ so $\{p_n\}$ converges to $p \in X$.
+
+For (c), Cauchy sequences are bounded, and thus their image is contained in a compact subset of $\R^k$. The result follows from (b).
+\end{proof}
+\end{theorem}
+
+\begin{definition} % Definition 3.12
+A metric space in which every Cauchy sequence converges is \textbf{complete}. 
+
+Theorem 3.11 says that \underline{all compact metric spaces and all Euclidean spaces are complete}. 
+
+Also, \underline{every closed subset of a complete metric space is complete}.
+\end{definition}
+
+\begin{definition} % Definition 3.13
+A sequence $\{s_n\}$ of real numbers is said to be
+\begin{itemize}
+\item \textbf{monotonically increasing} if $s_n \le s_{n+1}$ for all $n$,
+\item \textbf{monotonically decreasing} if $s_n \ge s_{n+1}$ for all $n$
+\end{itemize}
+
+The class of monotonic sequences consists of the increasing and decreasing sequences.
+\end{definition}
+
+\begin{theorem} % Theorem 3.14
+Suppose $\{s_n\}$ is monotonic. Then $\{s_n\}$ converges iff it is bounded.
+
+\begin{proof}
+Suppose $\{s_n\}$ is increasing and bounded. Then its image admits a least upper bound $\alpha$. For every $\epsilon > 0$, there exists $N$ such that $s - \epsilon < s_N \le s$, otherwise $s - \epsilon$ would be a smaller upper bound. For $n \ge N$, $s - \epsilon < s_N \le s_n \le s$, as required.
+
+The converge follows from Theorem 3.2(c).
+\end{proof}
+\end{theorem}
+
+\section{Upper and Lower Limits}
+
+\begin{definition} % Definition 3.15, 3.16
+If $\{s_n\}$ is a sequence of real numbers such that for any $M \in \R$ there exists $N \in \N$ such that $n \ge N$ implies $s_n \ge M$, then we say $s_n \to +\infty$. 
+
+Similarly, if for any $M \in \R$, there exists $N \in \N$ such that $n \ge N$ implies $s_n \le M$, then we say $s_n \to -\infty$. 
+
+Let $\{s_n\}$ be a sequence of real numbers. Let $E$ be the set of possibly infinite subsequential limits. Then, let $s^* = \sup E$ and $s_* = \inf E$, called the \textbf{upper} and \textbf{lower limits} of $\{s_n\}$ respectively. 
+
+We say
+\[
+	\limsup_{n \to \infty} s_n = s^* \text{ and } \liminf_{n \to \infty} s_n = s_*.
+\]
+\end{definition}
+
+\begin{theorem} % Theorem 3.17
+Let $\{s_n\}$ be a sequence of real numbers. Let $E$ be the set of possibly infinite subsequential limits of $\{s_n\}$, and $s^* = \limsup s_n$. Then the following are true:
+
+\begin{enumerate}
+\item $s^* \in E$.
+\item If $x > s^*$, there is an integer $N$ such that $n \ge N$ implies $s_n < x$. 
+\end{enumerate}
+Moreover, $s^*$ is the only number with these properties.
+
+\begin{proof}
+For (a), if $s_n \to \pm \infty$, then every subsequence goes to $\pm \infty$ so $s^* \in E$. Otherwise, it is bounded and thus $E$ is closed by Theorem 3.7, so $s^* = \sup E \in \overline{E} = E$. 
+
+For (b), notice that is this weren't the case, then there are $s_n \ge x$ for $n$ arbitrarily large. Taking these $s_n$ as a subsequence yields a subsequence with limit $\ge x > s_n$, contradicting the maximality of $s^*$ in $E$.
+
+Finally, let $a, b \in E \subseteq \R$ both satisfy these above properties. Without loss of generality, $a > b$. Let $x \in \R$ such that $b < x < a$. Then statement (b) holds for $b$ so $s_n < x < a$ for $n \ge N$. Then $a$ cannot satisfy (a).
+\end{proof}
+\end{theorem}
+
+For example, the sequence containing all rational numbers $\{s_n\}$ has every real number as a subsequential limit. Also, its $\limsup$ is $+\infty$ and $\liminf$ is $-\infty$.
+
+Also, it is noteworthy that a sequence converges iff its $\limsup$ is equal to its $\liminf$. 
+
+\begin{theorem} % Question 3.19
+If $s_n \le t_n$ for $n \ge N$, where $N$ is fixed, then
+\[
+	\liminf_{n \to \infty} s_n \le \liminf_{n \to \infty} t_n \text{ and } \limsup_{n \to \infty} s_n \le \limsup_{n \to \infty} t_n
+\]
+
+\begin{proof}
+The cases with infinities are simple casework. Thus, suppose all values involved are finite real numbers. Suppose, for the sake of contradiction that $\liminf_{n \to \infty} s_n > \liminf_{n \to \infty} t_n$. Then, there exists some $y \in E_t$ strictly less than \underline{all} the $x \in E_s$, where $E_s$ and $E_t$ are the sets of subsequential limits of $\{s_n\}$ and $\{t_n\}$ respectively. 
+
+Consider the subsequence $\{t_{n_k}\}$ which converges to this $y$. Suppose without loss of generality that each $n_k \ge N$. Then each term in $\{s_{n_k}\}$ is at most the corresponding term in $\{t_{n_k}\}$. In particular, some subsequence $\{s_{n_{k_i}}\}$ converges to a value at most $y$, a contradiction, since some $x \in E_s$ is at most $y$.
+
+The corresponding proof for $\limsup$ follows similarly.
+\end{proof}
+\end{theorem}
+
+\section{Some Special Sequences}
+
+\begin{theorem} % Theorem 3.20
+We compute the limits of some helpful sequences, using the helpful fact that if $0 \le x_n \le s_n$ for $n \ge N$, then $s_n \to 0$ implies $x_n \to 0$. 
+
+\begin{enumerate}
+\item If $p > 0$, then $n^{-p} \to 0$.
+\item If $p > 0$, then $p^{1/n} \to 1$.
+\item $n^{-n} \to 1$.
+\item If $p > 0$ and $\alpha \in \R$, then $\frac{n^{\alpha}}{(1 + p)^n} \to 0$. 
+\item If $|x| < 1$, then $x^n \to 0$.
+\end{enumerate}
+
+\begin{proof}
+For (a), take $n > (1/\epsilon)^{1/p}$.
+
+For (b), $p = 1$ is obvious. If $p > 1$, let $x_n = p^{1/n} - 1 > 0$. Then, by the binomial theorem, $1 + nx_n \le (1 + x_n)^n = p$ so $0 < x_n \le \frac{p - 1}{n}$ and the rightmost terms go to 0. $p < 1$ follows by taking reciprocals.
+
+For (c), let $x_n = n^{1/n} - 1 > 0$. Then $n = (1 + x_n)^n \ge \frac{n(n-1)}{2} x_n^2$. Then $0 \le x_n \le \sqrt{\frac{2}{n - 1}}$. and the result follows.
+
+For (d), let $k > \max(0, \alpha)$ be an integer. For $n > 2k$, 
+\[
+	(1 + p)^n > \binom{n}{k} p^k = \frac{n(n - 1) \cdots (n - k + 1)}{k!} p^k > \frac{n^k p^k}{2^k k!}.
+\]
+
+Hence
+\[
+	0 < \frac{n^\alpha}{(1 + p)^n} < \frac{2^k k!}{p^k} n^{\alpha - k}
+\]
+which approaches zero since $\alpha - k < 0$ and by (a).
+
+Statement (e) follows by taking $\alpha = 0$ in (d). 
+\end{proof}
+\end{theorem}
+
+\section{Series}
+
+\begin{definition} % Definition 3.21
+Given $\{a_n\}$ we associate a sequence $\{s_n\}$ where
+\[
+	s_n = \sum_{k=1}^{n} a_k = a_1 + a_2 + \dotsb + a_k,
+\]
+where $s_n$ are called the \textbf{partial sums} of $\{a_n\}$.
+
+We also write
+\[
+	\{s_n\} = a_1 + a_2 + a_3 + \dotsb = \sum_{n=1}^{\infty} a_n.
+\]
+
+If $s_n \to s$, we say the series \textbf{converges}, and that
+\[
+	\sum_{n=1}^{\infty} a_n = s.
+\]
+\end{definition}
+
+The notion of Cauchy sequences on the partial sums can be extended to series:
+\begin{theorem} % Theorem 3.22
+$\sum a_n$ converges iff for every $\epsilon > 0$, there exists an integer $N$ such that
+\[
+	\left| \sum_{k=m}^{n} a_k \right| < \epsilon
+\]
+for all $n \ge m \ge N$. 
+
+\begin{proof}
+Notice that $\sum_{k=m}^{n} a_k = s_n - s_m$, so the condition is equivalent to the sequence $\{s_n\}$ being Cauchy. The result follows from the fact that Cauchy sequences and convergent sequences are equivalent in $\R^k$.
+\end{proof}
+\end{theorem}
+
+In particular, taking $m = n$ we have $|a_n| < \epsilon$ for $n \ge N$. More formally,
+
+\begin{theorem} % Theorem 3.23
+If $\sum a_n$ converges, then $a_n \to 0$.
+\end{theorem}
+
+\begin{theorem} % Theorem 3.24
+A series of non-negative terms converges if and only if its partial sums form a bounded sequence.
+
+\begin{proof}
+The partial sums form a monotonically increasing sequence, so the result follows as in Theorem 3.14.
+\end{proof}
+\end{theorem}
+
+We now prove a helpful theorem called the \underline{`Comparison test'}. 
+
+\begin{theorem} % Theorem 3.25
+The following are true:
+\begin{enumerate}[(a)]
+\item If $|a_n| \le c_n$ for $n \ge N_0$, where $N_0$ is some fixed integer, and if $\sum c_n$ converges, then $\sum a_n$ converges.
+
+\item If $a_n \ge d_n \ge 0$ for $n \ge N_0$, and if $\sum d_n$ diverges, then $\sum a_n$ diverges.
+\end{enumerate}
+
+\begin{proof}
+For (a), let $\{s_n\}$ be the sequence of partial sums of $a_n$ and $C = \sum c_n$. Also, notice that $c_n \ge 0$. Let $\epsilon > 0$. Then since $\sum c_n$ converges, there exists an integer $N$ such that for $n \ge m \ge N$,
+\[
+	\left|\sum_{k=m}^{n} c_k\right| < \epsilon.
+\]
+Then, for any $n \ge m \ge N$,
+\[
+	\left| \sum_{k=m}^{n} a_k \right| \overset{\Delta}{\le} \sum_{k=m}^{n} |a_k| \le \sum_{k=m}^{n} c_k \le \left|\sum_{k=m}^{n} c_k\right| < \epsilon
+\]
+so $\sum a_n$ converges.
+
+For (b), suppose without loss of generality that $\sum d_n$ diverges to $+\infty$. Then let $M$ be a real number. Then for $n \ge N$, 
+\[
+	\sum_{k=1}^{n} a_k \ge \sum_{k=1}^{n} d_k > M
+\]
+so $\sum a_n$ diverges too.
+\end{proof}
+\end{theorem}
+
+\section{Series of Non-negative Terms}
+
+\begin{theorem} % Theorem 3.26
+If $0 \le x < 1$, then
+\[
+	\sum_{n=0}^{\infty} x^n = \frac{1}{1 - x}.
+\]
+If $x \ge 1$, the series diverges.
+
+\begin{proof}
+If $0 \le x < 1$, let $s_n = \sum_{k=0}^{n} x^k$. It can be shown by induction that $s_n = \frac{1 - x^{n+1}}{1 - x}$. Then,
+\[
+	\left|s_n - \frac{1}{1 - x}\right| = \left| \frac{1}{1 - x} - \frac{x^{n+1}}{1 - x} - \frac{1}{1 - x}\right| = x^{n + 1} \cdot \frac{1}{1 - x} \to 0
+\]
+so the result follows.
+
+If $x \ge 1$, then $s_n \ge n$. The result follows immediately.
+\end{proof}
+\end{theorem}
+
+The following theorem states that a rather `thin' subsequence of decreasing sequences determines the convergence of $\sum a_n$.
+\begin{theorem}[Cauchy] % Theorem 3.27
+Suppose $a_1 \ge a_2 \ge \dotsb \ge 0$. Then the series $\sum a_n$ converges if and only if the series
+\[
+	S := \sum_{k=0}^{\infty} 2^k a_{2^k} = a_1 + 2a_2 + 4a_4 + \dotsb
+\]
+converges.
+
+\begin{proof}
+Let $\{b_n\}$ be a sequence related to $a_n$ such that $b_n = a_{f(n)}$ where $f(n)$ is the largest power of two at most $n$. That is, the sequence $\{b_n\}$ starts $(a_1, a_2, a_2, a_4, a_4, a_4, a_4, \dotsb)$. Since $a_n$ is decreasing, $\{b_n\}$ is a strictly decreasing sequence where each term is at least the corresponding $a_n$. Also, notice $S$ is $\sum b_n$, so the fact that $\sum a_n$ converges if $S$ converges follows by the comparison test.
+
+Now suppose $\sum a_n$ converges. Then, 
+\[
+	\sum_{i=1}^{2^k} = a_1 + a_2 + (a_3 + a_4) + \dotsc + (a_{2^{k-1}+1} + \dotsb + a_{2^k}) \ge \frac{1}{2} a_1 + a_2 + 2a_4 + \dotsc + 2^{k-1} a_{2^k} = \frac{1}{2} \sum_{i=1}^{2^k} b_i
+\]
+so the result follows again by the comparison test.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.28
+The series $\sum n^{-p}$ converges if $p > 1$ and diverges if $p \le 1$. 
+
+\begin{proof}
+We can write $2^k a_{2^k} = \frac{2^k}{2^{kp}} = 2^{(1-p)k}$ so $\sum_{k=0}^{\infty} (2^{(1-p)})^k$ converges iff $0 \le 2^{1-p} < 1$ from Theorem 3.26, which occurs when $p > 1$. The result follows by the previous theorem, since the original sequence was decreasing.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.29
+If $p > 1$, then
+\[
+	\sum_{n=2}^{\infty} \frac{1}{n (\log n)^p}
+\]
+converges. Otherwise, the series diverges.
+
+\begin{proof}
+Write
+\[
+	2^k a_{2^k} = \frac{2^k}{2^k (\log 2^k)^p} = \frac{1}{(k \log 2)^p} = \frac{c}{k^p}
+\]
+with $c = \frac{1}{(\log 2)^p}$ so by Theorem 3.27, $\sum a_n$ converges iff
+\[
+	c \sum_{k=1}^{\infty} \frac{1}{k^p}
+\]
+converges, but that happens iff $p > 1$ by the previous theorem.
+\end{proof}
+\end{theorem}
+
+\section{The Number $e$}
+
+\begin{definition}
+We define
+\[
+	e = \sum_{n=0}^{\infty} \frac{1}{n!}.
+\]
+This is well-defined since
+\[
+	s_n = 1 + 1 + \frac{1}{1 \cdot 2} + \frac{1}{1 \cdot 2 \cdot 3} + \dotsb + \frac{1}{1 \cdot 2 \cdot \dotsb \cdot n} < 1 + 1 + \frac{1}{2} + \frac{1}{2^2} + \dotsb + \frac{1}{2^{n-1}} < 3
+\]
+\end{definition}
+
+There is an equivalent definition:
+\begin{theorem} % Theorem 3.31
+We have
+\[
+	\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e.
+\]
+
+\begin{proof}
+Let $s_n = \sum_{k=0}^{n} \frac{1}{k!}$ and $t_n = \left(1 + \frac{1}{n}\right)^n$. By the binomial theorem,
+\[
+	t_n = \sum_{k=0}^{n} \binom{n}{k} \frac{1}{n^k} = \sum_{k=0}^{n} \frac{1}{k!} \cdot \frac{n!}{(n-k)! n^k} = \sum_{k=0}^{n} \frac{1}{k!} \prod_{i=1}^{k-1} \left(1 - \frac{i}{n}\right).
+\]
+Clearly $t_n \le s_n$ termwise, so $\limsup_{n \to \infty} t_n \le e$.
+
+Also, if $m \le n$, then
+\[
+	t_n \ge \sum_{k=0}^{m} \frac{1}{k!} \prod_{i=1}^{k-1} \left(1 - \frac{i}{n}\right)
+\]
+which, as $n$ increases, becomes
+\[
+	\liminf_{n \to \infty} t_n \ge \sum_{k=0}^{m} \frac{1}{m!}.
+\]
+Letting $m$ go to infinity yields $e \le \liminf_{n \to \infty} t_n$ so the result follows.
+\end{proof}
+\end{theorem}
+
+As a sidenote, the following bound on the error of the partial sums proves helpful:
+\begin{remark}
+Notice that
+\[
+	0 < e - s_n = \sum_{k=n+1}^{\infty} \frac{1}{k!} < \frac{1}{(n + 1)!} \sum_{k=0}^{\infty} \frac{1}{(n + 1)^k} = \frac{1}{n!n}
+\]
+which shows that this infinite sum representation converges extremely quickly.
+\end{remark}
+
+\begin{theorem} % Theorem 3.32
+$e$ is irrational.
+
+\begin{proof}
+Suppose otherwise, so that $e = p/q$ for positive integers $p, q$. By the above remark, $0 < q!(e - s_q) < \frac{1}{q}$. Then both $q!s_q$ and $q!e$ are integers, so the above inequality implies the existence of an integer between 0 and $1/q$, a contradiction.
+\end{proof}
+\end{theorem}
+
+\section{The Root and Ratio Tests}
+
+\begin{theorem}[Root Test] % Theorem 3.33
+Given $\sum a_n$, put $\alpha = \limsup_{n \to \infty} \sqrt[n]{|a_n|}$. Then,
+\begin{enumerate}[(a)]
+\item If $\alpha < 1$, then $\sum a_n$ converges.
+\item If $\alpha > 1$, then $\sum a_n$ diverges.
+\item If $\alpha = 1$, the test gives no information.
+\end{enumerate}
+
+\begin{proof}
+For (a), we know then that for large enough $n$, $\sqrt[n]{|a_n|} \le \alpha$ so $|a_n| \le \alpha^n$. The result follows from the comparison test. For (b), notice that for large enough $n$, $|a_n| \ge 1$, so the series diverges by the contrapositive of Theorem 3.23.
+
+For (c), the series $\sum 1/n$ and $\sum 1/n^2$ work.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Ratio Test] % Theorem 3.34
+The series $\sum a_n$ converges if $\limsup_{n \to \infty} \left| \frac{a_{n+1}}{a_n}\right| < 1$ and diverges if $\left|\frac{a_{n+1}}{a_n}\right| \ge 1$ for all $n \ge n_0$ where $n_0$ is some fixed integer.
+
+\begin{proof}
+For the first part, for $n \ge N$, we will have $\left|\frac{a_{n+1}}{a_n}\right| = \beta < 1$. Then $|a_n| \le |a_N| \beta^{n-N}$ so the result follows by comparing with a geometric series. For the second part, the fact that $|a_{n+1}| \ge |a_n|$ eventually, means that $a_n \nto 0$, so the series cannot converge.
+\end{proof}
+\end{theorem}
+
+The previous two tests are very useful for determining convergence. In most cases, the ratio test is easier to use, but we show in the following theorem than the root test is stronger.
+
+\begin{theorem} % Theorem 3.37
+For any sequence $\{c_n\}$ of positive numbers,
+\[
+	\liminf_{n \to \infty} \frac{c_{n+1}}{c_n} \le \liminf_{n \to \infty} \sqrt[n]{c_n} \le \limsup_{n \to \infty} \sqrt[n]{c_n} \le \limsup_{n \to \infty} \frac{c_{n+1}}{c_n}
+\]
+
+\begin{proof}
+Let $\alpha = \limsup_{n \to \infty} \frac{c_{n+1}}{c_n}$. If $\alpha = +\infty$, we are done. Otherwise, suppose some subsequence $\{c_{n_k}\}$ had the property that $\lim_{k \to \infty} \sqrt[n_k]{c_{n_k}} = \beta > \alpha$. Then, there must exist infinitely many terms $\{c_n\}$ with $c_n^n > \alpha^n$. But this cannot occur if the ratios of consecutive terms does not exceed $\alpha$ infinitely often, a contradiction. The left inequality is similar.
+\end{proof}
+\end{theorem}
+
+\section{Power Series}
+
+\begin{definition} % Definition 3.38
+Given a sequence $\{c_n\}$ of complex numbers, the series
+\[
+	\sum_{n=0}^{\infty} c_nz^n
+\]
+is called a \textbf{power series}. The numbers $c_n$ are called the \textbf{coefficients} of the series, and $z$ is a complex number.
+\end{definition}
+
+\begin{theorem} % Theorem 3.39
+Given a power series as above, let
+\[
+	\alpha = \limsup_{n \to \infty} \sqrt[n]{|c_n|}, R = \frac{1}{\alpha}.
+\]
+Then $\sum c_nz^n$ converges if $|z| < R$ and diverges when $|z| > R$.
+
+\begin{proof}
+The value for $\alpha$ is derived from the result of the root test, so this proof is just like unwrapping a present you wrapped for yourself.
+\end{proof}
+\end{theorem}
+
+\section{Summation by Parts}
+
+\begin{theorem}
+Given two sequences $\{a_n\}, \{b_n\}$, put $A_n = \sum_{k=0}^{n} a_k$ if $n \ge 0$ and $A_{-1} = 0$. Then, if $0 \le p \le q$, we have
+\[
+	\sum_{n=p}^{q} a_nb_n = \sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p.
+\]
+
+\begin{proof}
+Expand the sum and telescope differently:
+\begin{align*}
+\sum_{n=p}^{q} a_nb_n &= \sum_{n=p}^{q} (A_n - A_{n-1})b_n \\
+	&= A_qb_q - A_{q-1}b_q + A_{q-1}b_{q-1} - A_{q-2}b_{q-1} + \dotsb + A_{p+1}b_{p+1} - A_pb_{p+1} + A_pb_p - A_{p-1}b_p \\
+	&= A_qb_q + (A_{q-1}(b_{q-1} - A_{q-1}b_q) + \dotsb + A_p(b_p - A_pb_{p+1}) - A_{p-1}b_p \\
+	&= \sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p
+\end{align*}
+as required.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.42
+Let $\{a_n\}$ be a sequence such that
+\begin{enumerate}[(a)]
+\item The partial sums $A_n$ of $\sum a_n$ form a bounded sequence.
+\item $b_0 \ge b_1 \ge \dotsb$.
+\item $b_n \to 0$.
+\end{enumerate}
+Then $\sum a_nb_n$ converges.
+
+\begin{proof}
+The above theorem suggests using the Cauchy criterion. Let $\epsilon > 0$ and suppose the $A_n$ are bounded by $M$. We first manipulate:
+\begin{align*}
+\left|\sum_{n=p}^{q} a_nb_n \right| &= \left|\sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p\right| \\
+	&\le M \left[\left|\sum_{n=p}^{q-1} (b_n - b_{n+1})\right| + |b_q| + |b_p|\right] \\
+	&= 2Mb_q
+\end{align*}
+so choosing $N$ such that $q \ge p \ge N$ implies $b_q < \epsilon/(2M)$, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.43
+Suppose $\{c_n\}$ is a sequence such that
+\begin{enumerate}[(a)]
+\item $|c_1| \ge |c_2| \ge \dotsb$.
+\item $c_{2m-1} \ge 0$, $c_{2m} \le 0$.
+\item $c_n \to 0$.
+\end{enumerate}
+Then $\sum c_n$ converges.
+
+\begin{proof}
+This follows from the previous theorem, letting $a_n = (-1)^{n+1}$ and $b_n = |c_n|$. 
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 3.44
+Suppose the radius of convergence of $\sum c_nz^n$ is 1, and that $|c_0| \ge |c_1| \ge \dotsb$ and $c_n \to 0$. Then $\sum c_nz^n$ converges at every point on the circle $|z| = 1$ except possibly at $z = 1$.
+
+\begin{proof}
+Let $a_n = z^n$ and $b_n = |c_n|$. Then the $A_n$ are bounded by $\frac{2}{|1 - z|}$, so Theorem 3.42 applies.
+\end{proof}
+\end{theorem}
+
+\section{Absolute Convergence}
+
+A series $\sum a_n$ is said to converge absolutely if $\sum |a_n|$ converges.
+
+\begin{theorem} % Theorem 3.45
+If $\sum a_n$ converges absolutely, then $\sum a_n$ converges.
+
+\begin{proof}
+Let $\epsilon > 0$ be arbitrary and $N$ such that the Cauchy criterion holds for $n \ge m \ge N$. Then, for these same $n, m$, we have
+\[
+	\left| \sum_{k=m}^{n} a_k \right| \le \sum_{k=m}^{n} |a_k| < \epsilon
+\]
+so $\sum a_n$ converges by the Cauchy criterion.
+\end{proof}
+\end{theorem}
+
+Notice that absolute convergence is convergence if your terms are positive. Series which converge but not absolutely converge \textbf{non-absolutely}.
+
+We see that we can manipulate absolutely convergent sums much like finite sums. Let's explore the types of operations we can perform on general series.
+
+\begin{theorem} % Theorem 3.47
+If $\sum a_n = A$ and $\sum b_n = B$, then $\sum (a_n + b_n) = A + B$ and $\sum ca_n = cA$ for any $c$.
+
+\begin{proof}
+The first statement follows after noticing that the partial sums of $\sum (a_n + b_n)$ are simply the sums of the partial sums of $\sum a_n$ and $\sum b_n$. The second statement follows similarly.
+\end{proof}
+\end{theorem}
+
+Can we multiply infinite series? The answer is slightly more complicated.
+
+\begin{definition} % Theorem 3.48
+Given $\sum a_n$ and $\sum b_n$, we put
+\[
+	c_n = \sum_{k=0}^{n} a_k b_{n-k}
+\]
+and call $\sum c_n$ the \textbf{product} of the two series. This is motivated by considering the coefficients of the related generating series $\sum a_nz^n$ and $\sum b_nz^n$.
+\end{definition}
+
+The following theorem, due to Mertens, characterizes a large set of situations where this notion of product is consistent.
+
+\begin{theorem}[Mertens] % Theorem 3.50
+Suppose that
+\begin{enumerate}[(a)]
+\item $\sum a_n$ converges absolutely.
+\item $\sum a_n = A$.
+\item $\sum b_n = B$.
+\item $c_n = \sum_{k=0}^{n} a_kb_{n-k}$ as above.
+\end{enumerate}
+Then $\sum c_n = AB$.
+
+\begin{proof}
+Let $A_n, B_n$ and $C_n$ be the $n$-th partial sums of $a_n, b_n, c_n$ respectively. Also, let $\beta = B_n - B$. We manipulate $C_n$, essentially switching the order of summations:
+\begin{align*}
+C_n &= a_0b_0 + (a_0b_1 + a_1b_0) + (a_0b_2 + a_1b_1 + a_2b_0) + \dotsb + (a_0b_n + a_1b_{n-1} + \dotsb + a_nb_0) \\
+	&= a_0B_n + a_1B_{n-1} + \dotsb + a_nB_0 \\
+	&= a_0(B + \beta_n) + a_1(B + \beta_{n-1}) + \dotsb + a_n(B + \beta_0) \\
+	&= A_nB + a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_n\beta_0.
+\end{align*}
+
+Thus if we let 
+\[
+	\gamma_n = a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_n\beta_0,
+\]
+it suffices to prove that $\gamma_n \to 0$. Let $\epsilon > 0$ be arbitrary and choose $N$ such that $|\beta_n| < \epsilon$ for $n \ge N$. Also, let $\alpha = \sum |a_n|$. Then
+\begin{align*}
+|\gamma_n| &= |a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_n\beta_0| \\
+	&\le |a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_N\beta_{n-N}| + |a_{N+1}\beta_{n-N-1} + \dotsb + a_n\beta_0| \\
+	&\le |a_0\beta_n + a_1\beta_{n-1} + \dotsb + a_N\beta_{n-N}| + \epsilon \alpha
+\end{align*}
+so if we fix $N$ and let $n \to \infty$, then we have
+\[
+	\limsup_{n \to \infty} |\gamma_n| \le \epsilon \alpha
+\]
+so the result follows since $\epsilon$ was arbitrary.
+\end{proof}
+\end{theorem}
+
+We now wonder whether this definition of product makes sense in the sense that if $\sum c_n$ converges, whether it will have the sum $AB$. Abel proved that this is true. 
+
+\begin{theorem} % Theorem 3.51
+If $\sum a_n$, $\sum b_n$, $\sum c_n$ converge to $A, B, C$ and $c_n = a_0 b_n + \dotsb + a_nb_0$, then $C = AB$.
+
+\begin{proof}
+\textbf{Note:} This is an incomplete proof, as it assumes that power series are continuous without justification. We will fill in this gap in Theorem 8.2. This proof will be replaced later, since it is most likely circular or wrong.
+
+Let $a(z) = \sum a_nz^n$, $b(z) = \sum b_nz^n$, and $c(z) = \sum c_nz^n$. Then we (will) have seen that $c(z) = a(z)b(z)$ if $c_n = a_0b_n + \dotsb + a_nb_0$, if we consider partial sums of $c(z)$. Then the result follows by substituting $z = 1$.
+\end{proof}
+\end{theorem}
+
+\section{Rearrangements}
+
+\begin{definition}
+Let $\{k_n\}$ be a bijection from $\N$ to itself. Then letting $a'_n = a_{k_n}$, we say that $\sum a'_n$ is a \textbf{rearrangement} of $\sum a_n$.
+
+Notice that the partial sums of these have no reason to be the same, so the question arises: should they converge? Will their sums be the same if so?
+\end{definition}
+
+We prove Riemann's rearrangement theorem, which says that all hell breaks loose if our sequence doesn't converge absolutely:
+\begin{theorem}[Riemann Rearrangement] % Theorem 3.54
+Let $\sum a_n$ which converges non-absolutely, and $-\infty \le \alpha \le \beta \le +\infty$. Then, there exists a rearrangement $\sum a'_n$ with partial sums $s'_n$ such that
+\[
+	\liminf_{n \to \infty} s'_n = \alpha \text{ and } \limsup_{n \to \infty} s'_n = \beta.
+\]
+
+\begin{proof}
+This proof is well-studied. We present an informal proof hopefully sufficient to provide intuition. The actual proof is long-winded.
+
+Let $a^+_n$ and $a^-_n$ denote the subsequences of positive and negative terms of $a_n$. If either subsequence were finite, then the other would overpower it and eventually either diverge or converge (after which $a_n$ would converge absolutely since the subsequence has all the same sign). Thus both must be infinite.
+
+If $\alpha \ge 0$, take positive terms until our partial sums go above $\alpha$. We must be able to do this, since both subseries diverge. Similarly, if $\alpha < 0$, take negative terms. Then, repeat the following process indefinitely. Take positive terms until our partial sums go above $\beta$, then negative terms until our partial sums return below $\alpha$. This is again made possible since both subsequences diverge. 
+
+Taking the terms which are `turning points' on both sides, we have sequences which converge to $\alpha$ and $\beta$, so the result follows.
+\end{proof}
+\end{theorem}
+
+Now, the following theorem states that absolutely convergent series do indeed behave nicely:
+\begin{theorem} % Theorem 3.55
+If $\sum a_n$ converges absolutely, then every rearrangement of $\sum a_n$ converges, and further they converge to the same sum.
+
+\begin{proof}
+Let $\sum a'_n = \sum a_{k_n}$ be a rearrangement of $\sum a_n$. Let $\epsilon > 0$. Take $N \in \N$ such that if $n \ge m \ge N$, then
+\[
+	\left|\sum_{k=m}^{n} |a_k| \right| < \epsilon.
+\]
+Then, take $N' = \max(k_1, \dotsc, k_N) + 1$, so that no $n' \ge m' \ge N'$ will be in $\{1, 2, \dotsc, N\}$. Then
+\[
+	\left|\sum_{k=m'}^{n'} |a'_k| \right| \le \limsup_{n \to \infty} \left|\sum_{k=N+1}^{n} |a'_k| \right| \le \epsilon
+\]
+so the result follows by the Cauchy criterion.
+\end{proof}
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+\item % Exercise 1
+Prove that convergence of $\{s_n\}$ implies convergence of $|s_n|$. Is the converse true?
+
+\begin{proof}
+If $s_n \to 0$, then the result follows by definition. Otherwise, suppose $s_n \to s$ and $s > 0$. We can find $N$ such that $n \ge N$ implies $s/2 < s_n < 3s/2$, so that $||s_n| - |s|| = |s_n - s| < \epsilon$. The proof when $s < 0$ is similar, except we take $\epsilon = -s/2$.
+
+The converse is not true: consider the sequence $s_n = (-1)^{n}$ for which $|s_n| = 1$ converges trivially, but for which no $N$ exists for $\epsilon < 2$.
+\end{proof}
+
+\item % Exercise 2
+Calculate $\lim_{n \to \infty} (\sqrt{n^2 + n} - n)$.
+
+\begin{proof}
+We manipulate:
+\[
+	\sqrt{n^2 + n} - n = \frac{n^2 + n - n^2}{\sqrt{n^2 + n} + n} = \frac{n}{\sqrt{n^2 + n} + n} = \frac{1}{\sqrt{1 + 1/n} + 1}.
+\]
+We prove that $\sqrt{1+1/n} \to 1$: notice that
+\[
+	|\sqrt{1+1/n} - 1| = \left| \frac{1 + 1/n - 1}{\sqrt{1 + 1/n} + 1} \right| \le \frac{1}{2n} \to 0
+\]
+so 
+\[
+	\sqrt{n^2 + n} - n = \frac{1}{\sqrt{1 + 1/n} + 1} \to \frac{1}{1 + 1} = \frac{1}{2}.
+\]
+\end{proof}
+
+\item % Exercise 3
+If $s_1 = \sqrt{2}$ and $s_{n+1} = \sqrt{2 + \sqrt{s_n}}$, prove that $\{s_n\}$ converges and that $s_n < 2$.
+
+\begin{proof}
+Notice that the function $f(x) = \sqrt{2 + \sqrt{x}}$ is monotonic in the sense that if $a < b$, then $f(a) < f(b)$. Also, $s_2 = \sqrt{2 + \sqrt[4]{2}} \ge \sqrt{2} = s_1$. Also, if $s_{n-1} \le s_n$, then
+\[
+	s_n = \sqrt{2 + \sqrt{s_{n-1}}} \le \sqrt{2 + \sqrt{s_n}} = s_{n+1}.
+\]
+so it follows by induction that $s_n$ is an monotonically increasing sequence. 
+
+We claim $s_n < 2$ inductively. The base case is true, and if $n \ge 1$,
+\[
+	s_{n+1} = \sqrt{2 + \sqrt{s_n}} < \sqrt{2 + \sqrt{2}} < 2.
+\]
+Thus $\{s_n\}$ converges by Theorem 3.14.
+\end{proof}
+
+\item % Exercise 4
+Find the upper and lower limits of the sequence $\{s_n\}$ defined by
+\[
+	s_1 = 0; \quad s_{2m} = \frac{s_{2m-1}}{2}; \quad s_{2m+1} = \frac{1}{2} + s_{2m}.
+\]
+
+\begin{proof}
+We claim that $s_* = 0$ and $s^* = 1$. First, the fact that $0 \le s_n \le 1$ with $s_{2m} \le 1/2$ can be shown inductively. The base case follows immediately. Otherwise, dividing by 2 preserves the conditions, and adding $1/2$ to $s_{2m}$ gives a number at most 1. It suffices now to find two sequences converging to $0$ and $1$.
+
+the sequence $\{s_{2^k}\}$ is identically $0$. The sequence $\left\lbrace s_{2^{k+1} - 1}\right\rbrace = \left(0, \frac{1}{2}, \frac{3}{4}, \dotsc, \frac{2^k - 1}{2^k}, \dotsc\right)$ converges to 1. 
+\end{proof}
+
+\item % Exercise 5
+For any two real sequences $\{a_n\}, \{b_n\}$, prove that
+\[
+	\limsup_{n \to \infty} (a_n + b_n) \le \limsup_{n \to \infty} a_n + \limsup_{n \to \infty} b_n,
+\]
+provided the sum on the right is not of the form $+\infty - \infty$.
+
+\begin{proof}
+If both $\alpha$ and $\beta$ are $+\infty$, the result proves itself. Likewise if $\alpha$ and $\beta$ are both $-\infty$, so it suffices to consider the finite cases.
+
+Let $\alpha = \limsup_{n \to \infty} a_n$ and $\beta = \limsup_{n \to \infty} b_n$. Suppose that $\limsup_{n \to \infty} (a_n + b_n) = \gamma > \alpha + \beta$. Then, some sequence $\{s_n\}$ with $s_n = a_n + b_n$ converges to $\gamma$. For each $s_n$, either $a_n > \alpha$ or $b_n > \beta$. Thus, either $a_n > \alpha$ infinitely often, or $b_n > \beta$ infinitely often. In either of these cases, either $\limsup_{n \to \infty} a_n > \alpha$, or $\limsup_{n \to \infty} b_n > \beta$, a contradiction.
+\end{proof}
+
+\item % Exercise 6
+Investigate the behaviour of $\sum a_n$ if
+\begin{enumerate}[(a)]
+\item $a_n = \sqrt{n + 1} - \sqrt{n}$.
+
+\begin{proof}
+The partial sums $s_n = \sqrt{n + 1} - 1$ diverge to $+\infty$, so the sum diverges.
+\end{proof}
+
+\item $a_n = \frac{\sqrt{n + 1} - \sqrt{n}}{n}$.
+
+\begin{proof}
+Manipulate:
+\[
+0 \le a_n = \frac{\sqrt{n + 1} - \sqrt{n}}{n} = \frac{(n + 1) - n}{n (\sqrt{n + 1} + \sqrt{n})} \le \frac{1}{n^{3/2}}
+\]
+so since $\sum n^{-3/2}$ converges, $\sum a_n$ converges by the comparison test.
+\end{proof}
+
+\item $a_n = \left(\sqrt[n]{n} - 1\right)^n$.
+
+\begin{proof}
+Since we have
+\[
+	\limsup_{n \to \infty} \sqrt[n]{a_n} = \limsup_{n \to \infty} \left(\sqrt[n]{n} - 1\right) = 0 < 1,
+\]
+the series $\sum a_n$ converges by the root test.
+\end{proof}
+
+\item $a_n = \frac{1}{1 + z^n}$ for complex $z$.
+
+\begin{proof}
+Notice that if $|z| < 1$, then $a_n \to 1 \ne 0$, so the sum does not converge. If $|z| > 1$, notice that the ratios
+\[
+	\left|\frac{a_n}{a_{n-1}}\right| = \left|\frac{1 + z^{n-1}}{1 + z^n}\right| \to \left|\frac{1}{z}\right| < 1
+\]
+so $\sum a_n$ converges by the ratio test. If $|z| = 1$, the sum diverges.
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 7
+Prove that the convergence of $\sum a_n$ implies the convergence of $\sum \frac{\sqrt{a_n}}{n}$, if $a_n \ge 0$.
+
+\begin{proof}
+We consider the ratio:
+\[
+	\left| \frac{b_n}{b_{n-1}} \right| = \left| \frac{n-1}{n} \cdot \frac{\sqrt{a_n}}{\sqrt{a_{n-1}}} \right| < \left| \frac{\sqrt{a_n}}{\sqrt{a_{n-1}}} \right|
+\]
+so
+\[
+	\limsup_{n \to \infty} \left| \frac{b_n}{b_{n-1}} \right| \le \limsup_{n \to \infty} \sqrt{\frac{a_n}{a_{n-1}}} < 1
+\]
+since $\sum a_n$ converges by the ratio test.
+\end{proof}
+
+\item % Exercise 8
+If $\sum a_n$ converges and $\{b_n\}$ is monotonic and bounded, prove that $\sum a_nb_n$ converges.
+
+\begin{proof}
+Let $B = \sum b_n$. We can write
+\[
+	\sum a_nb_n = \sum a_n(b_n - B) + B \sum a_n
+\]
+for which the first sum converges by Theorem 3.42, and the second sum converges as a scalar multiple of a convergent series.
+\end{proof}
+\item % Exercise 9
+Find the radius of convergence of the following power series:
+\begin{enumerate}[(a)]
+\item $\sum n^3z^n$.
+
+\begin{proof}
+In order for $\sum n^3z^n$ to converge, we must have
+\[
+	\limsup_{n \to \infty} \left|\frac{n^3z^n}{(n-1)^3z^{n-1}}\right| = |z| < 1
+\]
+so the radius of convergence is 1.
+\end{proof}
+\item $\sum \frac{2^n}{n!}z^n$.
+\begin{proof}
+Using the ratio test, we must have
+\[
+	\limsup_{n \to \infty} \left|\frac{2^n (n-1)! z^n}{2^{n-1} n! z^{n-1}} \right| = \limsup_{n \to \infty} \frac{2}{n}|z| = 0 < 1
+\]
+which holds regardless of $z$, so the radius of convergence is $+\infty$.
+\end{proof}
+\item $\sum \frac{2^n}{n^2} z^n$.
+\begin{proof}
+Using the ratio test, we must have
+\[
+	\limsup_{n \to \infty} \left|\frac{2^n (n-1)^2 z^n}{2^{n-1} n^2 z^{n-1}} \right| = \limsup_{n \to \infty} 2 \left|\frac{(n-1)^2}{n^2} \right| |z| = 2|z| < 1
+\]
+so the radius of convergence is $1/2$.
+\end{proof}
+\item $\sum \frac{n^3}{3^n} z^n$.
+
+\begin{proof}
+By the ratio test, we must have
+\[
+	\limsup_{n \to \infty} \left|\frac{n^3 3^{n-1} z^n}{(n-1)^3 3^n z^{n-1}} \right| = \limsup_{n \to \infty} \frac{1}{3} \left|\frac{n^3}{(n-1)^3} \right| |z| = \frac{1}{3} |z| < 1
+\]
+so the radius of convergence is 3.
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 10
+Suppose that the coefficients of the power series $\sum a_nz^n$ are integers, infinitely many of which are non-zero. Prove that the radius of convergence is at most 1.
+
+\begin{proof}
+Let $\{b_n\}$ be the sequence of non-zero coefficients. Then $|b_n| \ge 1$ so $\sqrt[n]{|b_n|} \ge 1$. Thus any subsequential limit of the $\sqrt[n]{|b_n|}$ will converge to a value at least 1, so
+\[
+	\limsup_{n \to \infty} \sqrt[n]{|b_n|} \ge 1
+\]
+and thus the radius of convergence is at most 1.
+\end{proof}
+
+\item % Exercise 11
+Suppose $a_n > 0$ and $s_n = a_1 + \dotsb + a_n$ and $\sum a_n$ diverges.
+\begin{enumerate}[(a)]
+\item Prove that $\sum \frac{a_n}{1 + a_n}$ diverges.
+
+\begin{proof}
+We prove the contrapositive. Let $b_n = \frac{a_n}{1 + a_n}$ and suppose $\sum b_n$ converges. Then we know $b_n \to 0$ so $1 - b_n = \frac{1}{1 + a_n} \to 1$. Thus for $0 < \epsilon < \frac{1}{2}$, there exists $N \in \N$ such that if $n \ge N$, 
+\[
+	\left|\frac{1}{1 + a_n} - 1\right| = \left| \frac{b_n}{a_n} - 1 \right| < \frac{1}{2}
+\]
+so $a_n < 2b_n$ if $n \ge N$. This implies that
+\[
+	\sum_{n = N}^{m} a_n < 2\sum_{n = N}^{m} b_n < M
+\]
+where $m \ge N$ and $M$ is a bound on the partial sums of $\sum b_n$ which exists since $\sum b_n$ converges. So the partial sums of $\sum a_n$ monotonically increasing and bounded above, so $\sum a_n$ converges.
+\end{proof}
+\item Prove that
+\[
+	\frac{a_{N+1}}{s_{N+1}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \ge 1 - \frac{s_N}{s_{N+k}}
+\]
+and deduce that $\sum \frac{a_n}{s_n}$ diverges.
+
+\begin{proof}
+Notice that $s_n$ is a monotonically increasing sequence since $a_n > 0$, so
+\begin{align*}
+\frac{a_{N+1}}{s_{N+1}} + \frac{a_{N+2}}{s_{N+2}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} &\ge \frac{a_{N+1}}{s_{N+k}} + \frac{a_{N+2}}{s_{N+k}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \\
+	&= \frac{a_{N+1} + a_{N+2} + \dotsb + a_{N+k}}{s_{N+k}} \\
+	&= 1 - \frac{s_N}{s_{N+k}}
+\end{align*}
+Then, letting $\epsilon = 1/2 > 0$, we can fix $N$ and choose $k \ge N$ such that $s_{N+k} > 2s_N$ since the $s_n$ are unbounded, so that
+\[
+	\frac{a_{N+1}}{s_{N+1}} + \frac{a_{N+2}}{s_{N+2}} + \dotsb + \frac{a_{N+k}}{s_{N+k}} \ge 1 - \frac{s_N}{s_{N+k}} > \frac12
+\]
+so $\sum \frac{a_n}{s_n}$ is not Cauchy and thus diverges.
+\end{proof}
+\item Prove that
+\[
+	\frac{a_n}{s_n^2} \le \frac{1}{s_{n-1}} - \frac{1}{s_n}
+\]
+and deduce that $\sum \frac{a_n}{s_n^2}$ converges.
+
+\begin{proof}
+We have $s_n > s_{n-1}$ so
+\[
+	\frac{a_n}{s_n^2} \le \frac{a_n}{s_n s_{n-1}} = \frac{s_n - s_{n-1}}{s_n s_{n-1}} = \frac{1}{s_{n-1}} - \frac{1}{s_n}
+\]
+so
+\[
+	\sum_{n=2}^{m} \frac{a_n}{s_n^2} \le \sum_{n=2}^{m} \frac{1}{s_{n-1}} - \frac{1}{s_n} = \frac{1}{s_1} - \frac{1}{s_m} \to \frac{1}{a_1}
+\]
+and thus $\sum \frac{a_n}{s_n^2}$ converges by the comparison test.
+\end{proof}
+
+\item What can be said about
+\[
+	\sum \frac{a_n}{1 + na_n} \text{ and } \sum \frac{a_n}{1 + n^2 a_n} \text{?}
+\]
+
+\begin{proof}
+The first series converges for some $a_n$ and diverges for some other $a_n$. But $\frac{a_n}{1 + n^2 a_n} < \frac{a_n}{n^2 a_n} = \frac{1}{n^2}$ so the second series converges by the comparison test and the $p$-test.
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 12
+Suppose $a_n > 0$ and $\sum a_n$ converges. Put
+\[
+	r_n = \sum_{m=n}^{\infty} a_m.
+\]
+\begin{enumerate}[(a)]
+\item Prove that
+\[
+	\frac{a_m}{r_m} + \dotsb + \frac{a_n}{r_n} > 1 - \frac{r_n}{r_m}
+\]
+if $m < n$, and deduce that $\sum \frac{a_n}{r_n}$ diverges.
+
+\begin{proof}
+Since $a_n > 0$, the sequence $r_n$ is decreasing, so
+\[
+	\frac{a_m}{r_m} + \dotsb + \frac{a_n}{r_n} > \frac{a_m}{r_m} + \dotsb + \frac{a_n}{r_m} > \frac{a_m + \dotsb + a_{n-1}}{r_m} = \frac{r_m - r_n}{r_m} = 1 - \frac{r_n}{r_m}.
+\]
+
+Now for any $\epsilon > 0$, suppose $\epsilon < 1/2$ without loss of generality. Then, for any $n \in \N$, we can find $m \ge n$ such that $\frac{r_n}{r_m} < 1 - \epsilon$ since $r_n \to 0$, so $\sum_{k=m}^{n} \frac{a_k}{r_k} = 1 - \frac{r_n}{r_m} > \epsilon$. Then $\sum \frac{a_k}{r_k}$ is not Cauchy and thus diverges.
+\end{proof}
+\item Prove that
+\[
+	\frac{a_n}{\sqrt{r_n}} < 2 (\sqrt{r_n} - \sqrt{r_{n+1}})
+\]
+and deduce that $\sum \frac{a_n}{\sqrt{r_n}}$ converges.
+
+\begin{proof}
+Since $r_{n+1} < r_n$, we have $\frac{\sqrt{r_n} + \sqrt{r_{n+1}}}{\sqrt{r_n}} < 2$. Reorganizing yields
+\[
+    \frac{a_n}{\sqrt{r_n}} < 2 (\sqrt{r_n} - \sqrt{r_{n+1}})        
+\]
+since $a_n = r_n - r_{n+1}$. Now,
+\[
+    \left|\sum_{k=m}^{n} \frac{a_k}{\sqrt{r_k}}\right| < \left|2\sum_{k=m}^{n} (\sqrt{r_k} - \sqrt{r_{k+1}})\right| = \left|2\sqrt{r_m} - 2\sqrt{r_n}\right|
+\]
+which can be made arbitrarily small since $r_n \to 0$ so $\sqrt{r_n} \to 0$. Thus $\sum \frac{a_n}{\sqrt{r_n}}$ converges.
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 13
+Let $\sum a_n$ and $\sum b_n$ converge absolutely. Then, letting $c_n = \sum_{k=1}^{n} a_k b_{n-k}$, prove that $\sum c_n$ converges absolutely.
+
+\begin{proof}
+Notice that
+\[
+    |c_n| = \left| \sum_{k=1}^{n} a_k b_{n-k} \right| \overset{\Delta}{\le} \sum_{k=1}^{n} |a_k| |b_{n-k}|.    
+\]
+and that letting $d_n$ be the positive terms on the right side, $\sum d_n$ converges by Merten's theorem. Thus, $\sum c_n$ converges absolutely by the comparison test.
+\end{proof}
+
+\item % Exercise 14
+If $\{s_n\}$ is a complex sequence, define its arithmetic means $\sigma_n = \frac{1}{n + 1} (s_0 + \dotsc + s_n)$. 
+\begin{enumerate}[(a)]
+\item If $s_n \to s$, prove that $\sigma_n \to s$.
+
+\begin{proof}
+    Let $\epsilon > 0$ be arbitrary and $N_0 \in \N$ such that $|s_n - s| < \epsilon/2$ for $n \ge N_0$. Notice then that 
+    \[
+        |\sigma_n - s| \overset{\Delta}{\le} \sum_{k=0}^{N_0} \frac{|s_k - s|}{n + 1} + \sum_{k=N_0}^{n} \frac{|s_k - s|}{n + 1} < \frac{S}{n + 1} + \frac{\epsilon}{2}
+    \]
+    where $S = \sum_{k=0}^{N_0} |s_k - s|$ is finite. Then, letting $N = \max(N_0, 2S/\epsilon)$, we notice that
+    \[
+        |\sigma_n - s| \le \frac{S}{n + 1} + \frac{\epsilon}{2} \le \epsilon
+    \]
+    if $n \ge N$, so $\sigma_n \to s$.
+\end{proof}
+
+\item Construct a sequence $\{s_n\}$ which does not converge, but $\sigma_n$ does. 
+
+\begin{proof}
+Consider $s_n = (-1)^{n}$. Then clearly $s_n$ does not converge as the partial sums alternate between 0 and 1, but
+\[
+    \sigma_n = \begin{cases}
+        0 & \text{ if $n$ even} \\
+        \frac{1}{n + 1} & \text{ if $n$ odd}
+    \end{cases}
+\]
+does.
+\end{proof}
+\item Can it happen that $s_n > 0$ for all $n$ and that $\limsup_{n \to \infty} s_n = +\infty$, but $\sigma_n \to 0$?
+
+\begin{proof}
+    Yes, let $s_0 = 1$, then $s_n = \sqrt[3]{n} > 0$ if $\sqrt[3]{n}$ is an integer, otherwise let $s_n = 1/n^2 > 0$. Then,
+    \[
+        \sigma_n = \frac{1}{n + 1} \sum_{k=0}^{n} s_n < \frac{1}{n + 1} \left(1 + 2n^{2/3} + \sum_{i=0}^{n} 1/i^2 \right) < 2n^{-1/3} + \frac{\pi^2}{6}n^{-1} \to 0
+    \]
+    but for any $M \in \R$, there exists some integer $k > M$, and thus $s_{(k-1)^2} > M$, so $\limsup_{n \to \infty} s_n = +\infty$, as required.
+\end{proof}
+
+\item Put $a_n = s_n - s_{n-1}$. Show that
+\[
+    s_n - \sigma_n = \frac{1}{n + 1} \sum_{k=1}^{n} ka_k.
+\]
+Assume that $na_n \to 0$ and $\{\sigma_n\}$ converges. Prove that $\{s_n\}$ converges. (Notice this provides a converse of (a) given $na_n \to 0$.
+
+\begin{proof}
+    We begin manipulating:
+    \begin{align*}
+        s_n - \sigma_n &= s_n - \frac{1}{n + 1} \sum_{k=0}^{n} s_k \\
+            &= \frac{n}{n + 1} s_n - \frac{1}{n + 1} \sum_{k=0}^{n - 1} s_k \\
+            &= \frac{1}{n + 1} \left[-\sum_{k=1}^{n-1} s_k + ns_n - s_0 \right] \\
+            &= \frac{1}{n + 1} \left[ \sum_{k=1}^{n} ks_k - \sum_{k=1}^{n}ks_{k-1}\right] \\
+            &= \frac{1}{n + 1} \sum_{k=1}^{n} ka_k.
+    \end{align*}
+    so clearly if $na_n \to 0$ and $\sigma_n \to \sigma$, then eventually $|\sigma_n - \sigma| < \epsilon/2$ and $\sum_{k=1}^{n} ka_k < (n+1)/2 \cdot ;\epsilon$, so $|s_n - s| < \epsilon$ for any $\epsilon > 0$, and thus $\{s_n\}$ converges.
+\end{proof}
+
+\item Prove (d) with the weaker hypothesis that $na_n$ is bounded by $M < \infty$ and $\sigma_n \to \sigma$. Show that $s_n \to \sigma$, by completing the following outline:
+\begin{enumerate}[(i)]
+\item If $m < n$, then
+\[
+	s_n - \sigma_n = \frac{m+1}{n-m}(\sigma_n - \sigma_m) + \frac{1}{n-m}\sum_{i=m+1}^{n} (s_n - s_i).
+\]
+
+\begin{proof}
+    We manipulate:
+    \begin{align*}
+        s_n &= \frac{1}{n-m} \sum_{k=0}^{n} s_k - \frac{1}{n-m}\sum_{k=0}^{m} s_k + \frac{n-m}{n-m} \cdot s_n - \frac{1}{n-m} \sum_{k=0}^{n} s_k + \frac{1}{n-m} \sum_{k=0}^{m} s_k \\
+            &= \frac{1}{n-m} \left[ \sum_{k=0}^{n} s_k - \sum_{k=0}^{m} s_k \right] + \frac{1}{n-m} \left[ \sum_{k=0}^{n} (s_n - s_k) - \sum_{k=0}^{m}(s_n - s_k) \right] \\
+            &= \frac{1}{n-m} \left[ (n+1)\sigma_n - (m+1)\sigma_m \right] + \frac{1}{n-m} \sum_{k=m+1}^{n} (s_n - s_k) \\
+            &= \frac{n+1}{n-m} \sigma_n - \frac{m+1}{n-m} \sigma_m + \frac{1}{n-m} \sum_{k=m+1}^{n} (s_n - s_k)
+    \end{align*}
+    so
+    \begin{align*}
+        s_n - \sigma_n &= \left( \frac{n+1}{n-m} - 1 \right) \sigma_n - \frac{m+1}{n-m} \sigma_n + \frac{1}{n-m} \sum_{k=m+1}^{n} (s_n - s_k) \\
+            &= \frac{m+1}{n-m}(\sigma_n - \sigma_m) + \frac{1}{n-m} \sum_{i=m+1}^{n} (s_n - s_i),
+    \end{align*}
+    as required.
+\end{proof}
+
+\item For these $i$, 
+\[
+	|s_n - s_i| \le \frac{(n-i)M}{i+1} \le \frac{(n-m-1)M}{m+2}.
+\]
+
+\begin{proof}
+    We can write $s_n - s_i$ as a telescoping sum of $a_n$:
+    \begin{align*}
+        |s_n - s_i| = \left|\sum_{k=i+1}^{n} (s_k - s_{k-1})\right| \overset{\Delta}{\le} \sum_{k=i+1}^{n} |a_k| \le \sum_{k=i+1}^{n} \frac{M}{i+1} = \frac{(n-i)M}{i+1}, 
+    \end{align*}
+    since we have $k \ge i+1$ and thus
+    \[
+        |a_k| \le \frac{M}{k} \le \frac{M}{i+1}.
+    \]
+    and the latter inequality follows immediately from the fact that $i \ge m+1$ in the previous part of the proof.
+\end{proof}
+
+\item Fix $\epsilon > 0$ and associate to every $n$ the integer $m$ such that
+\[
+	m \le \frac{n - \epsilon}{1 + \epsilon} < m + 1.
+\]
+Then $(m+1)/(n-m) \le 1/\epsilon$ and $|s_n - s_i| < M\epsilon$ so $\limsup_{n \to \infty} |s_n - \sigma| \le M\epsilon$ so the result follows.
+
+\begin{proof}
+    We have $m \le \frac{n-\epsilon}{1 + \epsilon}$, so $(m+1)/(n-m) \le 1/\epsilon$ follows from manipulation. Similarly, we have $\frac{n-m-1}{m+2} < \epsilon$. Thus, 
+    \[
+        |s_n - s_i| \le \frac{(n-m-1)M}{m+2} < M\epsilon
+    \]
+    and thus
+    \[
+        |s_n - \sigma_n| \overset{\Delta}{\le} \frac{m+1}{n-m} |\sigma_n - \sigma_m| + \frac{1}{n-m}|s_n - s_i| < M \epsilon
+    \]
+    for sufficiently large $m, n$ such that the first term vanishes (since $\sigma_n \to \sigma$). Thus 
+    \[
+        \limsup_{n \to \infty} |s_n - \sigma_n| \le M\epsilon,
+    \]
+    so $s_n$ converges to $\sigma$ since $\epsilon$ was arbitrary.
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+\item % Exercise 15
+Extend Definition 3.21 to points in $\R^k$. Show that Theorems 3.22, 3.23, 3.25(a), 3.33, 3.34, 3.42, 3.45, 3.47, 3.55 are true in this more general setting.
+
+\begin{proof}
+    Each proof is presented in a sufficiently general fashion such that replacing $|x - y|$ with the respective metric in $\R^k$ suffices to prove each theorem for infinite sums in $\R^k$.
+\end{proof}
+
+\item % Exercise 16
+Fix $\alpha > 0$. Choose $x_1 > \sqrt{\alpha}$ and let
+\[
+	x_{n+1} = \frac{1}{2} \left(x_n + \frac{\alpha}{x_n}\right).
+\]
+\begin{enumerate}[(a)]
+\item Prove that $\{x_n\}$ decreases monotonically and that $x_n \to \sqrt{\alpha}$.
+
+\begin{proof}
+    Notice that $x_n > \sqrt{\alpha}$ for each $n$ from the AM-GM inequality, and thus $\alpha/x_n < \sqrt{\alpha}$. Thus, $x_{n+1} < x_n$ and the sequence is monotonically decreasing and bounded below. Thus, it converges to some $L \ge \sqrt{\alpha}$. Then, notice that 
+    \[
+        L = \lim_{n \to \infty} x_{n+1} = \lim_{n \to \infty} \frac{1}{2} \left(x_n + \frac{\alpha}{x_n} \right) = \frac{1}{2} (L + \alpha/L)
+    \]
+    which has solutions $\pm \sqrt{\alpha}$, so $\lim_{n \to \infty} x_n = \sqrt{\alpha}$, as required.
+\end{proof}
+
+\item Put $\epsilon = x_n - \sqrt{\alpha}$ and show that
+\[
+	\epsilon_{n+1} = \frac{\epsilon_n^2}{2x_n} < \frac{\epsilon_n^2}{2\sqrt{\alpha}}
+\]
+so that if $\beta = 2\sqrt{\alpha}$,
+\[
+	\epsilon_{n+1} < \beta\left(\frac{\epsilon_1}{\beta}\right)^{2^n}.
+\]
+
+\begin{proof}
+    We have
+    \[
+        \frac{\epsilon_n^2}{2x_n} = \frac{(x_n - \sqrt{\alpha})^2}{2x_n} = \frac{1}{2} \left( x_n - 2\sqrt{\alpha} + \frac{\alpha}{x_n} \right) = \frac{1}{2} \left( x_n + \frac{\alpha}{x_n} \right) - \sqrt{\alpha} = \epsilon_{n+1}.
+    \]
+    and the second part of the inequality follows from the fact proven in part (a) that $x_n > \sqrt{\alpha}$ for all $n$. The second fact follows inductively by the above statement.
+\end{proof}
+
+\item This presents a great algorithm for computing square roots. Show that if $\alpha = 3$ and $x_1 = 2$, that $\epsilon_1/\beta < 0.1$ so $\epsilon_5 < 4 \cdot 10^{-16}$ and $\epsilon_6 < 4 \cdot 10^{-32}$.
+
+\begin{proof}
+    We have $\beta = 2\sqrt{3}$ and $\epsilon_1 = 2 - \sqrt{3}$ so
+    \[
+        \frac{\epsilon_1}{\beta} = \frac{2 - \sqrt{3}}{2 \sqrt{3}} = \frac{4 - 3}{2 \sqrt{3} (2 + \sqrt{3})} < \frac{1}{10.5} < 0.1
+    \]
+    since $\sqrt{3} < 1.5$. Then $\epsilon_5 < \beta \cdot 10^{-2^4} < 4 \cdot 10^{-16}$ and similarly $\epsilon_6 < \beta \cdot 10^{-2^5} < 4 \cdot 10^{-32}$ as required.
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 17
+Fix $\alpha > 1$ and take $x_1 > \sqrt{\alpha}$ and
+\[
+	x_{n+1} = \frac{\alpha + x_n}{1 + x_n} = x_n + \frac{\alpha - x_n^2}{1 + x_n}.
+\]
+\begin{enumerate}[(a)]
+\item Prove that $x_1 > x_3 > x_5 > \dotsb$.
+\item Prove that $x_2 < x_4 < x_6 < \dotsb$.
+\begin{proof}
+    Manipulating, we have
+    \[
+        x_{n+2} = \frac{\alpha + x_{n+1}}{1 + x_{n+1}} = \frac{(1 + x_n)(\alpha + x_{n+1})}{(1 + x_n)(1 + x_{n+1})} = \frac{\alpha + \alpha x_n + \alpha + x_n}{1 + x_n + \alpha + x_n} < x_n
+    \]
+    if and only if
+    \[
+        \alpha + \alpha x_n + \alpha + x_n < x_n + x_n^2 + \alpha x_n + x_n^2 \iff 0 < \alpha < x_n^2
+    \]
+    so it suffices to show that $x_{2k+1} > \sqrt{\alpha}$ and $x_{2k} < \sqrt{\alpha}$ inductively to conclude both results.
+
+    Now, if $x_n > \sqrt{\alpha}$, then 
+    \[
+        x_{n+1} - x_n = \frac{\alpha - x_n^2}{1 + x_n} = (x_n - \sqrt{\alpha}) \frac{\sqrt{\alpha} + x_n}{1 + x_n} > x_n - \sqrt{\alpha}
+    \]
+    since $\sqrt{\alpha} > 1$. Then $x_{n+1} < \sqrt{\alpha}$. The argument is symmetric for the other condition, completing the proof.
+\end{proof}
+
+\item Prove that $x_n \to \sqrt{\alpha}$.
+    \begin{proof}
+        The subsequence $\{x_{2k+1}\}$ is decreasing and bounded below by $\sqrt{\alpha}$, and is thus convergent. It must converge to a value $L \ge \sqrt{\alpha}$ such that
+        \[
+            L = \lim_{n \to \infty} x_{n+2} = \lim_{n \to \infty} \frac{\alpha + x_n}{1 + x_n} = \frac{\alpha + L}{1 + L},
+        \]
+        whose solutions are $\pm \sqrt{\alpha}$. Thus, $L = \sqrt{\alpha}$.
+    \end{proof}
+\item Compare the rapidity of convergence of this process with the previous one.
+
+\begin{proof}
+    TODO: It converges slower, but I'm not able to show this...
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 18
+Replace the recursive definition in Exercise 16 by
+\[
+	x_{n+1} = \frac{p-1}{p} x_n + \frac{1}{p} \cdot \frac{\alpha}{x_n^{p-1}}
+\]
+where $p$ is a fixed positive integer. Describe the behaviour of the resulting sequences $\{x_n\}$. 
+
+\begin{proof}
+    Notice that according to the definition, we must have $x_{n+1} \ge \sqrt[p]{\alpha}$ by the AM-GM inequality. Then let $x_1 > \sqrt[p]{\alpha}$ without loss of generality, then by a similar argument as above, $x_{n+1} < x_n$ so the sequence converges since it is monotonically decreasing and bounded below. It must converge to its unique fixed point at least $\sqrt[p]{\alpha}$, namely $x_n \to \sqrt[p]{\alpha}$.
+\end{proof}
+
+\item % Exercise 19
+Associate to each sequence $a = \{\alpha_n\} \in \{0, 2\}^{\N}$ the real number
+\[
+	x(a) = \sum_{n=1}^{\infty} \frac{\alpha_n}{3^n}.
+\]
+Prove that the set of all $x(a)$ is the Cantor set.
+
+\begin{proof}
+    First, notice that for any real number $r \in [0, 1]$, we can associate a ternary representation $\{a_n\} \in \{0, 1, 2\}^{\N}$ such that $r = \sum_{n=0}^{\infty} a_n 3^{-n}$, so this question reduces to showing that $r$ is in the Cantor set iff it contains no 1s in its ternary representation.
+
+    Notice that by construction, the middle thirds of each segment that we remove in the $i$-th iteration have a 1 as the $i$-th trit. So $\{0, 2\}^{\N} \supseteq C$. The converse follows again by noticing that any $r \in \{0, 2\}^{\N}$ is in each closed partial $C_n$, and thus in its infinite intersection $C$.
+\end{proof}
+
+\item % Exercise 20
+Suppose $\{p_n\}$ is a Cauchy sequence in a metric space $X$ and some subsequence $\{p_{n_i}\}$ converges to a point $p \in X$. Prove that the full sequence $\{p_n\}$ converges to $p$.
+
+\begin{proof}
+    Let $\epsilon > 0$ be arbitrary and let $I \in \N$ such that $d(p_{n_i}, p) < \epsilon / 2$ for all $i \ge I$. Also, let $N \in \N$ such that for all $n \ge m \ge N$, we have $d(p_n, p_m) < \epsilon / 2$. Let $N_1$ be some $n_i$ for $i \ge I$ such that $n_i \ge N$. Then for all $n \ge N_1$, we have $d(p_n, p) \le d(p_n, p_{N_1}) + d(p_{n_I}, p) \le \epsilon$ so $p_n \to p$ as required.
+\end{proof}
+
+\item % Exercise 21
+Prove the following analogue of Theorem 3.10(b): If $\{E_n\}$ is a sequence of closed non-empty and bounded sets in a \underline{complete} metric space $X$, if $E_n \supseteq E_{n+1}$, and if $\diam E_n \to 0$, then $\bigcap_{n=1}^{\infty} E_n$ contains a single point.
+
+\begin{proof}
+Let $p_n \in E_n$. Then $\{p_n, p_{n+1}, \dotsc\} \subseteq E_n$ so $\diam \{p_n, p_{n+1}, \dotsc\} \to 0$, ie. $\{p_n\}$ is Cauchy. Since $X$ is complete, $p_n \to p$ for some $p \in X$. But now for any $n$, the sequence $\{p_n, p_{n+1}, \dotsc\}$ converges to $p \in E_n$ since $E_n$ is closed. Thus, $p \in \bigcap_{n=1}^{\infty} E_n$. Now $p$ must be the unique point in $\bigcap_{n=1}^{\infty} E_n$ otherwise the diameters of $E_n$ would not fall below some positive real value.
+\end{proof}
+
+\item % Exercise 22
+Suppose $X$ is a non-empty complete metric space, and $\{G_n\}$ is a sequence of dense open subsets of $X$. Prove Baire's theorem, namely that $\bigcap_{n=1}^{\infty} G_n$ is non-empty, and in fact dense in $X$.
+
+\begin{proof}
+    Let $S$ be a neighbourhood in $X$. We show that $S \cap \bigcap_{n=1}^{\infty} G_n$ is non-empty. We define a sequence $\{F_n\}$ of closed and bounded subsets of $X$: let $E_0 = S$, and construct $E_n$ inductively as follows: take $x_n$ from the dense open set $E_{n-1} \cap G_n$, and $E_n$ some neighbourhood of $x_n$ with $\overline{E_n} \subseteq G_n \cap E_{n-1}$. This defines a sequence $\{E_n\}$ such that $\overline{E_n} \subseteq S \cap \bigcap_{i=1}^{n} G_i$ inductively. Then, $\{F_n = \overline{E_n}\}$ forms a sequence of closed and bounded sets in the complete metric space $X$, so by the previous theorem, $\bigcap_{n=1}^{\infty} F_n \subseteq S \cap \bigcap_{n=1}^{\infty} G_n$ is non-empty, as required.
+\end{proof}
+
+\item % Exercise 23
+Suppose $\{p_n\}, \{q_n\}$ are Cauchy sequences in a metric space $X$. Show that the sequence $\{d(p_n, q_n)\}$ converges.
+
+\begin{proof}
+    Let $\epsilon > 0$ be arbitrary. Let $N_p \in \N$ such that if $n \ge m \ge N_p$, then $d(p_n, p_m) < \epsilon / 2$. Define $N_q$ similarly. Then, for any $n \ge m \ge \max(N_p, N_q)$, we have
+    \[
+        d(p_n, q_n) \le d(p_m, q_m) + d(p_n, p_m) + d(q_n, q_m) < d(p_m, q_m) + \epsilon,
+    \]
+    and similarly $d(p_m, q_m) \le d(p_n, q_n) + \epsilon$, so $|d(p_n, q_n) - d(p_m, q_m)| < \epsilon$, so the sequence $\{d(p_n, q_n)\}$ is Cauchy in $\R$ and thus convergent since $\R$ is complete. 
+\end{proof}
+
+\item % Exercise 24
+Let $X$ be a metric space.
+\begin{enumerate}[(a)]
+\item Call two Cauchy sequences $\{p_n\}, \{q_n\}$ \underline{equivalent} if $d(p_n, q_n) \to 0$. Show that this is an equivalence relation.
+
+\begin{proof}
+    Clearly $d(p_n, p_n) \to 0$ so $\{p_n\} \sim \{p_n\}$. Also, since $d(p_n, q_n) = d(q_n, p_n)$, the relation is symmetric. Finally, if $\{p_n\} \sim \{q_n\}$ and $\{q_n\} \sim \{r_n\}$, then $0 \le d(p_n, r_n) \le d(p_n, q_n) + d(q_n, r_n) \to 0$ converges to 0 by the comparison test. Thus the relation is transitive. These properties together make $\sim$ an equivalence relation on the Cauchy sequences in $X$.
+\end{proof}
+
+\item Let $X^*$ be the set of equivalence classes under the above relation. If $P, Q \in X^*$ and $\{p_n\} \in P$, $\{q_n\} \in Q$, define
+\[
+	\Delta(P, Q) = \lim_{n \to \infty} d(p_n, q_n),
+\]
+which exists from Exercise 23. Show that the number $\Delta(P, Q)$ is unchanged if we replace $\{p_n\}$ or $\{q_n\}$ by equivalent sequences, so that $\Delta$ is a distance function in $X^*$.
+
+\begin{proof}
+    Suppose $D = \Delta(P, Q) = \lim_{n \to \infty} d(p_n, q_n)$ for Cauchy sequences $\{p_n\} \in P$, $\{q_n\} \in Q$. Suppose that $\{r_n\} \in P$. Then, notice that
+    \[  
+        d(p_n, q_n) - d(p_n, r_n) \overset{\Delta}{\le} d(r_n, q_n) \overset{\Delta}{\le} d(p_n, r_n) + d(p_n, q_n)
+    \]
+    so $\lim_{n \to \infty} d(r_n, q_n) = D$ by the Squeeze theorem so we are done.
+\end{proof}
+\item Prove that the resulting metric space $X^*$ is complete.
+
+\begin{proof}
+    It is always true that convergent sequences are Cauchy. It suffices to show that Cauchy sequences in $X^*$ converge in $X^*$. Suppose that $\{P_n\}$ is Cauchy with respect to the distance metric $\Delta$. Then, for each $n$, there exists a Cauchy sequence in $Q_{kn}$ such that $\lim_{k \to \infty} \Delta(P_n, Q_{kn}) = 0$. Then, for each $n$, we extract a subsequence $Q_n'$ of $Q_{kn}$ such that $\Delta(P_n, Q_n') < 1/n$ for all $n$. Then,
+    \[
+        \Delta(Q_n', Q_m') \overset{\Delta}{\le} \Delta(P_n, Q_n') + \Delta(P_n, P_m) + \Delta(P_m, Q_m') < 1/n + 1/m + \epsilon < 3\epsilon
+    \]
+    for sufficiently large $m, n$, where $\epsilon > 0$ can be made arbitrarily small. Thus $\{Q_n'\}$ is Cauchy. Also, if $\{Q_n'\} \in P$, then 
+    \[
+        \Delta(P, P_n) \le \Delta(P, Q_n') + \Delta(Q_n', P_n) < 2\epsilon
+    \]
+    so $P_n \to P$ is convergent, as required.
+\end{proof}
+
+\item For each $p \in X$, there is a Cauchy sequence all of whose terms are $p$. Let $P_p$ be the element of $X^*$ which contains this sequence. Prove that
+\[
+	\Delta(P_p, P_q) = d(p, q)
+\]
+for all $p, q \in X$, so that $\phi: p \mapsto P_p$ is an \textbf{isometry} (a distance-preserving mapping) of $X$ onto $X^*$.
+
+\begin{proof}
+This is trivial if we take the representative sequence to be the constant sequence of $p$ and $q$: the limit is that of a constant sequence.
+\end{proof}
+
+\item Prove that $\phi(X)$ is dense in $X^*$, and that $\phi(X) = X^*$ if $X$ is complete. By (d), we may identify $X$ and $\phi(X)$ and thus regard $X$ as embedded in the complete metric space $X^*$. We call $X^*$ the \textbf{completion} of $X$.
+
+\begin{proof}
+    Take $P \in X^*$ and $\{p_n\} \in P$ with $p_n \in X$. Then $P_{p_n} \to P$ since $\{p_n\}$ is Cauchy, so $\phi(X)$ is dense in $X^*$. Similarly, if $X$ were complete, then every element $P \in X^*$ admits a constant sequence, so $X^* \subseteq \phi(X)$ completing the proof.
+\end{proof}
+\end{enumerate}
+
+\item % Exercise 25
+Let $X$ be a metric space whose points are the rational numbers, with the metric $d(x, y) = |x - y|$. What is the completion of this space? (Compare Exercise 24).
+\begin{proof}
+The completion is $\R$! Clearly $\Q^* \subseteq \R$ by definition, and every element $r \in \R$ has some Cauchy sequence in $\Q$ which converges to it, namely the one generated by its decimal expansion.
+\end{proof}
+
+\end{enumerate}

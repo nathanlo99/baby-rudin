@@ -9,3 +9,5 @@ notes.tex.bak
 missfont.log
 notes.fdb_latexmk
 notes.fls
+*.bak
+*.aux
