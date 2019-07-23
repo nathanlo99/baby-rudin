@@ -168,5 +168,90 @@ Now, we show that a very large class of functions is continuous. Firstly, the co
 \end{theorem}
 
 \begin{theorem} % Theorem 4.20
+    Let $E$ be a non-compact set in $\R$. Then:
+    \begin{enumerate}
+        \item There exists a continuous unbounded function on $E$.
+        \item There exists a continuous and bounded function on $E$ which does not attain its maximum.
+        \item If $E$ is bounded, there exists a continuous function on $E$ which is not uniformly continuous.
+    \end{enumerate}
 
+\begin{proof}
+    For (a), if $E$ is unbounded, then $f(x) = x$ is continuous but unbounded. Otherwise, $E$ is not closed, so there exists a limit point $x_0$ of $E$ which is not in $E$. Then $f(x) = 1/(x-x_0)$ is continuous but unbounded (consider the sequence converging to $x_0$).
+
+    For (b), if $f(x)$ is the function constructed in part (a), then $g(x) = -1/|f(x)|$ is bounded above by 0 and continuous, but never attains its maximum of 0.
+
+    For (c), notice $E$ is thus not closed. Then $f(x)$ from part (a) is not uniformly continuous.
+\end{proof}
 \end{theorem}
+
+\section{Continuity and Connectedness}
+
+\begin{theorem} % Theorem 4.22
+    If $f: X \to Y$ and $E$ is a connected subset of $X$, then $f(E)$ is connected.
+\begin{proof}
+    We prove the contrapositive: suppose $f(E) = A \cup B$ and $A, B$ are non-empty separated sets. Then, letting $A' = E \cap f^{-1}(A)$ and $B' = E \cap f^{-1}(B)$, we see that $E = A' \cup B'$.
+
+Now 
+\[
+    \overline{A'} \cap B' \subseteq E \cap f^{-1}(\overline{A}) \cap f^{-1}(B) = \emptyset
+\]
+since $\overline{A} \cap B = \emptyset$, and repeating the argument for $A'$ and $\overline{B'}$ shows that $(A', B')$ is a separation of $E$, proving the contrapositive.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Intermediate Value Theorem] % Theorem 4.23
+    Let $f$ be a continuous real function on the interval $[a, b]$. If $f(a) < c < f(b)$, then $f(x) = c$ for some $x \in (a, b)$.
+\begin{proof}
+If not, then $f([a, b]) \cap (f(a), c)$ and $f([a, b]) \cap (c, f(b))$ form a disconnection of $f([a, b])$, contradicting Theorem 4.22.
+\end{proof}
+\end{theorem}
+
+\section{Discontinuities}
+
+\begin{definition} % Definition 4.25
+    If $f: X \to Y$ and $x \in X$ is such that $f$ is not continuous at $x$, we say $f$ is \textbf{discontinuous} at $x$, or that $f$ \textbf{has a discontinuity} at $x$.
+
+    Let $f: (a, b) \to Y$. Let $x \in [a, b)$. We define $f(x+) = q$ if $f(t_n) \to q$ for any sequence $\{t_n\}$ in $(x, b)$ with $t_n \to x$. We define $f(x-)$ symmetrically. Clearly $\lim_{t \to x} f(t)$ exists iff $f(x-) = f(x+) = \lim_{t \to x} f(t)$. 
+\end{definition}
+
+\begin{definition} % Definition 4.26
+    Let $f: (a, b) \to Y$. If $f$ is discontinuous at $x$, but $f(x-)$ and $f(x+)$ both exist, $f$ is said to have a \textbf{discontinuity of the first kind}, or a \textbf{simple discontinuity} at $x$. Otherwise, the discontinuity is said to be of the \textbf{second kind}.
+
+    If $f$ has a simple disconinuity at $x$, either $f(x+) \ne f(x-)$, or $f(x+) = f(x-) \ne f(x)$.
+\end{definition}
+
+\section{Monotonic functions}
+
+\begin{definition} % Definition 4.28
+    Let $f: (a, b) \to \R$. Then $f$ is \textbf{monotonically increasing} on $(a, b)$ if $a < x < y < b$ implies $f(x) \le f(y)$. If instead $f(x) \ge f(y)$ with the same conditions, then $f$ is \textbf{monotonically decreasing}. 
+\end{definition}
+
+\begin{theorem} % Theorem 4.29
+    Let $f$ be monotonically increasing on $(a, b)$. Then $f(x+)$ and $f(x-)$ exist at every point $x \in (a, b)$.
+\begin{proof}
+    Every sequence converging to $x$ from the left has a monotonically increasing subsequence. Then $f(x_n)$ is monotonically increasing and bounded above, say by $f(x+\delta)$. Thus $f(x_n)$ converges by the Monotone Convergence Theorem. The argument for $f(x+)$ is analogous.
+\end{proof}
+\end{theorem}
+
+\begin{corollary}
+Monotonic functions have no discontinuities of the second kind.
+\end{corollary}
+
+\begin{theorem} % Theorem 4.30
+    Let $f$ be monotonic on $(a, b)$. Then the set of discontinuities of $f$ in $(a, b)$ is at most countable.
+\begin{proof}
+    We associate each discontinuity $x$ in $(a, b)$ with a rational number $r$ such that $f(x-) < r < f(x+)$, forming an injection from the set of discontinuities to $\Q$, proving the result.
+\end{proof}
+\end{theorem}
+
+\section{Infinite Limits and Limits at Infinity}
+
+\begin{definition} % Definition 4.32
+    The set $(c, +\infty)$ is considered a neighbourhood of $+\infty$. Similarly for $(-\infty, c)$ being neighbourhoods of $-\infty$.
+\end{definition}
+
+\begin{definition} % Definition 4.33
+    Let $f: (E \subseteq \R) \to Y$. We say $f(t) \to y$ as $t \to x$, where $A, x \in \overline{\R}$, if for every neighbourhood $U$ of $y$, there is a neighbourhood $V$ of $x$ such that $V \cap E$ is non-empty, and $f(t) \in U$ for all $t \in V \cap E \setminus \{x\}$. Limits of functions still combine in the same ways. 
+\end{definition}
+
+\section{Exercises}
