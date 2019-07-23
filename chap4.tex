@@ -1,0 +1,172 @@
+
+\chapter{Continuity}
+
+\section{Limits of Functions}
+
+\begin{definition} % Definition 4.1
+    Let $X, Y$ be metric spaces and $E \subseteq X$. Let $f$ map $E$ into $Y$, and $p$ be a limit point of $E$. We write $f(x) \to q$ as $x \to p$, or equivalently
+    \[
+        \lim_{x \to p}f(x) = q
+    \]
+    iff there is a point $q \in Y$ such that for every $\epsilon > 0$, there exists $\delta > 0$ such that $d_Y(f(x), q) < \epsilon$ for all points $x \in E$ such that $0 < d_X(x, p) < \delta$.
+
+    Note that $p \in X$, but that $p$ need not be in $E$. Also, even if $p \in E$, we do not necessarily have $f(p) = \lim_{x \to p} f(x)$. This property is interesting and we will formalize it later.
+\end{definition}
+
+\begin{theorem} % Theorem 4.2
+    Let $X, Y, E, f, p$ as in Definition 4.1. Then, $f(x) \to q$ when $x \to p$ iff $f(p_n) \to q$ for every sequence $\{p_n\}$ in $E \setminus \{p\}$ which converges to $p$.
+\begin{proof}
+    Suppose that $f(x) \to q$ as in Definition 4.1. Then, let $\epsilon > 0$ be arbitrary, and let $\delta$ such that Definition 4.1 holds. Then, if $\{p_n\}$ is some sequence converging to $p$, then eventually $d_X(p_n, p) < \delta$, so $d_Y(f(p_n), q) < \epsilon$ eventually. Thus $f(p_n) \to q$.
+
+    Now suppose that $f(x) \not\to q$ as in Definition 4.1. Then, there exists some $\epsilon > 0$ such that for every $\delta > 0$, we can find some $x \in E$ such that $0 < d_X(x, p) < \delta$ but $d_Y(f(x), q) \ge \epsilon$. Let $\delta = 1/n$ for every $n$, giving us some sequence $x_n$ such that $d_Y(f(x_n), q) \ge \epsilon$. Thus $f(x_n) \not\to q$, proving the contrapositive.    
+\end{proof}
+\end{theorem}
+
+\begin{corollary} % Corollary 4.3
+    If $f$ has a limit at $p$, then this limit is unique.
+\end{corollary}
+
+\begin{definition} % Definition 4.4
+    If $f, g$ are complex functions, then we denote $f + g$ to be the function such that $(f + g)(x) = f(x) + g(x)$. We define $f - g$, $fg$ and $f / g$ similarly. If $f(x) = c$ for all $x$, then we say $f$ is \textbf{constant}, and write $f = c$. If $f(x) \ge g(x)$ for all $x$, we sometimes write $f \ge g$.
+\end{definition}
+
+\begin{theorem} % Theorem 3.5
+    Let $E \subseteq X$ a metric space, $p$ a limit point of $E$, and $f$ and $g$ complex functions on $E$. Furthermore, let $A = \lim_{x \to p} f(x)$ and $B = \lim_{x \to p} g(x)$. Then,
+\begin{enumerate}
+    \item $\lim_{x \to p} (f + g)(x) = A + B$.
+    \item $\lim_{x \to p} (fg)(x) = AB$.
+    \item $\lim_{x \to p} (f/g)(x) = A/B$ if $B \ne 0$.
+    \item If $f$ and $g$ map into $\R^k$, then additionally $\lim_{x \to p} (f \cdot g)(x) = A \cdot B$.
+\end{enumerate}
+
+\begin{proof}
+    This follows immediately from the analogous properties of sequences.
+\end{proof}
+\end{theorem}
+
+\section{Continuous Functions}
+
+\begin{definition} % Definition 4.5
+    Suppose $X, Y$ are metric spaces, $E \subseteq X$, $p \in E$, and $f: E \to Y$. Then, $f$ is \textbf{continuous} at $p$ if for every $\epsilon > 0$, there exists $\delta > 0$ such that
+    \[
+        d_Y(f(x), f(p)) < \epsilon
+    \]
+    for all points $x \in E$ for which $d_X(x, p) < \delta$. If $f$ is continuous at every point in $E$, then $f$ is \textbf{continuous on $E$}.
+
+    Notice that every function $f$ is continuous at isolated points of $p$, since we can always choose $\delta > 0$ sufficiently small such that $E \cap N_\delta(x) = \{p\}$ so $d_Y(f(x), f(p)) = 0 < \epsilon$.
+\end{definition}
+
+\begin{theorem} % Theorem 4.6
+    Let everything as Definition 4.5. If $p$ is a limit point of $E$, then $f$ is continuous at $p$ iff $f(x) \to f(p)$ as $x \to p$.
+\end{theorem}
+
+\begin{theorem} % Theorem 4.7
+    Suppose $X, Y, Z$ are metric spaces, $f: (E \subseteq X) \to Y$ and $g: f(E) \to Z$, and $h = g \circ f$. Then, if $f$ is continuous at $p \in E$ and $g$ is continuous at $f(p)$, then $h$ is continuous at $p$.
+
+\begin{proof}
+    Let $\epsilon > 0$. Since $g$ is continuous at $f(p)$, there exists some $\delta > 0$ such that $d_Z(g(f(x)), g(f(p))) < \epsilon$ for all $f(x) \in f(E)$ such that $0 < d_Y(f(x), f(p)) < \delta$. However, since $f$ is continuous, we can find $\delta' > 0$ such that $d_Y(f(x), f(p)) < \delta$ whenever $0 < d_X(x, p) < \delta'$. In other words, we've found $\delta' > 0$ such that $d_Z(h(x), h(p)) < \epsilon$ whenever $0 < d_X(x, p) < \delta'$, so $h$ is continuous at $p$ as required.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 4.8
+    A mapping $f$ of a metric space $X$ into a metric space $Y$ is continuous on $X$ iff $f^{-1}(V)$ is open in $X$ for every open set $V$ in $Y$.
+
+\begin{proof}
+    Suppose $f$ is continuous on $X$. Then, if $y \in V$ for some open $V$, then there exists some neighbourhood $N_{\epsilon}(y)$ around $y$. By the definition of continuity, this admits $N_{\delta}(f^{-1}(y))$ in $f^{-1}(V)$ for positive $\delta$, so $f^{-1}(V)$ is open in $X$, so the forward direction is done since $V$ was chosen arbitrarily.
+
+    Now for the contrapositive, suppose $f^{-1}(V)$ is open for every open subset $V$ of $Y$. Then, for any $x \in X$, for any $\epsilon > 0$, the set $V = N_\epsilon(f(x))$ is an open set in $Y$, so $f^{-1}(V)$ is open by assumption. Therefore, $f^{-1}(f(x)) = x$ is an interior point of $f^{-1}(V)$, so in particular, this gives us the $\delta > 0$ we need for continuity.
+\end{proof}
+\end{theorem}
+
+\begin{corollary} % Corollary 4.8
+    A mapping $f$ of a metric space $X$ into a metric space $Y$ is continuous iff $f^{-1}(C)$ is closed in $X$ for every closed set $C$ in $Y$.
+\end{corollary}
+
+\begin{theorem} % Theorem 4.9
+    If $f, g$ are continuous complex functions on $X$, then $f+g$, $fg$ and $f/g$ are continuous on $X$.
+\begin{proof}
+    These follow directly from the corresponding theorems on sequences, and the equivalence of the sequential definition of continuity.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 4.10
+    Let $f_1, f_2, \dotsc, f_k$ be real functions on $X$ and $\textbf{f}$ be the mapping of $X$ into $\R^k$ defined by
+    \[
+        \textbf{f}(x) = (f_1(x), f_2(x), \dotsc, f_k(x)).
+    \]
+    then $\textbf{f}$ is continuous iff each of the functions $f_1, \dotsc, f_k$ is continuous.
+
+Furthermore, if $\textbf{f}, \textbf{g}: X \to \R^k$ are continuous, then $\textbf{f} + \textbf{g}$ and $\textbf{f} \cdot \textbf{g}$ are continuous.
+
+\begin{proof}
+    Part (a) follows from the fact that
+    \[
+    |f_i(x) - f_i(y)| \le |\textbf{x} - \textbf{y}| = \sqrt{ \sum_{j=1}^{k} |f_j(x) - f_j(y)|^2}, \forall i \in \{1, 2, \dotsc, k\},
+    \]
+    and part (b) follows from (a) and Theorem 4.9.
+\end{proof}
+\end{theorem}
+
+Now, we show that a very large class of functions is continuous. Firstly, the component function $f((x_1, \dotsc, x_k)) = x_i$ is continuous for any $i \in \{1, 2, \dotsc, k\}$. This shows that polynomials in the components are continuous, and thus rational functions on $(x_i)$ are continuous. Finally, it can be seen that $f(\textbf{x}) = |\textbf{x}|$ is continuous.
+
+\section{Continuity and Compactness}
+
+\begin{definition} % Definition 4.13
+    A mapping $f : E \to \R^k$ is \textbf{bounded} if there is a real number $M$ such that $|\textbf{f}(x)| \le M$ for all $x \in E$.
+\end{definition}
+
+\begin{theorem} % Theorem 4.14
+    Suppose $f$ is a continuous mapping of a compact metric space $X$ into a metric space $Y$. Then $f(X)$ is compact.
+
+\begin{proof}
+    Let $\{G_\alpha\}$ be an open cover of $f(X)$. Then, since $f$ is continuous, each $f^{-1}(G_\alpha)$ is open, forming an open cover for $X$. Since $X$ is compact, 
+    \[
+        X \subseteq \bigcup_{i=1}^{n} f^{-1}(G_i)
+    \]
+    for some finite subset $\{G_i\}$ of $\{G_\alpha\}$. Then, since $f(f^{-1}(E)) \subseteq E$ for all $E \subseteq X$, we have $f(X) = \bigcup_{i=1}^{n} G_i$, so $f(X)$ is compact.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 4.15
+    If $\textbf{f} : X \to \R^k$, then $\textbf{f}(X)$ is closed and bounded. Thus, $\textbf{f}$ is bounded.
+\begin{proof}
+    By Theorem 4.14, $\textbf{f}(X)$ is compact. Thus it is closed and bounded. In particular it is bounded.
+\end{proof}
+\end{theorem}
+
+\begin{theorem}[Extreme Value Theorem] % Theorem 4.16
+    Suppose $f$ is a continuous real function on a compact metric space $X$, and
+    \[
+        M = \sup_{p \in X} f(p),\quad m = \inf_{p \in X} f(p),
+    \]
+    then $f$ attains $M$ and $m$.
+
+\begin{proof}
+    From Theorem 4.14, $f(X)$ is compact and thus closed and bounded. Hence $f(X)$ contains $M$ and $m$, proving the result.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 4.17
+    Suppose $f$ is a continuous bijection from a compact metric space $X$ onto a metric space $Y$. Then, $f^{-1}$ is a continuous mapping of $Y$ \underline{onto} $X$.
+\begin{proof}
+    To use Theorem 4.8, it suffices to show that $f(V)$ is open for every open set $V$ in $X$. But $V^c$ is closed and thus compact in $X$, and thus $f(V^c)$ is compact and thus closed in $Y$. Since $f$ is bijective, $f(V)$ is the complement is $f(V^c)$, thus $f(V)$ is open.
+\end{proof}
+\end{theorem}
+
+\begin{definition} % Definition 4.18
+    A mapping $f: X \to Y$ is \textbf{uniformly continuous} on $X$ if for every $\epsilon > 0$, there exists $\delta > 0$ such that
+    \[
+        d_Y(f(p), f(q)) < \epsilon, \forall p, q \in X : d_X(p, q) < \delta.
+    \]
+\end{definition}
+
+\begin{theorem} % Theorem 4.19
+    If $f$ is a continuous mapping from a \underline{compact} metric space $X$ into a metric space $Y$, then $f$ is uniformly continuous on $X$.
+\begin{proof} 
+    We prove the contrapositive: suppose $f$ is not uniformly continuous on $X$. Then, for some $\epsilon > 0$, we can find $p_n, q_n \in X$ such that $d_X(p_n, q_n) < 1/n$ but $d_Y(f(p_n), f(q_n)) > \epsilon$. Then, since $X$ is compact, we can find a subsequence $(p_{n_k})$ which converges, then take a subsequence $(q_{n_{k_m}})$ of $(q_{n_k})$ which converges, again since $X$ is compact. We relabel these subsequences $(r_n)$ and $(s_n)$. By the Squeeze Theorem, $r_n, s_n \to x_0$ for some $x_0 \in X$. However, $d_Y(f(r_n), f(s_n)) > \epsilon$, so $f$ cannot be continuous at $x_0$ by the sequential definition of continuity, completing the proof.
+\end{proof}
+\end{theorem}
+
+\begin{theorem} % Theorem 4.20
+
+\end{theorem}
