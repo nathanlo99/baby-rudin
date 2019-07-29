@@ -284,23 +284,51 @@ Let $f: X \to \R$ be continuous. Let $Z(f)$ be the kernel of $f$. Prove that $Z(
 \item % Exercise 4.4
 Let $f, g: X \to Y$ be continuous, and $E$ be dense in $X$. Prove that $f(E)$ is dense in $f(X)$. If $g(p) = f(p)$ for $p \in E$, prove that $g(p) = f(p)$ for all $p \in X$.
 
+\begin{proof}
+    Let $V \subseteq f(X)$ be open. Since $f$ is continuous, $f^{-1}(V)$ is open, and since $E$ is dense, we can find $p \in E \cap f^{-1}(V)$, which corresponds to $p \in E$ such that $f(p) \in V$, so in particular, $f(p)$ is an element of $f(E)$ in $V$. Since $V$ was arbitrary, $f(E)$ is dense in $f(X)$. 
+
+    Notice that $E$ is a dense subset of $Z = Z(g-f)$. Thus, $\overline{E} = X \subseteq \overline{Z} \subseteq X$, so in particular, $X = Z$ since $Z$ is closed from the previous Exercise, completing the proof.
+\end{proof}
+
 \item % Exercise 4.5
-Let $f: E \to \R$ be continuous, and $E$ be closed. Prove that there exist continuous functions $g: \R \to \R$ such that $g = f$ on $E$. These are called \textbf{continuous extensions} of $f$ from $E$ to $\R$. Show that the result becomes false if $E$ is not closed, and extend the result to vector-valued functions.
+    Let $f: (E \subseteq \R) \to \R$ be continuous, and $E$ be closed. Prove that there exist continuous functions $g: \R \to \R$ such that $g = f$ on $E$. These are called \textbf{continuous extensions} of $f$ from $E$ to $\R$. Show that the result becomes false if $E$ is not closed, and extend the result to vector-valued functions.
+
+\begin{proof}
+    We know that $E^c$ is open and thus a countable union of disjoint open segments of $\R$. For each of these segments $(a, b)$, assign $g(at + b(1-t)) = tf(a) + (1-t)f(b)$, and $g(x) = f(x)$ on $E$. Then $g = f$ on $E$, and $g$ is continuous at the endpoints $a$ and $b$, as required.
+    
+    Now, if $E = \{\pm 1/n: n \in \N^+\}$. Then let $f(1/n) = 1+1/n$ and $f(-1/n) = -1+1/n$. Then the sequences $f(1/n) \to 1$ and $f(-1/n) \to -1$ while both $\pm 1/n \to 0$. Thus any $g$ which agrees with $f$ on $E$ must be discontinuous at $0$, and thus no such continuous extension of $f$ exists.
+\end{proof}
 
 \item % Exercise 4.6
 If $f$ is defined on $E$, the \textbf{graph} of $f$ is the set of points $(x, f(x))$ for $x \in E$. Suppose $E$ is compact. Prove that $f$ is continuous on $E$ iff its graph is compact.
 
+\begin{proof}
+    First, suppose $f$ is continuous. Let $\{G_\alpha\}$ be an open cover of $(E, f(E))$. Then since $f$ is continuous, $E$ and $f(E)$ are both compact, so we can choose elements $\{G_n\}$ such that the restrictions of the $G_n$ to $X$ cover $E$, and similarly $G_m$ to cover $f(E)$. These two sets combined give a finite cover for the graph of $f$.
+
+    Now suppose the graph of $f$ is compact. Then \TODO
+\end{proof}
+
 \item % Exercise 4.7
 If $E \subseteq X$ and $f$ is defined on $X$, the \textbf{restriction} of $f$ to $E$ is the function whose domain is $E$, such that $g(p) = f(p)$ for $p \in E$. Define $f, g: \R^2 \to \R$ such that $f(0, 0) = g(0, 0) = 0$, $f(x, y) = xy^2/(x^2 + y^4)$, $g(x, y) = xy^2/(x^2 + y^6)$ otherwise. Prove that $f$ is bounded on $\R^2$, and that $g$ is unbounded in every neighbourhood of $(0, 0)$, and that $f$ is not continuous at $( 0)$; but nevertheless that the restrictions of both $f$ and $g$ to every straight line in $\R^2$ are continuous!
 
+\begin{proof}
+    Notice that $\frac{ab}{a^2 + b^2} \le \frac{1}{2}$ since $(a - b)^2 = a^2 - 2ab + b^2 \ge 0$ for any $a, b$. Thus $f$ is bounded. Now, we have $g(1/n^3, 1/n) = n/2$ so $g$ is unbounded in any neighbourhood of $(0, 0)$. Finally, $f(1/n^2, 1/n) = 1/2$ for any $n$, so $f$ is discontinuous at $(0, 0)$. 
+
+    However, if $x = cy$, $f(cy, y) = \frac{cy^3}{c^2y^2 + y^4} = \frac{cy}{c^2 + y^2} \to 0$ as $y \to 0$, so $f$ is continuous on the line $x = cy$. On any other line not passing through $(0, 0)$, the restriction is purely within the domain of the continuous definition. Similarly, $g(cy, y) = \frac{cy}{c^2 + y^4} \to 0$ as $y \to 0$, so $g$ is continuous on any straight line.
+\end{proof}
+
 \item % Exercise 4.8
-Let $f: E \to \R$ be uniformly continuous on a bounded set $E$. Prove that $f$ is bounded on $E$. Show that this result is false if $E$ is not necessarily bounded.
+Let $f: E \to \R$ be uniformly continuous on a bounded set $E \subseteq \R$. 
+\begin{proof}
+    
+
+\end{proof}
 
 \item % Exercise 4.9
 Show that the requirement in the definition of uniform continuity can be rephrased as follows, in terms of diameters of sets: To every $\epsilon > 0$, there exists $\delta > 0$ such that $\diam f(E) < \epsilon$ for all $E \subseteq X$ with $\diam E < \delta$.
 
 \item % Exercise 4.10
-Complete the details of th following alternative proof of Theorem 4.19.
+Complete the details of the following alternative proof of Theorem 4.19.
 \begin{proof}
 Plot twist: I accidentally wrote this proof as I went along proving while copying over the notes.
 \end{proof}
