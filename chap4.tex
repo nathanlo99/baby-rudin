@@ -318,14 +318,19 @@ If $E \subseteq X$ and $f$ is defined on $X$, the \textbf{restriction} of $f$ to
 \end{proof}
 
 \item % Exercise 4.8
-Let $f: E \to \R$ be uniformly continuous on a bounded set $E \subseteq \R$. 
+    Let $f: E \to \R$ be uniformly continuous on a bounded set $E \subseteq \R$. Prove that $f$ is bounded on $\R$.
 \begin{proof}
-
-
+    Suppose not, and let $x_n$ be a sequence in $E$ such that $f(x_n) \ge n$ for all $n \in \N$. Then, $(x_n)$ admits a convergent subsequence $(x_{n_k})$, which converges to $x_0$, which is not necessarily in $E$. Then any sufficiently small neighbourhood of $x_0$ contains elements $f(x_{n_k})$ which are arbitrarily far apart, contradicting the fact that $f$ is uniformly continuous, proving the result.
 \end{proof}
 
 \item % Exercise 4.9
 Show that the requirement in the definition of uniform continuity can be rephrased as follows, in terms of diameters of sets: To every $\epsilon > 0$, there exists $\delta > 0$ such that $\diam f(E) < \epsilon$ for all $E \subseteq X$ with $\diam E < \delta$.
+
+\begin{proof}
+    Suppose the new definition holds. Then, let $\epsilon > 0$ be arbitrary and $\delta$ as in the definition. Then, for any two $x, y \in E$ such that $d_X(x, y) < \delta$, the set $E = \{x, y\}$ has diameter strictly less than $\delta$, and thus $\diam f(\{x, y\}) < \epsilon$, corresponding to the fact that $d_Y(f(x), f(y)) < \epsilon$. 
+
+    Now, suppose the old definition holds, and $\epsilon > 0$ be arbitrary. Let $\delta > 0$ as in the old definition with $\epsilon/2 > 0$. Furthermore, let $E$ be a set such that $\diam E < \delta$. Now, for any pair $x, y \in E$, we have $d_X(x, y) \le \diam E < \delta$, so $d_Y(f(x), f(y)) < \epsilon$. Thus, $\diam f(E) = \sup\{d_Y(f(x), f(y)): x, y \in E\} \le \epsilon/2 < \epsilon$, as required.
+\end{proof}
 
 \item % Exercise 4.10
 Complete the details of the following alternative proof of Theorem 4.19.
@@ -336,11 +341,26 @@ Plot twist: I accidentally wrote this proof as I went along proving while copyin
 \item % Exercise 4.11
 Suppose $f: X \to Y$ is uniformly continuous, and let $\{x_n\}$ be Cauchy in $X$. Prove that $\{f(x_n)\}$ is Cauchy in $Y$. Use this result to give an alternative proof of the theorem stated in Exercise 13.
 
+\begin{proof}
+    Let $E_n = \{x_n, x_{n+1}, \dotsc\}$. Let $\epsilon > 0$. We want to show that $\diam f(E_n) < \epsilon$ for sufficiently large $N$. Choose $\delta > 0$ such that the definition from Exercise 4.9 holds. Then choose $N \in \N$ such that $\diam E_n < \delta$ for all $n \ge N$, which exists some $\{x_n\}$ is Cauchy. Then, for any $n \ge N$, we have $\diam E_n < \delta$ and thus $\diam f(E_n) < \epsilon$ as required.
+\end{proof}
+
 \item % Exercise 4.12
 A uniformly continuous function of a uniformly continuous function is uniformly continuous. State this more precisely and prove it.
+\begin{proof}
+Let $X, Y, Z$ be metric spaces and $f: (E \subseteq X) \to Y$ and $g: Y \to Z$ be uniformly continuous. Let $h = g \circ f$. Then $h$ is uniformly continuous on $E$.
+
+Let $\epsilon > 0$ be arbitrary. Then there exists $\delta > 0$ such that $\diam E < \delta$ implies $\diam g(E) < \epsilon$. Furthermore, there exists $\nu > 0$ such that $\diam F < \nu$ implies $\diam f(F) < \delta$. Then if $\diam F < \nu$, then $\diam f(F) < \delta$ and thus $\diam h(F) = \diam (g \circ f)(F) < \epsilon$, as required.
+\end{proof}
 
 \item % Exercise 4.13
 Let $E$ be a dense subset of a metric space $X$, and let $f: E \to \R$ be uniformly continuous. Prove that $f$ has a continuous extension from $E$ to $X$. Could the range space $\R$ be replaced by $\R^k$? By any compact metric space? By any complete metric space? By \underline{any} metric space?
+
+\begin{proof}
+We define $g: X \to Y$ such that $g = f$ on $E$, and $g(x) = \lim_{n \to \infty} f(x_n)$ for any sequence $x_n \to x$. We must show that this definition is well defined: specifically that the right hand side does not depend on our choice of $x_n$. 
+
+Let $\{x_n\}$ and $\{y_n\}$ be two sequences which converge to $x \in X$, and let $\epsilon > 0$ be arbitrary. We wish to show that $\lim_{n \to \infty} d_Y(f(x_n), f(y_n)) < \epsilon$. Now since $f$ is uniformly continuous, there exists some $\delta > 0$ such that if $d_X(x_n, y_n) < \delta$, then $d_Y(f(x_n), f(y_n)) < \epsilon$. Since $x_n, y_n \to x$, we can choose $N \in \N$ sufficiently large so that $d_X(x_n, x), d_X(y_n, x) < \delta / 2$, such that $d_X(x_n, y_n) \overset{\Delta}{<} \delta$, and thus $d_Y(f(x_n), f(y_n)) < \epsilon$. The result follows. 
+\end{proof}
 
 \item % Exercise 4.14
 Let $I$ be the closed unit interval, and $f: I \to I$ be continuous. Prove that $f(x) = x$ for at least one $x \in I$.
@@ -351,6 +371,10 @@ Let $I$ be the closed unit interval, and $f: I \to I$ be continuous. Prove that 
 \item % Exercise 4.15
 A mapping $f: X \to Y$ is \textbf{open} if $f(V)$ is open in $Y$ whenever $V$ is open in $X$. Prove that every continuous open mapping $f: \R \to \R$ is monotonic.
 
+\begin{proof}
+    Suppose the contrary, specifically that $f: \R \to \R$ is a \underline{non-monotonic} continuous open mapping . Then there exists a segment $(a, b)$ such that either the supremum or the infimum of $f$ on $(a, b)$ is not achieved at either endpoint. Then, by the Extreme Value Theorem, $f$ attains this extremum \underline{within} the segment, say at $c \in (a, b)$. Then, $f((a, b))$ is not open, as it contains no neighbourhoods of $f(c)$, contradicting the fact that $f$ is open.
+\end{proof}
+
 \item % Exercise 4.16
 Let $[x]$ denote the floor of $x$, and $(x) = x - [x]$. What discontinuities do $[x]$ and $(x)$ have?
 \begin{proof}
@@ -359,6 +383,14 @@ They are both discontinuous at the integers.
 
 \item % Exercise 4.17
 Let $f: (a, b) \to \R$. Prove that the set of points at which $f$ has a simple discontinuity is at most countable.
+
+\begin{proof}
+    Following the hint, let $E_<$ be the set of all simple discontinuities $x$ of $f$ such that $f(x-) < f(x+)$. Then, associate to each $x \in E_<$ a triple of rational numbers $(p, q, r)$ such that $f(x-) < p < f(x+)$, $a < q < t < x$ implies $f(t) < p$, and $x < t < r < b$ implies $f(t) > p$. We claim that every triple represents a unique simple discontinuity of $f$:
+
+    Suppose that $x$ and $x'$ are simple discontinuities and $x < x'$ WLOG, both represented by the triples $(p, q, r)$. Then in the interval $(x, x')$ lie in both the intervals $(x, r)$ and $(q, x')$, and thus $f(t)$ must be both less than, and greater than, $p$ at the same time, a contradiction. Thus, we must have $x = x'$, as required.
+
+    We can define $E_>$ and associate triples a similar way. 
+\end{proof}
 
 \item % Exercise 4.18
 Every rational $x$ can be written as $x = m/n$ with $n > 0$ and $(m, n) = 1$. When $x = 0$, take $n = 1$. Then, consider $f(x) = 1/n$ if $x$ is rational, and 0 otherwise. Prove that $f$ is continuous at every irrational point, and that $f$ has a simple discontinuity at every rational point.
