@@ -1,0 +1,79 @@
+
+\chapter{Differentiation}
+
+\section{The Derivative of a Real Function}
+
+\begin{definition} % Definition 5.1
+    Let $f: [a, b] \to \R$. Then for any $x \in [a, b]$, define
+    \[
+        \phi(t) = \frac{f(t) - f(x)}{t - x}
+    \]
+    and
+    \[
+        f'(x) = \lim_{t \to x} \phi(t) = \lim_{t \to x} \frac{f(t) - f(x)}{t - x}.
+    \]
+    given the limit exists. This $f'$, whose domain is exactly the set of points $x$ where the above limit exists, is called the \textbf{derivative} of $f$.
+
+    If $f'$ is defined at $x$, we say $f$ is \textbf{differentiable} at $x$. If $f$ is differentiable at every point of a set $E \subseteq [a, b]$, we say $f$ is differentiable on $E$. Extending the above limit definition with left-han and right-hand limits, we get the left-hand and right-hand derivatives, respectively. Notice thus that $f'$ is not defined on the endpoints $a$ nor $b$.
+\end{definition}
+
+\begin{theorem} % Theorem 5.2
+    Let $f : [a, b] \to \R$ be differentiable at $x \in (a, b)$. Then $f$ is continuous at $x$. 
+
+    \begin{proof}
+        As $t \to x$, we have
+        \[
+            f(t) - f(x) = \frac{f(t) - f(x)}{t - x} \cdot (t - x) \to f'(x) \cdot 0 = 0.
+        \]
+    \end{proof}
+
+    Notice that the converse is not true: consider $f(x) = |x|$ on $[-1, 1]$.
+\end{theorem}
+
+\begin{theorem} % Theorem 5.3
+    Suppose $f, g$ are defined on $[a, b]$ and differentiable at $x \in [a, b]$. Then $f + g, fg, f / g$ are differentiable at $x$, and
+    \begin{enumerate}[(a)]
+        \item $(f + g)'(x) = f'(x) + g'(x)$;
+        \item $(fg)'(x) = f'(x) g(x) + f(x) g'(x)$;
+        \item $(f/g)'(x) = \frac{f'(x) g(x) - f(x) g'(x)} {g^2(x)}$.
+    \end{enumerate}
+    
+    \begin{proof}
+        (a) follows from properties of limits. (b) follows from writing
+        \[
+            \frac{(fg)(t) - (fg)(x)}{t - x} = \frac{f(t) [g(t) - g(x)] + [f(t) - f(x)] g(x)}{t - x} \to f(x) g'(x) + f'(x) g(x).
+        \]
+        Similarly, (c) follows from writing
+        \[
+            \frac{(f/g)(t) - (f/g)(x)} = \frac{1}{g(t) g(x)} \left[g(x) \frac{f(t) - f(x)}{t - x} - f(x) \frac{g(t) - g(x)}{t - x} \right] \to \frac{f'(x) g(x) - f(x) g'(x)} {g^2(x)}.
+        \]
+    \end{proof}
+\end{theorem}
+
+It can be shown inductively that polynomials are differentiable, and that $(x^n)' = nx^{n-1}$. Also, 5.3(c) shows that rational functions are differentiable, except at points where the denominator is zero.
+
+\begin{theorem} % Theorem 5.5
+    Suppose $f: [a, b] \to \R$ is continuous on $[a, b]$ and differentiable at $x \in [a, b]$. Also, suppose $g$ is defined on an interval $I$ containing the range of $f$ and differentiable at $f(x)$. Then, $(g \circ f)'(x) = g'(f(x)) f'(x)$.
+    
+    \begin{proof}
+        We have
+        \[
+            \frac{h(t) - h(x)}{t - x} = \frac{g(f(t)) - g(f(x))}{t - x} = \frac{g(f(t)) - g(f(x))}{f(t) - f(x)} \cdot \frac{f(t) - f(x)}{t - x} \to g'(f(x)) f'(x)
+        \]
+        where the first term converges since $f(t) \to f(x)$ as $f$ is continuous. 
+    \end{proof}
+\end{theorem}
+
+\section{Mean Value Theorems}
+
+\begin{definition} % Definition 5.7
+    Let $f$ be a real-valued function on a metric space $X$. We say $f$ has a \textbf{local maximum} at a point $p \in X$ when there exists $\delta > 0$ such that $f(q) \le f(p)$ for all $q \in N_\delta(p)$. A \textbf{local minimum} is defined similarly.
+\end{definition}
+
+\begin{theorem} % Theorem 5.8
+    Let $f: [a, b] \to \R$ with a local maximum at $x \in (a, b)$. If $f'(x)$ exists, then $f'(x) = 0$.
+
+    \begin{proof}
+        Blah
+    \end{proof}
+\end{theorem}
