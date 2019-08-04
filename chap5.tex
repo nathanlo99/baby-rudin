@@ -14,7 +14,7 @@
     \]
     given the limit exists. This $f'$, whose domain is exactly the set of points $x$ where the above limit exists, is called the \textbf{derivative} of $f$.
 
-    If $f'$ is defined at $x$, we say $f$ is \textbf{differentiable} at $x$. If $f$ is differentiable at every point of a set $E \subseteq [a, b]$, we say $f$ is differentiable on $E$. Extending the above limit definition with left-han and right-hand limits, we get the left-hand and right-hand derivatives, respectively. Notice thus that $f'$ is not defined on the endpoints $a$ nor $b$.
+    If $f'$ is defined at $x$, we say $f$ is \textbf{differentiable} at $x$. If $f$ is differentiable at every point of a set $E \subseteq [a, b]$, we say $f$ is differentiable on $E$. Extending the above limit definition with left-hand and right-hand limits, we get the left-hand and right-hand derivatives, respectively. Notice thus that $f'$ is not defined on the endpoints $a$ nor $b$.
 \end{definition}
 
 \begin{theorem} % Theorem 5.2
@@ -74,6 +74,86 @@ It can be shown inductively that polynomials are differentiable, and that $(x^n)
     Let $f: [a, b] \to \R$ with a local maximum at $x \in (a, b)$. If $f'(x)$ exists, then $f'(x) = 0$.
 
     \begin{proof}
-        Blah
+        Define $f$ and $x$ as above, and suppose $f'(x)$ exists. If $f'(x) = c > 0$, then there must exist some $y > x$ sufficiently close (say, at most $\delta$ away) from $x$ such that $\phi(y) > 0$ but this implies $f(y) > f(x)$, a contradiction. The argument against $f'(x) < 0$ is symmetric.
     \end{proof}
 \end{theorem}
+
+\begin{theorem}[Cauchy's MVT] % Theorem 5.9
+    If $f, g$ are continuous real functions on $[a, b]$ which are differentiable on $(a, b)$, then there is a point $x \in (a, b)$ at which
+    \[
+        [f(b) - f(a)] g'(x) = [g(b) - g(a)] f'(x).
+    \]
+    Notice that differentiability is not required at the endpoints.
+
+    \begin{proof}
+        Let $h(x) = [f(b) - f(a)] g(x) - [g(b) - g(a)] f(x)$. It suffices to show that $h'(x) = 0$ for some $x \in (a, b)$. Notice that $h(a) = h(b)$. If $h$ is constant on $[a, b]$, then $h'(x) = 0$ everywhere. Otherwise, $h$ admits a local extremum, and thus has derivative $0$ at that extremum, completing the proof.
+    \end{proof}
+\end{theorem}
+
+\begin{corollary}[Mean Value Theorem] % Theorem 5.10
+    If $f: [a, b] \to \R$ is differentiable on $(a, b)$, then 
+    \[
+        f(b) - f(a) = (b - a) f'(x)
+    \]
+    for some $x \in (a, b)$.
+
+    \begin{proof}
+        Take $g(x) = x$.
+    \end{proof}
+\end{corollary}
+
+\begin{theorem} % Theorem 5.11
+    Suppose $f$ is differentiable in $(a, b)$.
+    \begin{enumerate}[(a)]
+        \item If $f' \ge 0$ on $(a, b)$, then $f$ is monotonically non-decreasing.
+        \item If $f' = 0$ on $(a, b)$, then $f$ is constant.
+        \item If $f' \le 0$ on $(a, b)$, then $f$ is monotonically non-increasing.
+    \end{enumerate}
+n
+
+    \begin{proof}
+        For any pair $a \le x < y \le b$, there exists some $z \in (x, y)$ such that $f'(z) (y - x) = f(y) - f(x)$, so each result follows trivially.
+    \end{proof}
+\end{theorem}
+
+\section{The Continuity of Derivatives}
+
+We have seen that derivatives need not be continuous, but the following theorem states they still have the intermediate value property:
+
+\begin{theorem}[Darboux property of derivatives] % Theorem 5.12
+    Suppose $f: [a, b] \to \R$ is differentiable and $f'(a) < \lambda < f'(b)$. Then, there exists a point $x \in (a, b)$ such that $f'(x) = \lambda$.
+    
+    \begin{proof}
+        Let $h(t) = f(t) - \lambda t$, and notice that $h'(a) = f'(a) - \lambda < 0$ and similarly $h'(b) > 0$. Then there exist $a < s < t < b$ such that $h(s) < h(a)$ and $h(t) < h(b)$. Then $h$ is continuous on the compact interval $[s, t]$ and thus attains a minimum at $u \in (s, t)$. Then $h'(u) = 0$ so $f'(u) = \lambda$ as required. 
+    \end{proof}
+\end{theorem}
+
+\begin{corollary} 
+    If $f$ is differentiable on $[a, b]$, then $f'$ has no simple discontinuities on $[a, b]$. (Discontinuities of the second kind as still possible)
+\end{corollary}
+
+\section{L'Hopital's Rule}
+
+\begin{theorem}[L'Hopital's Rule] % Theorem 5.13
+    Suppose $f, g$ are real and differentiable in $(a, b)$ and $g'(x) \ne 0$ for all $x \in (a, b)$ with $-\infty \le a < b \le +\infty$. Suppose $f'(x) / g'(x) \to A$ as $x \to a$.
+
+    If $f(x) \to 0$ and $g(x) \to 0$ as $x \to a$, OR $g(x) \to +\infty$ as $x \to a$, then $f(x) / g(x) \to A$ as $x \to a$.
+
+    \begin{proof}
+        If $A < r < q < +\infty$, then we find $c_2$ such that $f(x) / g(x) < q$ for all $x \in (a, c_2)$. Repeating the argument to find $c_3$ such that $p < f(x) / g(x)$ for $x \in (a, c_3)$ completes the argument.
+
+        Notice that since $f'(x) / g'(x) \to A$, we can find $c$ sufficiently close to $a$ such that $f'(x) / g'(x) < r$ for $x \in (a, c)$. Furthermore, 
+        \[
+            \frac{f(x) - f(y)}{g(x) - g(y)} = \frac{f'(t)}{g'(t)} < r
+        \]
+        for some $t \in (x, y) \subseteq (a, c)$ if $a < x < y < c$. If $f(x), g(x) \to 0$, then the previous expression becomes $f'(t) / g'(t) < r$ for all $t \in (a, c)$. Otherwise, if $g(x) \to +\infty$, then we can find $a < c_1 < y$ such that $g(x) > g(y)$ and $g(x) > 0$ whenever $x \in (a, c_1)$. Multiplying the previous expression by $[g(x) - g(y)] / g(x)$, we obtain
+        \[
+            \frac{f(x)}{g(x)} < r - r\frac{g(y)}{(g)x} + \frac{f(y)}{g(x)},\ x \in (a, c_1).
+        \]
+        If we let $x \to a$, then we can find $c_2$ such that $f(x) / g(x) \le r < q$ whenever $x \in (a, c_2)$, as required. This completes the proof.
+    \end{proof}
+\end{theorem}
+
+\section{Derivatives of Higher Order}
+
+
