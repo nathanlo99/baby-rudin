@@ -109,7 +109,6 @@ It can be shown inductively that polynomials are differentiable, and that $(x^n)
         \item If $f' = 0$ on $(a, b)$, then $f$ is constant.
         \item If $f' \le 0$ on $(a, b)$, then $f$ is monotonically non-increasing.
     \end{enumerate}
-n
 
     \begin{proof}
         For any pair $a \le x < y \le b$, there exists some $z \in (x, y)$ such that $f'(z) (y - x) = f(y) - f(x)$, so each result follows trivially.
@@ -148,7 +147,7 @@ We have seen that derivatives need not be continuous, but the following theorem 
         \]
         for some $t \in (x, y) \subseteq (a, c)$ if $a < x < y < c$. If $f(x), g(x) \to 0$, then the previous expression becomes $f'(t) / g'(t) < r$ for all $t \in (a, c)$. Otherwise, if $g(x) \to +\infty$, then we can find $a < c_1 < y$ such that $g(x) > g(y)$ and $g(x) > 0$ whenever $x \in (a, c_1)$. Multiplying the previous expression by $[g(x) - g(y)] / g(x)$, we obtain
         \[
-            \frac{f(x)}{g(x)} < r - r\frac{g(y)}{(g)x} + \frac{f(y)}{g(x)},\ x \in (a, c_1).
+            \frac{f(x)}{g(x)} < r - r\frac{g(y)}{g(x)} + \frac{f(y)}{g(x)},\ x \in (a, c_1).
         \]
         If we let $x \to a$, then we can find $c_2$ such that $f(x) / g(x) \le r < q$ whenever $x \in (a, c_2)$, as required. This completes the proof.
     \end{proof}
@@ -156,4 +155,37 @@ We have seen that derivatives need not be continuous, but the following theorem 
 
 \section{Derivatives of Higher Order}
 
+\begin{definition} % Definition 5.14
+    If $f$ has a derivative $f'$ on aninterval, and $f'$ is itself differentiable, then we denote the derivative of $f'$ as $f''$ and call $f''$ the \textbf{second derivative} of $f$. Proceeding this way, we can define 
+    \[
+        f, f', f'', f^{(3)}, \dotsc, f^{(n)},
+    \]
+    each of which is the derivative of the preceding one. $f^{(n)}$ is called the \textbf{$n$-th derivative}, or the \textbf{derivative of order $n$}, of $f$.
+\end{definition}
 
+\section{Taylor's Theorem}
+
+\begin{theorem}[Taylor's Theorem] % Theorem 5.15
+    Suppose $f: [a, b] \to \R$, $n \in \N$, $f^{n-1}$ is continuous on $[a, b]$, $f^{(n)}$ exists for every $t \in (a, b)$. Let $\alpha, \beta$ be distinct points of $[a, b]$ and define
+    \[
+        P(t) = \sum_{k=0}^{n-1} \frac{f^{(k)}(\alpha)}{k!} (t - \alpha)^k.
+    \]
+    Then there exists a point $x$ between $\alpha$ and $\beta$ such that
+    \[
+        f(\beta) = P(\beta) + \frac{f^{(n)}(x)}{n!} (\beta - \alpha)^n.
+    \]
+
+    Notice that $n = 1$ is the Mean Value Theorem, and in general that $f$ can be approximated by a polynomial of degree $n - 1$, and that we can estimate the error given we can bound $|f^{(n)}(x)|$.
+
+    \begin{proof}
+        Let $M \in \R$ such that $f(\beta) = P(\beta) + M(\beta - \alpha)^n$, and take $g(t) = f(t) - P(t) - M(t - \alpha)^n$. Then, since $P(t)$ is a polynomial of degree $n - 1 < n$, 
+        \[
+            g^{(n)}(t) = f^{(n)}(t) - n! M.
+        \]
+        But now $g(\alpha) = g'(\alpha) = \dotsb = g^{(n-1)}(\alpha)$ from the definition of $g$ and $P$, and also $g(\beta) = 0$ by our definition of $M$. Thus, by the Mean Value Theorem, $g'(x_1) = 0$ for some $x_1 \in (\alpha, \beta)$. Similarly, $g^{(i)}(x_i) = 0$ for some $x_i \in (\alpha, x_{i-1})$. Thus, $g^{(n)}(x_n) = 0$ for some $x_n \in (\alpha, x_{n-1}) \subseteq (\alpha, \beta)$, so in particular,
+        \[
+            M = \frac{f^{(n)}(x_n)}{n!},
+        \]
+        as required.
+    \end{proof}
+\end{theorem}
