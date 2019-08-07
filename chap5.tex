@@ -189,3 +189,142 @@ We have seen that derivatives need not be continuous, but the following theorem 
         as required.
     \end{proof}
 \end{theorem}
+
+\section{Differentiation of Vector-Valued Functions}
+
+To extend our definition of differentiation to vector-valued functions, we write
+\[
+    \textbf{f}'(x) = \lim_{t \to x} \frac{\textbf{f}(t) - \textbf{f}(x)}{t - x} \in \R^k,
+\]
+where the limit is taken with the norm in $\R^k$.
+
+If $f_1, \dotsc, f_k$ are the components of $\textbf{f}$, then $\textbf{f}' = (f_1', f_2', \dotsc, f_k')$, and $\textbf{f}$ is differentiable at a point $x$ iff each component is differentiable at $x$.
+
+Also,
+\[
+    (\textbf{f} \cdot \textbf{g})'(x) = \textbf{f}'(x) \cdot \textbf{g}(x) + \textbf{f}(x) \cdot \textbf{g}'(x).
+\]
+ie. the product rule works with the multiplies replaced with dot products.
+
+Notice that the mean value theorem no longer holds in general: consider $f(x) = e^{ix}$, where $f(0) = f(2\pi)$, but $f'(x) = ie^{ix} \ne 0$ for $x \in \R$.
+
+Also, L'Hopital's rule fails: define $f(x) = x$ and $g(x) = x + x^2 e^{i/x^2}$. Then $\lim_{x \to 0} f(x)/g(x) = 1$ but $\lim_{x \to 0} f'(x) / g'(x) = 0 \ne 1$.
+
+However, there is a consequence of the mean value theorem which is almost as useful as Theorem 5.10:
+
+\begin{theorem} % Theorem 5.19
+    Suppose $\textbf{f}: [a, b] \to \R^k$ is continuous on $[a, b]$ and differentiable in $(a, b)$. Then, there exists $x \in (a, b)$ such that
+    \[
+        |\textbf{f}(b) - \textbf{f}(a)| \le (b - a) |\textbf{f}'(x)|.
+    \]
+    
+    \begin{proof}
+        Let $\textbf{z} = \textbf{f}(b) - \textbf{f}(a)$ and $\phi(t) = \textbf{z} \cdot \textbf{f}(t)$. Then $\phi$ is continuous on $[a, b]$ and differentiable on $(a, b)$. Then, the Mean Value Theorem tells us that
+        \[
+            |\textbf{z}|^2 = \phi(b) - \phi(a) = (b - a) \phi'(x) = (b - a) \textbf{z} \cdot \textbf{f}'(x),
+        \]
+        for some $x \in (a, b)$. Then Cauchy-Schwartz yields
+        \[
+            |\textbf{z}|^2 = (b - a) |\textbf{z} \cdot \textbf{f'}(x)| \le (b - a) |\textbf{z}| |\textbf{f}'(x)|
+        \]
+        and the result follows.
+    \end{proof}
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}[1.]
+\item % Exercise 1
+Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prove that $f$ is constant.
+
+\begin{proof}
+    Let $x \in \R$ be arbitrary. Then, we can find a sequence of rational numbers $p_n/q_n$ converging to $x$ such that $(p_n-1)/q_n \le x < p_n/q_n$ for each $n$. Without loss of generality (multiplying $p_n$ and $q_n$ by some positive integer otherwise), suppose that $q_n$ is a strictly increasing sequence. However,
+    \begin{align*}
+        |f(x) - f(0)| &\overset{\Delta}{\le} \left|f(x) - f\left(\frac{p_n}{q_n}\right)\right| + \left|f\left(\frac{p_n}{q_n}\right) - f\left(\frac{p_n-1}{q_n}\right)\right| + \dotsb + \left|f\left(\frac{1}{q_n}\right) - f(0)\right| \\
+            &\le 1/q_n^2 + \underbrace{1/q_n^2 + \dotsc + 1/q_n^2}_{p_n \text{ times}} \\
+            &= \frac{1}{q_n} \left(\left(\frac{p_n}{q_n}\right) + \frac{1}{q_n} \right) \le \frac{1}{q_n} \left(x + \frac{2}{q_n}\right) \le \frac{1}{n} \left(x + \frac{2}{n} \right) \to 0. 
+    \end{align*}
+    so taking the limit yields $|f(x) - f(0)| = 0$ so $f$ is constant, as required.
+\end{proof}
+
+\item % Exercise 2
+    Suppose $f'(x) > 0$ in $(a, b)$. Prove that $f$ is strictly increasing in $(a, b)$, and let $g$ be its inverse function. Prove that $g$ is differentiable, and that
+    \[
+        g'(f(x)) = \frac{1}{f'(x)},\ x \in (a, b).
+    \]
+    
+    \begin{proof}
+        Take $x < y$ in $(a, b)$. Then, by the mean value theorem, there exists some $z \in (x, y)$ such that
+        \[
+            \frac{f(y) - f(x)}{y - x} = f'(z) > 0,
+        \]
+        so $f(y) > f(x)$, so $f$ is strictly increasing. Thus, $f$ is continuous and strictly increasing, so it has an inverse $g$. Then $g(f(x)) = x$ so applying the chain rule yields
+        \[
+            1 = (g \circ f)'(x) = g'(f(x)) \cdot f'(x)
+        \]
+        and thus the result.
+    \end{proof}
+
+\item % Exercise 3
+    Suppose $g: \R \to \R$ has bounded derivative, say $|g'| \le M$. Fix $\epsilon > 0$ and define $f(x) = x + \epsilon g(x)$. Prove that $f$ is one-to-one for sufficiently small $\epsilon$.
+    
+    \begin{proof}
+        If $M = 0$, this is trivial. Otherwise, choose $\epsilon < 1/M$ so that $f'(x) = 1 + \epsilon g'(x) \ge 1 + \epsilon (-M) > 0$, and thus $f$ is strictly increasing and thus one-to-one.
+    \end{proof}
+
+\item % Exercise 4
+    If
+    \[
+        C_0 + \frac{C_1}{2} + \dotsc + \frac{C_{n-1}}{n} + \frac{C_n}{n + 1} = 0,
+    \]
+    prove that the polynomial $f(x) = \sum_{i=0}^{n} C_ix^i$ has at least one real root between 0 and 1.
+
+    \begin{proof}
+        Let 
+        \[
+            g(x) = \sum_{i=0}^{n} \frac{C_i}{i+1} x^{i+1}
+        \]
+        and notice that $g'(x) = f(x)$. Then, the identity gives $g(0) = g(1) = 0$, so the result follows by the mean value theorem.
+    \end{proof}
+
+\item % Exercise 5
+    Suppose $f$ is defined and differentiable for every $x > 0$, and $f'(x) \to 0$ as $x \to +\infty$. Define $g(x) = f(x + 1) - f(x)$. Prove that $g(x) \to 0$ as $x \to +\infty$.
+
+    \begin{proof}
+        Let $x_n$ such that $|f'(x)| \le 1/n$ for all $x \ge x_n$, since $f'(x) \to 0$. Then, by the mean value theorem, we can find $z \in (y, y + 1) \subseteq (x_n, +\infty)$ such that 
+        \[
+            1/n \ge |f'(z)| = \left|\frac{f(y + 1) - f(y)}{y + 1 - y}\right| = |g(y)|
+        \]
+        so $|g(y)| \le 1/n$ for all $y > x_n$, proving the result.
+    \end{proof}
+
+\item % Exercise 6
+    Suppose $f$ is continuous for $x \ge 0$ and differentiable for $x > 0$, $f(0) = 0$ and $f'$ is monotonically increasing. Put $g(x) = f(x) / x$ for $x > 0$ and prove that $g$ is monotonically increasing.
+
+    \TODO
+\item % Exercise 7
+
+\item % Exercise 8
+\item % Exercise 9
+\item % Exercise 10
+\item % Exercise 11
+\item % Exercise 12
+\item % Exercise 13
+\item % Exercise 14
+\item % Exercise 15
+\item % Exercise 16
+\item % Exercise 17
+\item % Exercise 18
+\item % Exercise 19
+\item % Exercise 20
+\item % Exercise 21
+\item % Exercise 22
+\item % Exercise 23
+\item % Exercise 24
+\item % Exercise 25
+\item % Exercise 26
+\item % Exercise 27
+\item % Exercise 28
+\item % Exercise 29
+
+\end{enumerate}
