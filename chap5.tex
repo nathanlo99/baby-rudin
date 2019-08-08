@@ -303,15 +303,90 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
 
     \TODO
 \item % Exercise 7
+    Suppose $f'(x), g'(x)$ exist, $g'(x) \ne 0$, and $f(x) = g(x) = 0$. Prove that
+    \[
+        \lim_{t \to x} \frac{f(t)}{g(t)} = \frac{f'(x)}{g'(x)}.
+    \]
+
+    \TODO
 
 \item % Exercise 8
+    Suppose $f'$ is continuous on $[a, b]$ and $\epsilon > 0$. Prove that there exists $\delta > 0$ such that
+    \[
+        \left| \frac{f(t) - f(x)}{t - x} - f'(x) \right| < \epsilon
+    \]
+    whenever $0 < |t - x| < \epsilon$ and $x, t \in [a, b]$. Does this hold for vector-valued functions too?
+
+    \begin{proof}
+        Notice that $f'$ is continuous on a compact domain and thus uniformly continous. Then, we can select $\delta > 0$ such that $|f'(y) - f'(x)| < \epsilon$ whenever $|x - y| < \delta$. Let $x, t \in [a, b]$ such that $|t - x| < \delta$. Then, for some $z$ between $x$ and $t$, we have
+        \[
+            \left|\frac{f(t) - f(x)}{t - x} - f'(x) \right| = \left|f'(z) - f'(z) \right| < \epsilon
+        \]
+        since $z$ is between $t$ and $x$ and thus at most as close to $x$ as $t$ is, ie. $\delta$ away. This proves the result. If $f$ is vector-valued, applying the above result to each component and recombining iyields the result for vector-valued functions.
+    \end{proof}
+
 \item % Exercise 9
+    Let $f: \R \to \R$ be continuous everywhere and differentiable for $x \ne 0$, and that $f'(x) \to 3$ as $x \to 0$. Does it follow that $f'(0)$ exists?
+
+    \begin{proof}
+        Yes, by L'Hopital's, we have
+        \[
+            f'(0) = \lim_{x \to 0} \frac{f(x) - f(0)}{x - 0} = \lim_{x \to 0} f'(x) = 3.
+        \]
+    \end{proof}
 \item % Exercise 10
+    Suppose $f, g$ are complex differentiable functions on $(0, 1)$, and that $f(x) \to 0$, $g(x) \to 0$ $f'(x) \to A$ and $g'(x) \to B$ as $x \to 0$, where $A, B \in \C$, and $B \ne 0$. Prove that
+    \[
+        \lim_{x \to 0} \frac{f(x)}{g(x)} = \frac{A}{B}.
+    \]
+
+    \begin{proof}
+        From L'Hopital's rule, we have 
+        \[
+            \lim_{x \to 0} \frac{f(x)}{x} = \lim_{x \to 0} f'(x) = A,
+        \]
+        and the similar statement with $x/g(x) \to 1/B$, so
+        \[
+            \frac{f(x)}{g(x)} = \left( \frac{f(x)}{x} - A \right) \cdot \frac{x}{g(x)} + A \cdot \frac{x}{g(x)} \to 0 \cdot \frac{1}{B} + A \cdot \frac{1}{B}
+        \]
+        and thus we are done.
+    \end{proof}
 \item % Exercise 11
+    Suppose $f$ is defined in a neighbourhood of $x$ and $f''(x)$ exists. Show that
+    \[
+        \lim_{h \to 0} \frac{f(x + h) + f(x - h) - 2f(x)}{h^2} = f''(x).
+    \]
+
+    \begin{proof}
+        $f$ is (twice) differentiable at $x$ and thus continuous. Thus the numerator tends to 0 as $h \to 0$. Applying L'Hopital's yields
+        \begin{align*}
+            \lim_{h \to 0} \frac{f(x + h) + f(x - h) - 2f(x)}{h^2} 
+                &= \lim_{h \to 0} \frac{f'(x + h) + f'(x - h) - 2f'(x)}{2h} \\
+                &= \lim_{h \to 0} \frac{f'(x + h) - f'(x)}{2h} - \frac{f'(x) - f'(x - h)}{2h} \\
+                &= f''(x) 
+        \end{align*}
+        so we are done.
+    \end{proof}
 \item % Exercise 12
+    If $f(x) = |x|^3$, compute $f'(x)$, $f''(x)$ for all real $x$ and show that $f^{(3)}(0)$ does not exist.
+
 \item % Exercise 13
+    Suppose $a, c \in \R$ $c > 0$ and $f$ is defined on $[-1, 1]$ such that $f(x) = x^a \sin(|x|^{-c})$ whenever $x \ne 0$ and $0$ otherwise.
+    Prove that:
+    \begin{enumerate}[(a)]
+        \item $f$ is continuous iff $a > 0$.
+        \item $f'(0)$ exists iff $a > 1$.
+        \item $f'$ is bounded iff $a \ge 1 + c$.
+        \item $f'$ is continuous iff $a > 1 + c$.
+        \item $f''(0)$ exists iff $a > 2 + c$.
+        \item $f''$ is bounded iff $a \ge 2 + 2c$.
+        \item $f''$ is continuous iff $a > 2 + 2c$.
+    \end{enumerate}
+
 \item % Exercise 14
+    Let $f$ be differentiable on $(a, b)$. Prove that $f$ is convex iff $f'$ is monotonically increasing. Assume next that $f''(x)$ exists for every $x \in (a, b)$, and prove that $f$ is convex iff $f''(x) \ge 0$ for all $x \in (a, b)$.
 \item % Exercise 15
+    Suppose $a \in \R$ and $f: (a, +\infty)$ is twice-differentiable, and $M_0, M_1, M_2$ are the least upper bounds of $|f(x)|, |f'(x)|, |f''(x)|$ respectively on $(a, +\infty)$. Prove that $M_1^2 \le 4M_0M_2$.
 \item % Exercise 16
 \item % Exercise 17
 \item % Exercise 18
