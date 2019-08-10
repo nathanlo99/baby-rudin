@@ -388,18 +388,118 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
 \item % Exercise 15
     Suppose $a \in \R$ and $f: (a, +\infty)$ is twice-differentiable, and $M_0, M_1, M_2$ are the least upper bounds of $|f(x)|, |f'(x)|, |f''(x)|$ respectively on $(a, +\infty)$. Prove that $M_1^2 \le 4M_0M_2$.
 \item % Exercise 16
+    Suppose $f$ is twice-differentiable on $(0, \infty)$, $f''$ is bounded on $(0, \infty)$ and $f(x) \to 0$ as $x \to \infty$. Prove that $f'(x) \to 0$ as $x \to \infty$.
 \item % Exercise 17
+    Suppose $f$ is real and thrice-differentiable on $[-1, 1]$, such that $f(-1) = 0$, $f(0) = 0$, $f(1) = 1$ and $f'(0) = 0$. Prove that $f^{(3)}(x) \ge 3$ for some $x \in (-1, 1)$.
 \item % Exercise 18
+    Suppose $f$ is a real function on $[a, b]$, $n$ is a positive integer, and $f^{(n-1)}$ exists for every $t \in [a, b]$. Let $\alpha, \beta, P$ be as in Taylor's theorem. Define
+    \[
+        Q(t) = \frac{f(t) - f(\beta)}{t - \beta}
+    \]
+    for $t \in [a, b]$ and $t \ne \beta$, differentiate $n - 1$ times at $t = \alpha$ and derive the following version of Taylor's theorem:
+    \[
+        f(\beta) = P(\beta) + \frac{Q^{(n-1)}(\alpha)}{(n-1)!} (\beta - \alpha)^n.
+    \]
 \item % Exercise 19
+    Suppose $f$ is defined in $(-1, 1)$ and $f'(0)$ exists. Suppose $-1 < \alpha_n < \beta_n < 1$, with $\alpha_n \to 0$, $\beta_n \to 0$ as $n \to \infty$. Define the difference quotients
+    \[
+        D_n = \frac{f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}.
+    \]
+    Prove the following statements:
+    \begin{enumerate}
+    \item If $a_n < 0 < b_n$, then $D_n \to f'(0)$.
+    \item If $0 < a_n < \beta$ and $\{\beta_n/(\beta_n - \alpha_n)\}$ is bounded, then $D_n \to f'(0)$.
+    \item If $f'$ is continuous in $(-1, 1$, then $D_n \to f'(0)$.
+    \end{enumerate}
+    Give an example in which $f$ is differentiable in $(-1, 1)$ (but $f'$ is not continous at $0$), and in which $\alpha_n, \beta_n$ tend to $0$ in a way that $\lim D_n$ exists but is different from $f'(0)$.
 \item % Exercise 20
+    Formulate and prove an inequality which follows from Taylor's theorem and which remains valid for vector-valued functions.
 \item % Exercise 21
+    Let $E$ be a closed subset of $\R$. We saw in Exercise 4.22 that there is a real continuous function $f$ on $\R$ whose zero set is $E$. Is it possible, for each closed set $E$ to find such an $f$ which is differentiable on $\R$, or one which is $n$ times differentiable, or even one which has derivatives of all orders on $\R$?
 \item % Exercise 22
+    Suppose $f$ is a real function on $\R$. Call $x$ a \textbf{fixed point} of $f$ is $f(x) = x$. 
+    \begin{enumerate}[(a)]
+    \item If $f$ is differentiable and $f'(t) \ne 1$ for every real $t$, prove that $f$ has at most one fixed point.
+    \item Show that the function $f$ defined by
+        \[
+            f(t) = t + (1 + e^t)^{-1}
+        \]
+        has no fixed point, although $0 < f'(t) < 1$ for all $t \in \R$.
+    \item However, if there is a constant $A < 1$ such that $|f'(t)| \le A$ for all $t \in \R$, then prove that a fixed point $x$ of $f$ exists, and that $x = \lim x_n$ where $x_1$ is an arbitrary real number, and $x_{n+1} = f(x_n)$.
+    \item Show that the process described in (c) can be visualized by the zig-zag path
+        \[
+            (x_1, x_2) \to (x_2, x_2) \to (x_2, x_3) \to (x_3, x_3) \to \dotsb.
+        \]
+    \end{enumerate}
 \item % Exercise 23
+    The function $f(x) = (x^3 + 1)/3$ has three fixed points
+    \[
+        -2 < \alpha < -1, 0 < \beta < 1 < \gamma < 2.
+    \]
+    For arbitrary chosen $x_1$, define $\{x_n\}$ by setting $x_{n+1} = f(x_n)$.
+    \begin{enumerate}[(a)] 
+    \item If $x_1 < \alpha$, prove that $x_n \to -\infty$ as $n \to \infty$.
+    \item If $\alpha < x_1 < \gamma$, prove that $x_n \to \beta$ as $n \to \infty$.
+    \item If $\gamma < x_1$, prove that $x_n \to +\infty$ as $n \to \infty$.
+    \end{enumerate}
+    Thus only $\beta$ can be located using this method.
 \item % Exercise 24
+    The process described in part (c) of Exercise 22 can of course also be applied to functions that map $(0, \infty)$ to $(0, \infty)$. Fix some $\alpha > 1$ and put
+    \[
+        f(x) = \frac{1}{2} \left( x + \alpha/x \right), g(x) = \frac{\alpha + x}{1 + x}.
+    \]
+    Both $f$ and $g$ have $\sqrt{\alpha}$ as their only fixed point in $(0, \infty)$. Try to explain, on the basis of properties of $f$ and $g$ why the convergence in Exercise 3.16 is so much more rapid than it is in Exercise 17. Do the same when $0 < \alpha < 1$.
 \item % Exercise 25
+    Suppose $f$ is twice-differentiable on $[a, b]$, $f(a) < 0$, $f(b) > 0$, $f'(x) \ge \delta > 0$, and $0 \le f''(x) \le M$ for all $x \in [a, b]$. Let $\chi$ be the unique point in $(a, b)$ at which $f(\chi) = 0$.
+
+    Complete the details in the following outline of \textbf{Newton's method} for computing $\chi$.
+    \begin{enumerate}[(a)]
+        \item Choose $x_1 \in (\chi, b)$ and define $\{x_n\}$ by $x_{n+1} = x_n - f(x_n) / f'(x_n)$. Interpret this geometrically, in terms of a tangent to the graph of $f$.
+        \item Prove that $x_{n+1} < x_n$ and that $x_n \to \chi$.
+        \item Use Taylor's theorem to show that
+            \[
+                x_{n+1} - \chi = \frac{f''(t_n)}{2f'(x_n)} (x_n - \chi)^2,
+            \]
+            for some $t \in (\chi, x_n)$.
+        \item If $A = M/2\delta$, deduce that
+            \[
+                0 \le x_{n+1} - \chi \le 1/A [A(x_1 - \chi)]^{2^n}.
+            \]
+        \item Show that Newton's method amounts to finding a fixed point of the function $g(x) = x - f(x)/f'(x)$. How does $g'(x)$ behave for $x$ near $\chi$?
+        \item Put $f(x) = x^{1/3}$ on $\R$ and try Newton's method. What happens?
+    \end{enumerate}
 \item % Exercise 26
+    Suppose $f$ is differentiable on $[a, b]$, $f(a) = 0$, and there is a real number $A$ such that $|f'(x)| \le A|f(x)|$ on $[a, b]$. Prove that $f(x) = 0$ for all $x \in [a, b]$. 
 \item % Exercise 27
+    Let $\phi$ be a real function defined on a rectangle $R$ on the plane, given by $a \le x \le b$, $\alpha \le y \le \beta$. A \textbf{solution} of the initial-value problem
+    \[
+        f' = \phi(x, y),\ y(a) = c,\ (\alpha \le c \le \beta)
+    \]
+    is, by definition, a differentiable function $f$ on $[a, b]$ such that $f(a) = c$, for $c \in [\alpha, \beta]$, and $f'(x) = \phi(x, f(x))$ for $x \in [a, b]$.
+
+    Prove that such a problem has at most one solution if there is a constant $A$ such that 
+    \[
+        \left| \phi(x, y_2) - \phi(x, y_1) \right| \le A |y_2 - y_1|
+    \]
+    whenever $(x, y_1)$ and $(x, y_2)$ are both in $R$.
 \item % Exercise 28
+    Formulate and prove an analogous uniqueness theorem for systems of differential equations of the form
+    \[
+        y'_j = \phi_j(x, y_!, y_2, \dotsc, y_k),\ y_j(a) = c_j,\ j \in [k].
+    \]
+    Note that this can be rewritten $\textbf{y}' = \Phi(x, \textbf{y})$, $\textbf{y}(a) = \textbf{c}$, where $\textbf{y}$ ranges over a $k$-cell, and $\Phi$ is a mapping of a $(k+1)$-cell into $\R^k$ whose components are the functions $\phi_i$ and $\textbf{c} = (c_1, \dotsc, c_k)$. 
 \item % Exercise 29
+    Specialize Exercise 28 by considering the system
+    \[
+        y_j' = y_{j+1},\ j \in [k-1],\ y_k' = f(x) - \sum_{j=1}^{k} g_j(x)y_j,
+    \]
+    where $f, g_1, \dotsc, g_k$ are continuous real functions on $[a, b]$ and derive a uniqueness theorem for solutions of the equation
+    \[
+        y^{(k)} + g_k(x)y^{k-1} + \dotsc + g_2(x) y' + g_1(x)y = f(x),
+    \]
+    subject to the initial conditions
+    \[
+        y(a) = c_1, y'(a) = c_2, \dotsc, y^{(k-1)}(a) = c_k.
+    \]
 
 \end{enumerate}
