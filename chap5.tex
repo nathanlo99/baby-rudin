@@ -367,30 +367,124 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
         \end{align*}
         so we are done.
     \end{proof}
+
 \item % Exercise 12
     If $f(x) = |x|^3$, compute $f'(x)$, $f''(x)$ for all real $x$ and show that $f^{(3)}(0)$ does not exist.
-
+    
+    \begin{proof}
+        If $x > 0$, then $f(x) = x^3$ in any sufficiently small neighbourhood of $x$, so $f'(x) = 3x^2, f''(x) = 6x$. If $x < 0$, then $f(x) = -x^3$ in any sufficiently small neighbourhood of $x$, so $f'(x) = -3x^2, f''(x) = -6x$. At $x = 0$, we have
+        \[
+            f'(0) = \lim_{h \to 0} \frac{|h|^3 - 0}{h} = 0,
+        \]
+        and
+        \[
+            f''(0) = \lim_{h \to 0} \frac{f'(h) - f'(0)}{h} \sim \lim_{h \to 0} \frac{\pm3 h^2}{h} = 0.
+        \]
+        Now, $f^{(3)}(0)$ does not exist, since the left-hand derivative of $f''$ at 0 is $-6$ while the right-hand derivative is $6$.
+    \end{proof}
 \item % Exercise 13
     Suppose $a, c \in \R$ $c > 0$ and $f$ is defined on $[-1, 1]$ such that $f(x) = x^a \sin(|x|^{-c})$ whenever $x \ne 0$ and $0$ otherwise.
     Prove that:
     \begin{enumerate}[(a)]
         \item $f$ is continuous iff $a > 0$.
+            \begin{proof}
+                This follows immediately from the fact that $x^a$ is continuous (specifically at $x = 0$) iff $a > 0$.
+            \end{proof}
         \item $f'(0)$ exists iff $a > 1$.
+            \begin{proof}
+                We have
+                \[
+                    f'(0) = \lim_{h \to 0} \frac{h^a \sin(|h|^{-c})}{h}
+                \]
+                which is $0$ by the Squeeze theorem if $a > 1$. Otherwise, the limit does not exist.
+            \end{proof}
         \item $f'$ is bounded iff $a \ge 1 + c$.
+            \begin{proof}
+            If $x > 0$, then 
+            \[
+                |f'(x)| = |ax^{a - 1} \sin (x^{-c}) + x^a \cos(x^{-c}) \cdot -cx^{-c-1}| \le a |x|^{a-1} + c |x|^{a-c-1}
+            \]
+            which is bounded iff $a \ge 1 + c$.
+            \end{proof}
         \item $f'$ is continuous iff $a > 1 + c$.
+            \begin{proof}
+                From the above formulation of $f'$, the derivative is continuous at $0$ iff $a-c-1 > 0$, so $a > 1 + c$ as required.
+            \end{proof}
         \item $f''(0)$ exists iff $a > 2 + c$.
+            \begin{proof}
+                We have
+                \[
+                    f''(0) = \lim_{h \to 0} [ ah^{a-2} \sin(h^{-c}) - ch^{a-c-2} \cos(h^{-c}) ]
+                \]
+                which exists iff $a - c - 2 > 0$, so $a > 2 + c$.
+            \end{proof}
         \item $f''$ is bounded iff $a \ge 2 + 2c$.
+            \begin{proof}
+                Bash the product rule and find the largest term.
+            \end{proof}
         \item $f''$ is continuous iff $a > 2 + 2c$.
+            \begin{proof}
+                See above.
+            \end{proof}
     \end{enumerate}
 
 \item % Exercise 14
     Let $f$ be differentiable on $(a, b)$. Prove that $f$ is convex iff $f'$ is monotonically increasing. Assume next that $f''(x)$ exists for every $x \in (a, b)$, and prove that $f$ is convex iff $f''(x) \ge 0$ for all $x \in (a, b)$.
+    \begin{proof}
+        If $f'$ is not monotonically increasing, there exist points $x, y \in (a, b)$ such that $x < y$ and $f'(x) > f'(y)$. Then, for some $\delta > 0$ sufficiently small, $f(x+\delta)$ is above the secant formed between $(x, f(x))$ and $(y, f(y))$. Conversely, if $f'$ is monotonically increasing, but not convex, then for some $x, y \in (a, b)$, there exists $z = \lambda x + (1 - \lambda)y$ such that $f(z) > \lambda f(x) + (1 - \lambda) f(y)$. Then applying the mean value theorem to the intervals $(x, z)$ and $(z, y)$ yields $w_1 < w_2$ such that $f'(w_1) > f'(w_2)$, a contradiction, proving the first result.
+
+        We know that if $f''(x) \ge 0$, then $f'$ is strictly increasing and thus $f$ is convex. Conversely, if $f''(x) < 0$, then for $\delta > 0$ sufficiently small, we have
+        \[
+            f(x) \ge \frac{1}{2} \left( f(x-\delta) + f(x+\delta) \right)
+        \]
+        so $f$ is not convex, as required.
+    \end{proof}
 \item % Exercise 15
     Suppose $a \in \R$ and $f: (a, +\infty)$ is twice-differentiable, and $M_0, M_1, M_2$ are the least upper bounds of $|f(x)|, |f'(x)|, |f''(x)|$ respectively on $(a, +\infty)$. Prove that $M_1^2 \le 4M_0M_2$.
+
+    \begin{proof}
+        If $h > 0$, setting $(\alpha, \beta, n) = (x, x+2h, 2)$ in Taylor's theorem shows that for some $\xi \in (x, x+2h)$, 
+        \[
+            f(x+2h) = f(x) + 2h f'(x) + \frac{(2h)^2}{2!} f''(\xi)
+        \]
+        and thus
+        \[
+            f'(x) = \frac{1}{2h} [f(x+2h) - f(x)] - h f''(\xi)
+        \]
+        so
+        \[
+            |f'(x)| \le M_1 \le \frac{1}{h} M_0 + hM_2.
+        \]
+        Now the right side attains its minimum by AM-GM at
+        \[
+            \frac{1}{h} M_0 + hM_2 \ge 2 \sqrt{\frac{1}{h} M_0 \cdot h M_2} = 2\sqrt{M_0M_2},
+        \]
+        so $M_1 \le 2\sqrt{M_0M_2}$ and the result follows.
+    \end{proof}
 \item % Exercise 16
     Suppose $f$ is twice-differentiable on $(0, \infty)$, $f''$ is bounded on $(0, \infty)$ and $f(x) \to 0$ as $x \to \infty$. Prove that $f'(x) \to 0$ as $x \to \infty$.
+
+    \begin{proof}
+        Let $M_2$ be the least upper bound of $f''$ and $\epsilon > 0$ be arbitrary. Then, since $f(x) \to 0$ as $x \to \infty$, we can choose $x_0$ such that $|f(x)| \le \epsilon^2/(4M_2)$ for all $x \ge x_0$. Then taking $a = x_0$ in Exercise 15, we have
+        \[
+            f'(x) \le \sup_{x \ge x_0} |f'(x)| \le 2\sqrt{M_0M_2} < 2\sqrt{\epsilon^2/4} = \epsilon,
+        \]
+        for all $x \ge x_0$ as required.
+    \end{proof}
 \item % Exercise 17
     Suppose $f$ is real and thrice-differentiable on $[-1, 1]$, such that $f(-1) = 0$, $f(0) = 0$, $f(1) = 1$ and $f'(0) = 0$. Prove that $f^{(3)}(x) \ge 3$ for some $x \in (-1, 1)$.
+    
+    \begin{proof}
+        Applying Taylor's theorem, we have
+        \[
+            f(1) = f(0) + f'(0) \cdot 1 + \frac{1}{2} f''(0) \cdot 1^2 + \frac{1}{6} f^{(3)}(t) \cdot 1^3
+        \]
+        for some $t \in (0, 1)$ and 
+        \[
+            f(-1) = f(0) + f'(0) \cdot (-1) + \frac{1}{2} f''(0) \cdot (-1)^2 + \frac{1}{6} f^{(3)}(s) \cdot (-1)^3
+        \]
+        for some $s \in (-1, 0)$ so adding these, substituting known values, and rearranging yields $f^{(3)}(s) + f^{(3)}(t) = 6$ for some $s, t$, yielding the result.
+    \end{proof}
 \item % Exercise 18
     Suppose $f$ is a real function on $[a, b]$, $n$ is a positive integer, and $f^{(n-1)}$ exists for every $t \in [a, b]$. Let $\alpha, \beta, P$ be as in Taylor's theorem. Define
     \[
@@ -400,6 +494,24 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
     \[
         f(\beta) = P(\beta) + \frac{Q^{(n-1)}(\alpha)}{(n-1)!} (\beta - \alpha)^n.
     \]
+    \begin{proof}
+        Take $f(t) - f(\beta) = (t - \beta)Q(t)$ and differentiate at $\alpha$ to get
+        \[
+            f^{(k)}(\alpha) = kQ^{(k-1)} (\alpha) - (\beta - \alpha) Q^{(k)}(\alpha),
+        \]
+        so
+        \[
+            \frac{f^{(k)}(\alpha)}{k!} (\beta - \alpha)^k = \frac{Q^{(k-1)}(\alpha)}{(k-1)!}(\beta - \alpha)^k - \frac{Q^{(k)} (\alpha)} {k!} (\beta - \alpha)^{k+1}.
+        \]
+        Then,
+        \begin{align*}
+            P(\alpha) &= f(\alpha) + \sum_{k=1}^{n-1} \frac{f^{(k)} (\alpha)}{k!} (\beta - \alpha)^k \\
+                &= f(\alpha) + \sum_{k=1}^{n-1} \left(\frac{Q^{(k-1)}(\alpha)}{(k-1)!}(\beta - \alpha)^k - \frac{Q^{(k)} (\alpha)} {k!} (\beta - \alpha)^{k+1} \right) \\
+                &= f(\alpha) + Q(\alpha) (\beta - \alpha) - \frac{Q^{(n-1)} (\alpha)} {(n-1)!} (\beta - \alpha)^{n} \\
+                &= f(\beta) - \frac{Q^{(n-1)}(\alpha)}{(n-1)!} (\beta - \alpha)^n,
+        \end{align*}
+        and thus the result.
+    \end{proof}
 \item % Exercise 19
     Suppose $f$ is defined in $(-1, 1)$ and $f'(0)$ exists. Suppose $-1 < \alpha_n < \beta_n < 1$, with $\alpha_n \to 0$, $\beta_n \to 0$ as $n \to \infty$. Define the difference quotients
     \[
@@ -407,29 +519,121 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
     \]
     Prove the following statements:
     \begin{enumerate}
-    \item If $a_n < 0 < b_n$, then $D_n \to f'(0)$.
-    \item If $0 < a_n < \beta$ and $\{\beta_n/(\beta_n - \alpha_n)\}$ is bounded, then $D_n \to f'(0)$.
-    \item If $f'$ is continuous in $(-1, 1$, then $D_n \to f'(0)$.
+    \item If $\alpha_n < 0 < \beta_n$, then $D_n \to f'(0)$.
+        \begin{proof}
+            Suppose without loss of generality that $f(0) = 0$, by subtracting any necessary constants. Then, let $\gamma_n \in (\alpha_n, \beta_n)$ by the mean value theorem such that $f'(\gamma_n) = \frac{f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n}$. Then, $\gamma_n \to 0$, so applying L'Hopital's rule,
+            \[
+                \lim_{n \to \infty} D_n = \lim_{n \to \infty} f'(\gamma_n) = \lim_{n \to \infty} \frac{f(\gamma_n) - f(0)}{\gamma_n - 0} = f'(0),
+            \]
+            as required.
+        \end{proof}
+    \item If $0 < \alpha_n < \beta_n$ and $\{\beta_n/(\beta_n - \alpha_n)\}$ is bounded, then $D_n \to f'(0)$.
+        \begin{proof}
+            Let $\epsilon > 0$ be arbitrary and $\lambda_n = \beta_n/(\beta_n - \alpha_n)$. Also, let $M$ such that $|\lambda_n| \le M$ for all $n$, so that
+            \begin{align*}
+                D_n &= \frac{f(\beta_n) - f(\alpha_n)}{\beta_n - \alpha_n} \\
+                    &= \frac{f(\beta_n) - f(0) + f(0) - f(\alpha_n)}{\beta_n - \alpha_n} \\
+                    &= \frac{\beta_n}{\beta_n - \alpha_n} \cdot \frac{f(\beta_n) - f(0)}{\beta_n - 0} - \frac{\alpha_n}{\beta_n - \alpha_n} \cdot \frac{f(\alpha_n) - f(0)}{\alpha_n - 0} \\
+                    &= \lambda_n \frac{f(\beta_n) - f(0)}{\beta_n - 0} + (1 - \lambda_n) \frac{f(\alpha_n) - f(0)}{\alpha_n - 0}
+            \end{align*}
+            so choosing $N$ sufficiently large and letting $n \ge N$, we have
+            \begin{align*}
+                |D_n - f'(0)| &\le \left| \lambda_n \frac{f(\beta_n) - f(0)}{\beta_n - 0} + (1 - \lambda_n) \frac{f(\alpha_n) - f(0)}{\alpha_n - 0} - f'(0) \right| \\
+                    &\overset{\Delta}{\le} \lambda_n \left| \frac{f(\beta_n) - f(0)}{\beta_n} - f'(0) \right| + |1 + \lambda_n| \cdot \left| \frac{f(\alpha_n) - f(0)}{\alpha_n} - f'(0) \right| \\
+                    &\le (1 + 2M)\epsilon
+            \end{align*}
+            completing the proof.
+        \end{proof}
+    \item If $f'$ is continuous in $(-1, 1)$, then $D_n \to f'(0)$.
+        \begin{proof}
+            Constructing $\gamma_n$ as in part (a), we have 
+            \[
+                \lim_{n \to \infty} D_n = \lim_{n \to \infty} f'(\gamma_n) = f'(0),
+            \]
+            since $f'$ is continuous, as required.
+        \end{proof}
     \end{enumerate}
     Give an example in which $f$ is differentiable in $(-1, 1)$ (but $f'$ is not continous at $0$), and in which $\alpha_n, \beta_n$ tend to $0$ in a way that $\lim D_n$ exists but is different from $f'(0)$.
+    
+    \TODO
 \item % Exercise 20
     Formulate and prove an inequality which follows from Taylor's theorem and which remains valid for vector-valued functions.
+    \begin{proof}
+        If $\textbf{f}: [a, b] \to \R^m$ is $n$-times differentiable and $\textbf{f}^{(n-1)}$ is continuous on $[a, b]$, and $\alpha < a < b < \beta$ and 
+        \[
+            \textbf{P}(t) = \sum_{k=0}^{n-1} \frac{\textbf{f}^{(k)}(\alpha)}{k!} (t - \alpha)^k,
+        \]
+        then there exists $x \in (\alpha, \beta)$ such that
+        \[
+            |\textbf{f}(\beta) - \textbf{P}(\beta)| \le \frac{(\beta-\alpha)^n}{n!} |\textbf{f}^{(n)}(x)|
+        \]
+        and notice that if $n = 1$, this is the vector-valued version of Theorem 5.19.
+
+        \TODO
+    \end{proof}
+
 \item % Exercise 21
     Let $E$ be a closed subset of $\R$. We saw in Exercise 4.22 that there is a real continuous function $f$ on $\R$ whose zero set is $E$. Is it possible, for each closed set $E$ to find such an $f$ which is differentiable on $\R$, or one which is $n$ times differentiable, or even one which has derivatives of all orders on $\R$?
+
+    \begin{proof}
+        Take $n \in \N$. Then, define
+        \[
+            f_n(t) = \frac{t^n}{t^n + (1-t)^n},  g(x) = f(\rho_E(x)),
+        \]
+        for $x \in \R$. Then, $g(x) = 0$ iff $x \in E$, and since $f_n$ has the property that its first $n-1$ derivatives are 0 at $t=0$ and $1$, $g$ is $n$-times differentiable on $E$ and thus on $\R$.
+
+        For the infiitely differentiable case, it is possible to define a similar function. This depends largely on the fact that $\R$ is separable.
+    \end{proof}
 \item % Exercise 22
     Suppose $f$ is a real function on $\R$. Call $x$ a \textbf{fixed point} of $f$ is $f(x) = x$. 
     \begin{enumerate}[(a)]
     \item If $f$ is differentiable and $f'(t) \ne 1$ for every real $t$, prove that $f$ has at most one fixed point.
+        \begin{proof}
+            If there were more than one, then applying mean value theorem with the fixed points as endpoints would give you some point between them with derivative 1, contrary to the assumption.
+        \end{proof}
     \item Show that the function $f$ defined by
         \[
             f(t) = t + (1 + e^t)^{-1}
         \]
         has no fixed point, although $0 < f'(t) < 1$ for all $t \in \R$.
+
+        \begin{proof}
+            Clearly $f$ has no fixed points. However,
+            \[
+                f'(t) = 1 - (1 + e^t)^{-2} \cdot e^t \in (0, 1)
+            \]
+            since $x/(1+x^2) \in (0, 1)$ for all $x > 0$.
+        \end{proof}
     \item However, if there is a constant $A < 1$ such that $|f'(t)| \le A$ for all $t \in \R$, then prove that a fixed point $x$ of $f$ exists, and that $x = \lim x_n$ where $x_1$ is an arbitrary real number, and $x_{n+1} = f(x_n)$.
+
+        \begin{proof}
+            Yes, let $C = |f(x_1) - x_1|$, so that for arbitrary $n$, we have some $t_n$ between $x_n$ and $x_{n+1}$ by the mean value theorem such that
+            \[
+                \frac{| f(x_{n+1} - f(x_n) |}{| x_{n+1} - x_n |} = f'(t_n) \le A,
+            \]
+            so inductively,
+            \[
+                |x_{n+1} - x_n| \le A^{n-1} C,
+            \]
+            so for $m$ and $n$ sufficiently large
+            \[
+                |x_m - x_n| \overset{\Delta}{\le} \sum_{k=n}^{m-1} |x_{k+1} - x_k| \le C\sum_{k=n}^{\infty} A^{k-1} = CA^{k-1}/(1 - A),
+            \]
+            which can be made arbitrarily small. Thus, $\{x_n\}$ is Cauchy in $\R$ and thus convergent since $\R$ is complete.
+
+            Then, we have
+            \[
+                x := \lim_{n \to \infty} x_n = \lim_{n \to \infty} f(x_{n-1}) = f(x)
+            \]
+            since $f$ is differentiable and thus continuous, so $x = \lim x_n$ is a fixed point of $f$.
+        \end{proof}
     \item Show that the process described in (c) can be visualized by the zig-zag path
         \[
             (x_1, x_2) \to (x_2, x_2) \to (x_2, x_3) \to (x_3, x_3) \to \dotsb.
         \]
+        \begin{proof}
+            It just can, draw it!
+        \end{proof}
     \end{enumerate}
 \item % Exercise 23
     The function $f(x) = (x^3 + 1)/3$ has three fixed points
@@ -439,8 +643,17 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
     For arbitrary chosen $x_1$, define $\{x_n\}$ by setting $x_{n+1} = f(x_n)$.
     \begin{enumerate}[(a)] 
     \item If $x_1 < \alpha$, prove that $x_n \to -\infty$ as $n \to \infty$.
+        \begin{proof}
+            We can find inductively that $x_n < x_{n-1} < \dotsc < x_1 < \alpha$. It cannot converge, as then the limit would tend to a fixed point of $f$, but it is strictly smaller than any of the three. Thus it must diverge to $-\infty$.
+        \end{proof}
     \item If $\alpha < x_1 < \gamma$, prove that $x_n \to \beta$ as $n \to \infty$.
+        \begin{proof}
+            We can find that $x_n$ approaches $\beta$ monotonically, but is bounded by $\beta$, and thus converges. The limit point must be a fixed point of $f$, and only $\beta$ fits, completing the proof.
+        \end{proof}
     \item If $\gamma < x_1$, prove that $x_n \to +\infty$ as $n \to \infty$.
+        \begin{proof}
+            The proof is similar to part (a).
+        \end{proof}
     \end{enumerate}
     Thus only $\beta$ can be located using this method.
 \item % Exercise 24
@@ -449,23 +662,27 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
         f(x) = \frac{1}{2} \left( x + \alpha/x \right), g(x) = \frac{\alpha + x}{1 + x}.
     \]
     Both $f$ and $g$ have $\sqrt{\alpha}$ as their only fixed point in $(0, \infty)$. Try to explain, on the basis of properties of $f$ and $g$ why the convergence in Exercise 3.16 is so much more rapid than it is in Exercise 17. Do the same when $0 < \alpha < 1$.
-\item % Exercise 25
-    Suppose $f$ is twice-differentiable on $[a, b]$, $f(a) < 0$, $f(b) > 0$, $f'(x) \ge \delta > 0$, and $0 \le f''(x) \le M$ for all $x \in [a, b]$. Let $\chi$ be the unique point in $(a, b)$ at which $f(\chi) = 0$.
 
-    Complete the details in the following outline of \textbf{Newton's method} for computing $\chi$.
+    \begin{proof}
+        Consider the derivatives of $f$ and $g$ at their fixed point.
+    \end{proof}
+\item % Exercise 25
+    Suppose $f$ is twice-differentiable on $[a, b]$, $f(a) < 0$, $f(b) > 0$, $f'(x) \ge \delta > 0$, and $0 \le f''(x) \le M$ for all $x \in [a, b]$. Let $\xi$ be the unique point in $(a, b)$ at which $f(\xi) = 0$.
+
+    Complete the details in the following outline of \textbf{Newton's method} for computing $\xi$.
     \begin{enumerate}[(a)]
-        \item Choose $x_1 \in (\chi, b)$ and define $\{x_n\}$ by $x_{n+1} = x_n - f(x_n) / f'(x_n)$. Interpret this geometrically, in terms of a tangent to the graph of $f$.
-        \item Prove that $x_{n+1} < x_n$ and that $x_n \to \chi$.
+        \item Choose $x_1 \in (\xi, b)$ and define $\{x_n\}$ by $x_{n+1} = x_n - f(x_n) / f'(x_n)$. Interpret this geometrically, in terms of a tangent to the graph of $f$.
+        \item Prove that $x_{n+1} < x_n$ and that $x_n \to \xi$.
         \item Use Taylor's theorem to show that
             \[
-                x_{n+1} - \chi = \frac{f''(t_n)}{2f'(x_n)} (x_n - \chi)^2,
+                x_{n+1} - \xi = \frac{f''(t_n)}{2f'(x_n)} (x_n - \xi)^2,
             \]
-            for some $t \in (\chi, x_n)$.
+            for some $t \in (\xi, x_n)$.
         \item If $A = M/2\delta$, deduce that
             \[
-                0 \le x_{n+1} - \chi \le 1/A [A(x_1 - \chi)]^{2^n}.
+                0 \le x_{n+1} - \xi \le 1/A [A(x_1 - \xi)]^{2^n}.
             \]
-        \item Show that Newton's method amounts to finding a fixed point of the function $g(x) = x - f(x)/f'(x)$. How does $g'(x)$ behave for $x$ near $\chi$?
+        \item Show that Newton's method amounts to finding a fixed point of the function $g(x) = x - f(x)/f'(x)$. How does $g'(x)$ behave for $x$ near $\xi$?
         \item Put $f(x) = x^{1/3}$ on $\R$ and try Newton's method. What happens?
     \end{enumerate}
 \item % Exercise 26
