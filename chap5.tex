@@ -664,7 +664,15 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
     Both $f$ and $g$ have $\sqrt{\alpha}$ as their only fixed point in $(0, \infty)$. Try to explain, on the basis of properties of $f$ and $g$ why the convergence in Exercise 3.16 is so much more rapid than it is in Exercise 17. Do the same when $0 < \alpha < 1$.
 
     \begin{proof}
-        Consider the derivatives of $f$ and $g$ at their fixed point.
+        Consider the derivatives of $f$ and $g$ at their fixed point. We have
+        \[
+            f'(x) = \frac12 (1 - \alpha/x^2),\ f'(\sqrt{\alpha}) = 0
+        \]
+        and
+        \[
+            g'(x) = \frac{1-\alpha}{(1+x)^2},\ g'(\sqrt{\alpha}) = \frac{1+\sqrt{\alpha}}{1-\sqrt{\alpha}} < 0
+        \]
+        so intuitively, for $x_n$ sufficiently close to $\sqrt{\alpha}$, the horizontal lines for $f$ in the zigzag path take the $x_n$ much closer to $y=\sqrt{\alpha}$ than the corresponding paths in $g$.
     \end{proof}
 \item % Exercise 25
     Suppose $f$ is twice-differentiable on $[a, b]$, $f(a) < 0$, $f(b) > 0$, $f'(x) \ge \delta > 0$, and $0 \le f''(x) \le M$ for all $x \in [a, b]$. Let $\xi$ be the unique point in $(a, b)$ at which $f(\xi) = 0$.
@@ -672,17 +680,33 @@ Let $f: \R \to \R$ and $|f(x) - f(y)| \le (x - y)^2$ for all $x, y \in \R$. Prov
     Complete the details in the following outline of \textbf{Newton's method} for computing $\xi$.
     \begin{enumerate}[(a)]
         \item Choose $x_1 \in (\xi, b)$ and define $\{x_n\}$ by $x_{n+1} = x_n - f(x_n) / f'(x_n)$. Interpret this geometrically, in terms of a tangent to the graph of $f$.
+            \begin{proof}
+                $x_{n+1}$ is the x-coordinate of the point at which the tangent of $f$ at $(x_n, f(x_n))$ intersects the x-axis.
+            \end{proof}
         \item Prove that $x_{n+1} < x_n$ and that $x_n \to \xi$.
+            \begin{proof}
+                We claim inductively that $\xi \le x_{n+1} < x_n$. If $x_{n+1} < \xi$, then choosing the point $t \in (\xi, x_n)$ such that 
+                \[
+                    f'(t) = \frac{f(x_n)-f(\xi)}{x_n - \xi} > f'(x_n),
+                \]
+                contradicting the fact that $f'$ is increasing. Also, since $\xi \le x_n$ inductively, $f(x_n) > 0$ so $f(x_n) / f'(x_n) > 0$, proving the first result.
+
+                Then, the sequence converges by the monotone convergence theorem. If the sequence converged to $y > \xi$, then $f'(y) > 0$ would imply a contradiction. Thus, we must have $x_n \to \xi$.
+            \end{proof}
+
         \item Use Taylor's theorem to show that
             \[
                 x_{n+1} - \xi = \frac{f''(t_n)}{2f'(x_n)} (x_n - \xi)^2,
             \]
             for some $t \in (\xi, x_n)$.
+
         \item If $A = M/2\delta$, deduce that
             \[
                 0 \le x_{n+1} - \xi \le 1/A [A(x_1 - \xi)]^{2^n}.
             \]
+
         \item Show that Newton's method amounts to finding a fixed point of the function $g(x) = x - f(x)/f'(x)$. How does $g'(x)$ behave for $x$ near $\xi$?
+
         \item Put $f(x) = x^{1/3}$ on $\R$ and try Newton's method. What happens?
     \end{enumerate}
 \item % Exercise 26
